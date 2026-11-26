@@ -1,5 +1,5 @@
-import SrkrMain from '../components/srkr';
+import NgiMain from '../components/ngi';
 
 export default function HomePage() {
-  return <SrkrMain />;
+  return <NgiMain />;
 }

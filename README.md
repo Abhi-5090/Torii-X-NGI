@@ -15,13 +15,13 @@ This is an independent Next.js project. It has no imports from the main Torii fr
 ### Components
 | File | Purpose |
 |---|---|
-| `components/srkr/index.jsx` | Main page orchestrator |
-| `components/srkr/srkr-header.jsx` | Sticky header with nav, WhatsApp & Login buttons |
-| `components/srkr/who-we-are.jsx` | Hero / About ToriiMinds section |
-| `components/srkr/programs.jsx` | Programs grid (Ignite, SkillUp, AI Ready, Owl Coder) |
-| `components/srkr/certifications.jsx` | Certification logos grid |
-| `components/srkr/team.jsx` | Team profile cards + detail modal |
-| `components/srkr/team-data.js` | Team member data (names, photos, bios) |
+| `components/ngi/index.jsx` | Main page orchestrator |
+| `components/ngi/ngi-header.jsx` | Sticky header with nav, WhatsApp & Login buttons |
+| `components/ngi/who-we-are.jsx` | Hero / About ToriiMinds section |
+| `components/ngi/programs.jsx` | Programs grid (Ignite, SkillUp, AI Ready, Owl Coder) |
+| `components/ngi/certifications.jsx` | Certification logos grid |
+| `components/ngi/team.jsx` | Team profile cards + detail modal |
+| `components/ngi/team-data.js` | Team member data (names, photos, bios) |
 
 ### Route
 | File | Purpose |
@@ -31,15 +31,8 @@ This is an independent Next.js project. It has no imports from the main Torii fr
 ### Styles (Global Color System)
 | File | Purpose |
 |---|---|
-| `public/assets/scss/srkr/_srkr-theme.scss` | All color tokens (80+ CSS variables) |
-| `public/assets/scss/srkr/_srkr-sections.scss` | Section-specific styles |
-
-### Reference
-| File | Purpose |
-|---|---|
-| `SRKR collaboration/myna-color-palette.html` | Color palette reference (Myna design tokens) |
-
----
+| `public/assets/scss/ngi/_ngi-theme.scss` | All color tokens (80+ CSS variables) |
+| `public/assets/scss/ngi/_ngi-sections.scss` | Section-specific styles |
 
 ## Landing Page Sections
 
@@ -52,18 +45,12 @@ This is an independent Next.js project. It has no imports from the main Torii fr
 
 ---
 
-## Naming note
-
-The site was adapted from the SRKR collaboration. Internal identifiers (the `components/srkr/` and `public/assets/scss/srkr/` folders, `srkr-*` CSS classes and `--srkr-*` variables) keep their original names; they never appear on the page.
-
----
-
 
 ## Color System
 
-All colors are maintained globally in `_srkr-theme.scss`. **No color is hardcoded** anywhere in the components. Every color references a CSS variable prefixed with `--srkr-*`.
+All colors are maintained globally in `_ngi-theme.scss`. **No color is hardcoded** anywhere in the components. Every color references a CSS variable prefixed with `--ngi-*`.
 
-Example: `color: var(--srkr-primary)` instead of `color: #E2544C`
+Example: `color: var(--ngi-primary)` instead of `color: #E2544C`
 
 ---
 
@@ -80,10 +67,10 @@ Then visit: **http://localhost:3002** (or the port shown by Next.js).
 
 ## What Needs to Be Updated
 
-- [ ] WhatsApp community invite link (in `srkr-header.jsx`)
+- [ ] WhatsApp community invite link (in `ngi-header.jsx`)
 - [ ] "Who We Are" content (in `who-we-are.jsx`)
 - [ ] Program descriptions (in `programs.jsx`)
 - [ ] Certification list & logos (in `certifications.jsx`)
 - [ ] Team profiles — names, photos, bios (in `team-data.js`)
-- [ ] Team photos → add to `public/assets/images/srkr/team/`
-- [ ] LMS login URL (in `srkr-header.jsx`)
+- [ ] Team photos → add to `public/assets/images/ngi/team/`
+- [ ] LMS login URL (in `ngi-header.jsx`)

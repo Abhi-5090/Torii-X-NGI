@@ -1,0 +1,7338 @@
+// --- Hero image gallery ---
+.ngi-hero .ngi-hero-visual {
+  min-width: 0;
+  perspective: 1400px;
+}
+
+.ngi-gallery-heading {
+  min-height: 42px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin: 0 auto 10px;
+}
+
+.ngi-gallery-heading strong {
+  position: relative;
+  display: inline-block;
+  color: var(--ngi-heading);
+  font-size: 18px;
+  text-align: center;
+}
+
+.ngi-gallery-heading strong::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  width: 44px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--ngi-tertiary);
+  transform: translateX(-50%);
+}
+
+.ngi-gallery-stage {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  height: 350px;
+  margin: 0 auto;
+  transform-style: preserve-3d;
+}
+
+.ngi-gallery-card {
+  position: absolute;
+  inset: 0;
+  width: min(560px, 86%);
+  aspect-ratio: 16 / 10;
+  height: max-content;
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--ngi-radius-big);
+  background: var(--ngi-bg-footer);
+  box-shadow: var(--ngi-shadow-card);
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+
+.ngi-gallery-card img { width: 100%; height: 100%; object-fit: cover; }
+.ngi-gallery-scrim { position: absolute; inset: 0; background: linear-gradient(transparent 30%, var(--ngi-gallery-scrim)); pointer-events: none; }
+.ngi-gallery-description { position: absolute; right: 0; bottom: 0; left: 0; display: flex; flex-direction: column; gap: 5px; padding: 42px 22px 20px; color: var(--ngi-white); text-align: left; opacity: 0; transform: translateY(100%); transition: opacity .35s ease, transform .35s ease; pointer-events: none; }
+.ngi-gallery-card.is-active:hover .ngi-gallery-description, .ngi-gallery-card.is-active:focus-visible .ngi-gallery-description { opacity: 1; transform: translateY(0); }
+.ngi-gallery-description small { color: var(--ngi-tertiary); font-size: 10px; font-weight: 700; }
+.ngi-gallery-description strong { color: var(--ngi-white); font-size: 20px; }
+.ngi-gallery-description span { color: var(--ngi-white); font-size: 12px; line-height: 1.5; }
+.ngi-gallery-dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; }
+.ngi-gallery-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px; background: var(--ngi-muted); cursor: pointer; }
+.ngi-gallery-dots button.is-active { width: 24px; background: var(--ngi-primary); }
+
+@media (max-width: 991px) { .ngi-gallery-stage { height: 320px; } }
+@media (max-width: 575px) {
+  .ngi-hero .ngi-hero-visual { width: 100%; }
+  .ngi-gallery-heading strong { font-size: 17px; }
+  .ngi-gallery-stage { height: 245px; }
+  .ngi-gallery-card { width: 90%; border-radius: var(--ngi-radius); }
+  .ngi-gallery-description { padding: 30px 16px 15px; }
+  .ngi-gallery-description strong { font-size: 17px; }
+  .ngi-gallery-description span { font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) { .ngi-gallery-card, .ngi-gallery-description { transition: none; } }
+
+@media (max-width: 991px) {
+  .ngi-hero .ngi-hero-visual {
+    display: block !important;
+    width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+
+  .ngi-hero .ngi-gallery-heading,
+  .ngi-hero .ngi-gallery-stage,
+  .ngi-hero .ngi-gallery-dots {
+    width: 100% !important;
+    max-width: 560px;
+  }
+}
+// ============================================
+// NGI Landing Page — Section Styles
+// All colors reference vars from _ngi-theme.scss
+// ============================================
+
+// --- NGI Header ---
+.ngi-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: var(--ngi-bg-section-alt);
+  border-bottom: 1px solid var(--ngi-border);
+  transition: background 0.35s ease;
+  font-family: var(--ngi-font-primary);
+
+  .ngi-header-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    height: 86px;
+
+    @media (max-width: 767px) {
+      height: 76px;
+      padding: 0 16px;
+      gap: 12px;
+    }
+  }
+
+  .ngi-collab-brand {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .ngi-brand-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    flex: 0 0 auto;
+
+    img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .ngi-brand-logo-torii {
+    width: 154px;
+    height: 48px;
+    padding: 0;
+
+    img {
+      width: 100%;
+      height: auto;
+      transform: scale(1.4);
+    }
+  }
+
+  .ngi-brand-logo-college {
+    width: 92px;
+    height: 54px;
+    padding: 0;
+    background: var(--ngi-white);
+    border: 1px solid var(--ngi-border);
+    border-radius: 0;
+    box-shadow: none;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+    }
+  }
+
+  .ngi-brand-separator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 20px;
+    color: var(--ngi-muted);
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  @media (max-width: 767px) {
+    .ngi-collab-brand {
+      gap: 1px;
+    }
+
+    .ngi-brand-logo-torii {
+      width: 112px;
+      height: 38px;
+      padding: 0;
+    }
+
+    .ngi-brand-logo-college {
+      width: 66px;
+      height: 40px;
+    }
+
+    .ngi-brand-separator {
+      width: 13px;
+      height: 16px;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .ngi-brand-logo-torii {
+      width: 98px;
+    }
+
+    .ngi-brand-logo-college {
+      width: 42px;
+      height: 42px;
+    }
+
+    .ngi-collab-brand {
+      gap: 6px;
+    }
+  }
+
+  .ngi-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @media (max-width: 1199px) {
+      display: none;
+    }
+
+    li a {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ngi-heading-alt);
+      text-decoration: none;
+      transition: none !important;
+      position: relative;
+      padding: 9px 12px;
+      border-radius: 7px;
+      border-bottom: 3px solid transparent;
+
+      &::after {
+        display: none;
+      }
+
+      &:hover {
+        color: var(--ngi-primary);
+      }
+
+      &.active {
+        color: var(--ngi-primary);
+        background: var(--ngi-bg-coral-tint);
+        border-bottom-color: var(--ngi-primary);
+      }
+    }
+  }
+
+  // Never hidden — see "Persistent header actions" below for the
+  // breakpoint sizing that keeps these two buttons on one line.
+  .ngi-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ngi-btn-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: var(--ngi-whatsapp);
+    color: var(--ngi-white);
+    border: none;
+    border-radius: var(--ngi-radius);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--ngi-font-primary);
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--ngi-transition);
+
+    &:hover {
+      background: var(--ngi-whatsapp-hover);
+      color: var(--ngi-white);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    @media (max-width: 767px) {
+      padding: 6px 14px;
+      font-size: 12px;
+      span { display: none; }
+    }
+  }
+
+  .ngi-btn-login {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 24px;
+    background: var(--ngi-primary);
+    color: var(--ngi-white);
+    border: none;
+    border-radius: var(--ngi-radius);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--ngi-font-primary);
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--ngi-transition);
+
+    &:hover {
+      background: var(--ngi-primary-hover);
+      color: var(--ngi-white);
+      transform: translateY(-2px);
+      box-shadow: var(--ngi-shadow-coral-glow);
+    }
+  }
+
+  // Announcement bell — sits at the head of the actions cluster with a count badge.
+  .ngi-btn-notify {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid var(--ngi-border);
+    background: var(--ngi-bg-body);
+    color: var(--ngi-heading);
+    cursor: pointer;
+    transition: var(--ngi-transition);
+
+    &:hover {
+      color: var(--ngi-primary);
+      border-color: var(--ngi-primary);
+      transform: translateY(-2px);
+      box-shadow: var(--ngi-shadow-coral-glow);
+    }
+
+    svg { width: 20px; height: 20px; }
+
+    @media (max-width: 767px) {
+      width: 38px;
+      height: 38px;
+      svg { width: 18px; height: 18px; }
+    }
+  }
+
+  .ngi-notify-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  // Live "ping" on the bell — a coral dot with an expanding ring (replaces the
+  // old easy-to-miss number).
+  .ngi-notify-ping {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ngi-primary);
+    box-shadow: 0 0 0 2px var(--ngi-bg-body);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 2px solid var(--ngi-primary);
+      animation: ngiPingRing 1.7s ease-out infinite;
+    }
+  }
+
+  // Bouncing highlighted "New Announcement" flag hanging under the bell — the
+  // real eye-catcher. Right-anchored so it never overflows the viewport edge.
+  .ngi-notify-flag {
+    position: absolute;
+    top: calc(100% + 11px);
+    right: -6px;
+    z-index: 6;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--ngi-primary), var(--ngi-secondary));
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    font-family: var(--ngi-font-primary);
+    cursor: pointer;
+    box-shadow: 0 8px 20px -5px rgba(226, 84, 76, 0.6);
+    animation: ngiFlagBounce 1.5s ease-in-out infinite;
+
+    // Pointer up toward the bell.
+    &::before {
+      content: '';
+      position: absolute;
+      top: -4px;
+      right: 18px;
+      width: 10px;
+      height: 10px;
+      background: var(--ngi-primary);
+      border-radius: 2px;
+      transform: rotate(45deg);
+    }
+
+    &:hover { filter: brightness(1.06); }
+
+    @media (max-width: 767px) {
+      top: calc(100% + 9px);
+      font-size: 11px;
+      padding: 5px 11px;
+    }
+  }
+
+  .ngi-notify-flag-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+    flex-shrink: 0;
+    animation: ngiFlagDot 1.5s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ngi-notify-ping::after,
+    .ngi-notify-flag,
+    .ngi-notify-flag-dot { animation: none; }
+  }
+
+  // Mobile hamburger
+  .ngi-mobile-toggle {
+    display: none;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    background: var(--ngi-bg-section);
+    border: 1px solid var(--ngi-border);
+    border-radius: var(--ngi-radius);
+    cursor: pointer;
+    flex: 0 0 auto;
+
+    span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      margin: 4px auto;
+      background: var(--ngi-heading);
+      border-radius: var(--ngi-radius-small);
+      transition: var(--ngi-transition);
+    }
+
+    &.open {
+      span:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+      }
+
+      span:nth-child(2) {
+        opacity: 0;
+      }
+
+      span:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+    }
+
+    @media (max-width: 1199px) {
+      display: block;
+    }
+  }
+}
+
+// Mobile nav overlay
+.ngi-mobile-nav {
+  display: none;
+  position: fixed;
+  top: 92px;
+  left: 0;
+  width: 100%;
+  background: var(--ngi-bg-body);
+  box-shadow: var(--ngi-shadow-hover);
+  z-index: 999;
+  padding: 20px 24px;
+
+  @media (max-width: 767px) {
+    top: 76px;
+  }
+
+  &.open {
+    display: block;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      border-bottom: 1px solid var(--ngi-border);
+
+      a {
+        display: block;
+        padding: 12px 0;
+        color: var(--ngi-heading-alt);
+        font-size: 15px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: var(--ngi-transition);
+
+        &:hover { color: var(--ngi-primary); }
+      }
+
+      &:last-child { border: none; }
+    }
+  }
+}
+
+// Spacer for fixed header
+.ngi-header-spacer {
+  height: 92px;
+
+  @media (max-width: 767px) {
+    height: 76px;
+  }
+}
+
+// --- Hero / Who We Are ---
+.ngi-hero {
+  min-height: calc(100vh - 86px);
+  display: flex;
+  align-items: center;
+  padding: 30px 0 40px;
+  background: var(--ngi-bg-body);
+  font-family: var(--ngi-font-primary);
+  overflow: hidden;
+  box-sizing: border-box;
+
+  @media (max-width: 991px) {
+    min-height: auto;
+    padding: 36px 0 46px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 24px 0 36px;
+  }
+
+  .ngi-hero-container {
+    width: 100%;
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+
+    @media (max-width: 991px) {
+      flex-direction: column;
+      text-align: center;
+      gap: 32px;
+      padding: 0 20px;
+    }
+
+    @media (max-width: 767px) {
+      gap: 24px;
+      padding: 0 16px;
+    }
+  }
+
+  .ngi-hero-content {
+    flex: 1 1 50%;
+    max-width: 580px;
+    min-width: 0;
+
+    @media (max-width: 991px) {
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .ngi-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--ngi-bg-coral-tint);
+      color: var(--ngi-primary);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 45px;
+      font-weight: 700;
+      color: var(--ngi-heading);
+      line-height: 1.16;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+
+      span {
+        background: var(--ngi-gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      @media (max-width: 1199px) {
+        font-size: 39px;
+      }
+
+      @media (max-width: 991px) {
+        font-size: 34px;
+        margin-bottom: 14px;
+      }
+
+      @media (max-width: 767px) {
+        font-size: 28px;
+        line-height: 1.22;
+      }
+
+      @media (max-width: 480px) {
+        font-size: 24px;
+        line-height: 1.25;
+        margin-bottom: 12px;
+      }
+    }
+
+    p {
+      font-size: 15px;
+      color: var(--ngi-body);
+      line-height: 1.66;
+      margin-bottom: 24px;
+      max-width: 530px;
+
+      @media (max-width: 991px) {
+        max-width: 580px;
+        margin: 0 auto 22px;
+        font-size: 14.5px;
+      }
+
+      @media (max-width: 575px) {
+        font-size: 13.5px;
+        line-height: 1.58;
+        margin-bottom: 18px;
+      }
+    }
+
+    .ngi-hero-cta {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+
+      .ngi-btn-primary,
+      .ngi-btn-outline {
+        padding: 11px 26px;
+        font-size: 14.5px;
+      }
+
+      @media (max-width: 991px) {
+        justify-content: center;
+      }
+
+      @media (max-width: 480px) {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+
+        .ngi-btn-primary,
+        .ngi-btn-outline {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  .ngi-hero-visual {
+    flex: 1 1 50%;
+    max-width: 600px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    margin-left: auto;
+
+    @media (max-width: 991px) {
+      align-items: center;
+      margin-left: 0;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--ngi-radius-big);
+    }
+  }
+}
+
+// --- Shared Buttons ---
+.ngi-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--ngi-gradient-primary);
+  color: var(--ngi-white);
+  border: none;
+  border-radius: var(--ngi-radius);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--ngi-font-primary);
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--ngi-transition);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--ngi-shadow-coral-glow);
+    color: var(--ngi-white);
+  }
+}
+
+.ngi-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: var(--ngi-white);
+  color: var(--ngi-primary) !important;
+  border: var(--ngi-border-width) solid var(--ngi-primary);
+  border-radius: var(--ngi-radius);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--ngi-font-primary);
+  cursor: pointer;
+  text-decoration: none;
+  transition: var(--ngi-transition);
+
+  &:hover {
+    background: var(--ngi-primary);
+    color: var(--ngi-white) !important;
+    transform: translateY(-3px);
+  }
+}
+
+// --- Section Title (reusable) ---
+.ngi-section-title {
+  text-align: center;
+  margin-bottom: 50px;
+
+  .ngi-section-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: var(--ngi-bg-coral-tint);
+    color: var(--ngi-primary);
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    font-family: var(--ngi-font-primary);
+  }
+
+  h2 {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--ngi-heading);
+    margin-bottom: 14px;
+    font-family: var(--ngi-font-primary);
+
+    span {
+      color: var(--ngi-primary);
+    }
+
+    @media (max-width: 767px) {
+      font-size: 28px;
+    }
+  }
+
+  p {
+    font-size: var(--ngi-font-size-body);
+    color: var(--ngi-body);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: var(--ngi-line-height-body);
+    font-family: var(--ngi-font-primary);
+  }
+}
+
+// --- Programs Section (5-Card Slick Carousel & Syllabus Template) ---
+.ngi-programs {
+  padding: 42px 0 28px;
+  background: var(--ngi-bg-section);
+  font-family: var(--ngi-font-primary);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.035) 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  .ngi-programs-container {
+    max-width: 1340px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: 767px) {
+      padding: 0 16px;
+    }
+  }
+
+  .ngi-section-title {
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 6px;
+
+      @media (max-width: 767px) {
+        font-size: 26px;
+      }
+    }
+
+    p {
+      font-size: 13.5px;
+      line-height: 1.5;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+  }
+
+  .ngi-programs-carousel-wrapper {
+    position: relative;
+    padding: 4px 10px 10px;
+
+    @media (max-width: 767px) {
+      padding: 0 6px 10px;
+    }
+
+    .slick-track {
+      display: flex !important;
+    }
+
+    .slick-slide {
+      height: inherit !important;
+      display: flex !important;
+
+      > div {
+        display: flex;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+.ngi-program-slide-item {
+  padding: 8px 12px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+
+  @media (max-width: 767px) {
+    // Single card on phones: keep it comfortably readable and centered
+    // instead of stretching edge-to-edge on large handsets.
+    padding: 6px 0;
+    justify-content: center;
+
+    .ngi-program-card {
+      max-width: 380px;
+      margin: 0 auto;
+    }
+  }
+}
+
+.ngi-program-card {
+  background: var(--ngi-bg-body);
+  border-radius: var(--ngi-radius-big);
+  padding: 0;
+  text-align: left;
+  border: 1px solid var(--ngi-border);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: var(--ngi-shadow-card);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--ngi-shadow-hover);
+    border-color: rgba(226, 84, 76, 0.35);
+
+    .ngi-program-banner-img {
+      transform: scale(1.04);
+    }
+  }
+
+  &.ignite,
+  &.bamboo {
+    .ngi-program-tagline { color: var(--ngi-primary); }
+    .ngi-program-year-pill { color: var(--ngi-primary); border-color: rgba(226, 84, 76, 0.2); }
+  }
+
+  &.skillup {
+    .ngi-program-tagline { color: var(--ngi-secondary); }
+    .ngi-program-year-pill { color: var(--ngi-secondary); border-color: rgba(254, 114, 76, 0.2); }
+  }
+
+  &.aiready {
+    .ngi-program-tagline { color: var(--ngi-tertiary); }
+    .ngi-program-year-pill { color: var(--ngi-tertiary); border-color: rgba(43, 76, 89, 0.2); }
+  }
+
+  &.owlcoder {
+    .ngi-program-tagline { color: var(--ngi-primary); }
+    .ngi-program-year-pill { color: var(--ngi-primary); border-color: rgba(226, 84, 76, 0.2); }
+  }
+
+  &.mooncoder {
+    .ngi-program-tagline { color: var(--ngi-secondary); }
+    .ngi-program-year-pill { color: var(--ngi-secondary); border-color: rgba(254, 114, 76, 0.2); }
+  }
+
+  .ngi-program-banner-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #0f172a;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ngi-program-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  // One row across the top of the banner: status badge on the left, year pill on
+  // the right. Laying them out instead of absolutely positioning both means a long
+  // year label ("Exclusive For 2029 Passouts") wraps rather than running under the
+  // badge on a 3-up desktop card or a phone.
+  .ngi-program-banner-top {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    z-index: 3;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    pointer-events: none; // the banner image stays inert — only the chips react
+
+    > * { pointer-events: auto; }
+
+    @media (max-width: 767px) {
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      gap: 6px;
+    }
+  }
+
+  .ngi-program-year-pill {
+    margin-left: auto; // stays right even when there is no badge beside it
+    min-width: 0;
+    text-align: right;
+    padding: 4px 11px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--ngi-heading);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+
+    @media (max-width: 767px) {
+      font-size: 10px;
+      padding: 3px 9px;
+    }
+  }
+
+  // "Registrations Closed" badge — top-left of the banner, so a browser knows the
+  // batch is closed before opening the form. Distinct from the year pill (top-right).
+  .ngi-program-closed-badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: #fff;
+    background: linear-gradient(135deg, #b91c1c, #dc2626);
+    box-shadow: 0 4px 12px rgba(185, 28, 28, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    svg { flex-shrink: 0; }
+
+    @media (max-width: 767px) {
+      font-size: 9.5px;
+      padding: 3px 9px;
+    }
+  }
+
+  // "Registrations are open now" — a real button on the banner (top-left, where the
+  // closed badge sits for closed intakes). Green so it reads as "go" against the
+  // coral palette; the dot pulses so the card signals "live" even at a glance.
+  .ngi-program-open-badge {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px 5px 10px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 800;
+    font-family: var(--ngi-font-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: #fff;
+    background: linear-gradient(135deg, #059669, #10b981); // --ngi-success family
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, filter 0.22s ease;
+
+    svg {
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .ngi-program-open-dot {
+      position: relative;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      flex-shrink: 0;
+
+      &::after {
+        content: "";
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.85);
+        animation: ngiOpenPulse 1.8s ease-out infinite;
+      }
+    }
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(16, 185, 129, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      filter: brightness(1.05);
+      outline: none;
+
+      svg { transform: translateX(3px); }
+    }
+
+    &:active { transform: translateY(0); }
+
+    @media (max-width: 767px) {
+      font-size: 9.5px;
+      padding: 4px 10px 4px 9px;
+      gap: 6px;
+    }
+  }
+
+  @keyframes ngiOpenPulse {
+    0%   { transform: scale(0.6); opacity: 0.9; }
+    100% { transform: scale(1.9); opacity: 0; }
+  }
+
+  .ngi-program-card-body {
+    padding: 18px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    box-sizing: border-box;
+
+    @media (max-width: 767px) {
+      padding: 14px 16px 16px;
+    }
+  }
+
+  .ngi-program-tagline {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ngi-primary);
+    margin-bottom: 8px;
+    line-height: 1.4;
+
+    @media (max-width: 767px) {
+      font-size: 11.5px;
+      margin-bottom: 6px;
+    }
+  }
+
+  .ngi-program-desc {
+    font-size: 13px;
+    color: var(--ngi-body) !important;
+    line-height: 1.55;
+    margin: 0 0 16px;
+    flex: 1 0 auto;
+
+    @media (max-width: 767px) {
+      font-size: 12.5px;
+      line-height: 1.5;
+      margin: 0 0 14px;
+    }
+  }
+
+  .ngi-program-card-footer {
+    margin-top: auto;
+    padding-top: 4px;
+
+    // Open intake: Register + Explore side by side; stack on narrow cards.
+    &.is-dual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+
+      @media (max-width: 399px) {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  // Compound selector so this outranks the base .ngi-program-btn rule below it.
+  .ngi-program-btn.ngi-program-btn--register {
+    background: linear-gradient(135deg, #059669, #10b981); // --ngi-success family
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.28);
+
+    &:hover {
+      background: linear-gradient(135deg, #047857, #059669);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+    }
+  }
+
+  .ngi-program-btn {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 9px 16px;
+    background: var(--ngi-bg-coral-tint);
+    color: var(--ngi-primary);
+    border: 1px solid rgba(226, 84, 76, 0.2);
+    border-radius: var(--ngi-radius);
+    font-size: 12.5px;
+    font-weight: 600;
+    font-family: var(--ngi-font-primary);
+    cursor: pointer;
+    transition: all 0.22s ease;
+
+    @media (max-width: 767px) {
+      padding: 9px 14px;
+      font-size: 12.5px;
+    }
+
+    span {
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      background: var(--ngi-primary);
+      color: var(--ngi-white);
+      border-color: var(--ngi-primary);
+      transform: translateY(-2px);
+      box-shadow: var(--ngi-shadow-coral-glow);
+
+      span {
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+// Slick Navigation Controls for Programs Carousel (Standalone Clean Arrows)
+.ngi-slick-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 15;
+  width: 36px;
+  height: 44px;
+  padding: 0;
+  border-radius: 0;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--ngi-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  user-select: none;
+  opacity: 0.65;
+
+  svg {
+    width: 30px;
+    height: 30px;
+    stroke: var(--ngi-dark-gray);
+    transition: stroke 0.25s ease, transform 0.25s ease, filter 0.25s ease;
+  }
+
+  &:hover {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    opacity: 1;
+    transform: translateY(-50%) scale(1.18);
+
+    svg {
+      stroke: var(--ngi-primary);
+      filter: drop-shadow(0 2px 8px rgba(226, 84, 76, 0.45));
+    }
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  &.ngi-slick-prev {
+    left: -24px;
+
+    &:hover svg {
+      transform: translateX(-3px);
+    }
+
+    @media (max-width: 767px) {
+      left: 8px;
+    }
+  }
+
+  &.ngi-slick-next {
+    right: -24px;
+
+    &:hover svg {
+      transform: translateX(3px);
+    }
+
+    @media (max-width: 767px) {
+      right: 8px;
+    }
+  }
+
+  // Phones show a single card — plain chevrons seated over the banner (no
+  // background circle). The banner height is aspect-ratio-locked and the card
+  // is capped at 380px, so its vertical centre is a stable ~108px offset.
+  @media (max-width: 767px) {
+    top: 108px;
+    width: 30px;
+    height: 30px;
+    opacity: 1;
+
+    svg {
+      width: 26px;
+      height: 26px;
+      stroke: var(--ngi-white);
+      // Tight dark halo doubles as an outline so the white chevron stays
+      // legible over both dark (Moon/Owl) and light (SkillUp/AI Ready) banners.
+      filter: drop-shadow(0 0 2px rgba(15, 23, 42, 0.9)) drop-shadow(0 2px 5px rgba(15, 23, 42, 0.45));
+    }
+
+    &:active {
+      transform: translateY(-50%) scale(0.9);
+    }
+  }
+}
+
+.ngi-programs-dots {
+  position: static !important; // override slick-theme's absolute positioning
+  display: flex !important;
+  justify-content: center;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+  width: 100%;
+
+  // Phones use side arrows instead of dots.
+  @media (max-width: 767px) {
+    display: none !important;
+  }
+
+  li {
+    margin: 0;
+
+    button {
+      width: 10px;
+      height: 10px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: var(--ngi-border-alt);
+      text-indent: -9999px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+
+      &:hover {
+        background: var(--ngi-primary);
+      }
+    }
+
+    &.slick-active button {
+      background: var(--ngi-primary);
+      width: 24px;
+      border-radius: 6px;
+    }
+  }
+}
+
+// ============================================
+// Program Detail & Syllabus Modal Styles
+// ============================================
+.ngi-program-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(15, 17, 23, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+
+  @media (max-width: 767px) {
+    padding: 10px;
+  }
+}
+
+.ngi-program-modal-content {
+  background: var(--ngi-bg-body);
+  width: 100%;
+  max-width: 1200px;
+  max-height: 90vh;
+  border-radius: 20px;
+  box-shadow: var(--ngi-shadow-hover);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--ngi-border);
+  font-family: var(--ngi-font-primary);
+}
+
+.ngi-pmodal-topbar {
+  padding: 10px 24px;
+  background: var(--ngi-bg-body);
+  border-bottom: 1px solid var(--ngi-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+
+  @media (max-width: 767px) {
+    padding: 10px 16px;
+  }
+}
+
+.ngi-pmodal-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  flex-wrap: wrap;
+
+  .ngi-bc-item {
+    color: var(--ngi-body);
+    font-weight: 500;
+
+    &.ngi-bc-root {
+      color: var(--ngi-body-alt);
+    }
+
+    &.is-current {
+      color: var(--ngi-heading);
+      font-weight: 700;
+    }
+  }
+
+  .ngi-bc-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-family: var(--ngi-font-primary);
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ngi-primary);
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover:not(:disabled) {
+      text-decoration: underline;
+    }
+
+    &:disabled {
+      color: var(--ngi-heading);
+      cursor: default;
+    }
+  }
+
+  .ngi-bc-separator {
+    color: var(--ngi-muted);
+    font-size: 11px;
+    user-select: none;
+  }
+}
+
+.ngi-pmodal-header {
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--ngi-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  background: var(--ngi-bg-section);
+  flex-shrink: 0;
+
+  @media (max-width: 767px) {
+    padding: 14px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.ngi-pmodal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  @media (max-width: 575px) {
+    align-items: flex-start;
+  }
+}
+
+.ngi-back-to-courses-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: var(--ngi-bg-body);
+  border: 1px solid var(--ngi-border);
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--ngi-font-primary);
+  color: var(--ngi-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background: var(--ngi-primary);
+    color: var(--ngi-white);
+    border-color: var(--ngi-primary);
+    transform: translateX(-2px);
+  }
+
+  @media (max-width: 767px) {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.ngi-pmodal-icon-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+  box-shadow: var(--ngi-shadow-card);
+
+  @media (max-width: 575px) {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+}
+
+.ngi-pmodal-tags {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 2px;
+  flex-wrap: wrap;
+}
+
+.ngi-pmodal-year-tag {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ngi-primary);
+  background: var(--ngi-bg-coral-tint);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.ngi-pmodal-track-tag {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--ngi-heading-alt);
+  background: var(--ngi-bg-body);
+  border: 1px solid var(--ngi-border);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.ngi-pmodal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ngi-heading);
+  margin: 0;
+
+  @media (max-width: 575px) {
+    font-size: 18px;
+  }
+}
+
+.ngi-pmodal-tagline {
+  font-size: 12px;
+  color: var(--ngi-body);
+  margin: 0;
+}
+
+.ngi-pmodal-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-bg-body);
+  color: var(--ngi-heading);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    background: var(--ngi-primary);
+    color: var(--ngi-white);
+    border-color: var(--ngi-primary);
+  }
+}
+
+.ngi-pmodal-body {
+  // Vertical padding is moved onto the inner views so the sticky section rail
+  // can stick flush to the top of the scroll area (no gap / content bleed).
+  padding: 0 24px;
+  overflow-y: auto;
+  flex: 1;
+
+  // Small cute theme-colored scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: var(--ngi-secondary) var(--ngi-bg-section);
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--ngi-bg-section);
+    border-radius: 999px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--ngi-secondary);
+    border-radius: 999px;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: var(--ngi-primary);
+    }
+  }
+
+  @media (max-width: 767px) {
+    padding: 0 14px;
+  }
+}
+
+// LEVEL 1: Interactive Courses Grid
+.ngi-courses-overview-view {
+  width: 100%;
+  padding: 20px 0;
+}
+
+.ngi-pmodal-courses-cards-grid {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+
+  &.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+
+    @media (max-width: 1100px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &.grid-1 {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+}
+
+.ngi-course-card-interactive {
+  background: var(--ngi-bg-body);
+  border: 1.5px solid var(--ngi-border);
+  border-radius: 14px;
+  padding: 18px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3.5px;
+    background: var(--ngi-gradient-primary);
+    opacity: 0.9;
+  }
+
+  &:hover {
+    border-color: var(--ngi-primary);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(226, 84, 76, 0.16);
+
+    .ngi-ccard-btn {
+      background: var(--ngi-primary);
+      color: var(--ngi-white);
+      border-color: var(--ngi-primary);
+      box-shadow: var(--ngi-shadow-coral-glow);
+
+      span {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  .ngi-ccard-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .ngi-ccard-level {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--ngi-body-alt);
+    background: var(--ngi-bg-section);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  .ngi-ccard-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--ngi-heading);
+    margin: 0 0 8px;
+    line-height: 1.35;
+    min-height: 40px;
+  }
+
+  .ngi-ccard-overview {
+    font-size: 12px;
+    color: var(--ngi-body);
+    line-height: 1.52;
+    margin: 0 0 12px;
+    flex: 1 0 auto;
+  }
+
+  .ngi-ccard-meta-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding: 8px 0;
+    border-top: 1px dashed var(--ngi-border);
+    margin-bottom: 12px;
+  }
+
+  .ngi-meta-pill {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ngi-heading-alt);
+    background: var(--ngi-bg-section);
+    padding: 2px 7px;
+    border-radius: 4px;
+    border: 1px solid var(--ngi-border);
+  }
+
+  .ngi-ccard-action {
+    margin-top: auto;
+  }
+
+  .ngi-ccard-btn {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: var(--ngi-bg-coral-tint);
+    color: var(--ngi-primary);
+    border: 1px solid rgba(226, 84, 76, 0.25);
+    border-radius: var(--ngi-radius);
+    font-size: 12.5px;
+    font-weight: 600;
+    font-family: var(--ngi-font-primary);
+    transition: all 0.22s ease;
+
+    span {
+      transition: transform 0.2s ease;
+    }
+  }
+}
+
+// LEVEL 2: Quick Switcher Tabs & Syllabus View
+.ngi-course-quick-tabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  padding: 12px 18px;
+  background: var(--ngi-bg-section);
+  border-radius: 10px;
+  border: 1px solid var(--ngi-border);
+
+  .ngi-qtabs-label {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ngi-heading-alt);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  .ngi-qtabs-list {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .ngi-qtab-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--ngi-border);
+    background: var(--ngi-bg-body);
+    font-size: 12px;
+    font-weight: 600;
+    font-family: var(--ngi-font-primary);
+    color: var(--ngi-body);
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      color: var(--ngi-primary);
+      border-color: var(--ngi-primary);
+    }
+
+    &.is-active {
+      background: var(--ngi-primary);
+      color: var(--ngi-white);
+      border-color: var(--ngi-primary);
+      box-shadow: 0 2px 8px rgba(226, 84, 76, 0.25);
+    }
+  }
+}
+
+.ngi-course-info-card {
+  padding: 22px 26px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--ngi-bg-coral-tint) 0%, var(--ngi-bg-section) 100%);
+  border: 1.5px solid rgba(226, 84, 76, 0.2);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3.5px;
+    background: var(--ngi-gradient-primary);
+  }
+
+  .ngi-cinfo-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+
+    h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--ngi-heading);
+      margin: 6px 0 0;
+    }
+  }
+
+  .ngi-cinfo-code {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ngi-primary);
+    background: var(--ngi-bg-body);
+    padding: 3px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(226, 84, 76, 0.25);
+    display: inline-block;
+  }
+
+  .ngi-cinfo-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    span {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 6px;
+      background: var(--ngi-bg-body);
+      border: 1px solid var(--ngi-border);
+      color: var(--ngi-heading-alt);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+  }
+
+  .ngi-cinfo-overview {
+    font-size: 13.5px;
+    color: var(--ngi-body);
+    line-height: 1.65;
+    margin: 0 0 14px;
+  }
+
+  .ngi-cinfo-prereq {
+    font-size: 12.5px;
+    color: var(--ngi-heading-alt);
+    margin-bottom: 16px;
+    background: var(--ngi-bg-body);
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--ngi-border);
+    display: inline-block;
+  }
+
+  .ngi-cinfo-outcomes {
+    strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ngi-heading);
+      margin-bottom: 10px;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 10px;
+    }
+
+    li {
+      font-size: 12.5px;
+      color: var(--ngi-heading-alt);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      line-height: 1.45;
+      background: var(--ngi-bg-body);
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--ngi-border);
+    }
+
+    .ngi-check-icon {
+      color: var(--ngi-success);
+      font-weight: 800;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+  }
+}
+
+.ngi-syllabus-container {
+  .ngi-syllabus-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+
+    h4 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ngi-heading);
+      margin: 0 0 3px;
+    }
+
+    p {
+      font-size: 12.5px;
+      color: var(--ngi-body);
+      margin: 0;
+    }
+  }
+
+  .ngi-syllabus-template-badge {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ngi-primary);
+    background: var(--ngi-bg-coral-tint);
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(226, 84, 76, 0.3);
+    box-shadow: 0 2px 6px rgba(226, 84, 76, 0.08);
+  }
+}
+
+.ngi-syllabus-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ngi-module-accordion-item {
+  border: 1.5px solid var(--ngi-border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--ngi-bg-body);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:hover {
+    border-color: var(--ngi-primary);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  &.is-open {
+    border-color: var(--ngi-primary);
+    box-shadow: 0 4px 20px rgba(226, 84, 76, 0.1);
+
+    .ngi-module-header-btn {
+      background: var(--ngi-bg-coral-tint);
+    }
+
+    .ngi-module-num-badge {
+      background: var(--ngi-gradient-primary);
+      color: var(--ngi-white);
+      box-shadow: 0 2px 8px rgba(226, 84, 76, 0.25);
+    }
+
+    .ngi-module-title {
+      color: var(--ngi-primary);
+    }
+
+    .ngi-accordion-arrow {
+      color: var(--ngi-primary);
+    }
+  }
+}
+
+.ngi-module-header-btn {
+  width: 100%;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--ngi-bg-body);
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--ngi-font-primary);
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: var(--ngi-bg-coral-tint);
+  }
+}
+
+.ngi-module-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.ngi-module-num-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--ngi-bg-section);
+  color: var(--ngi-heading-alt);
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  border: 1px solid var(--ngi-border);
+}
+
+.ngi-module-title {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ngi-heading);
+  transition: color 0.2s ease;
+}
+
+.ngi-module-meta-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ngi-module-hours {
+  font-size: 12px;
+  color: var(--ngi-body-alt);
+  font-weight: 600;
+  background: var(--ngi-bg-body);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--ngi-border);
+}
+
+.ngi-accordion-arrow {
+  font-size: 11px;
+  color: var(--ngi-heading);
+  transition: color 0.2s ease;
+}
+
+.ngi-module-content-body {
+  padding: 20px 24px 22px;
+  background: var(--ngi-bg-section-alt);
+  border-top: 1px solid var(--ngi-border);
+
+  .ngi-module-topics-header {
+    h5 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--ngi-primary);
+      margin: 0 0 14px;
+    }
+  }
+
+  .ngi-module-topics-list-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .ngi-topic-bullet-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    background: var(--ngi-bg-body);
+    border: 1px solid var(--ngi-border);
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: var(--ngi-primary);
+      transform: translateX(4px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+  }
+
+  .ngi-topic-tick-badge {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--ngi-bg-coral-tint);
+    color: var(--ngi-primary);
+    border: 1px solid rgba(226, 84, 76, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .ngi-topic-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ngi-heading);
+    line-height: 1.45;
+  }
+}
+
+// Featured "Practice Arena" — highlighted skill-building track shown below the
+// module accordion. Deliberately distinct (gradient tint, glow, chips) so it
+// reads as an ongoing practice track rather than another teaching module.
+.ngi-skillbuild-card {
+  position: relative;
+  overflow: hidden;
+  margin-top: 20px;
+  margin-bottom: 28px;
+  padding: 22px 24px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--ngi-bg-coral-tint) 0%, var(--ngi-bg-warm-tint) 100%);
+  border: 1.5px solid rgba(226, 84, 76, 0.35);
+  box-shadow: 0 10px 30px -12px rgba(226, 84, 76, 0.35);
+
+  @media (max-width: 575px) {
+    padding: 18px 16px;
+    border-radius: 14px;
+    margin-bottom: 22px;
+  }
+}
+
+.ngi-skillbuild-glow {
+  position: absolute;
+  top: -40px;
+  right: -30px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 166, 59, 0.45), transparent 70%);
+  filter: blur(30px);
+  pointer-events: none;
+}
+
+.ngi-skillbuild-head {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.ngi-skillbuild-icon {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(135deg, var(--ngi-primary), var(--ngi-secondary));
+  box-shadow: 0 6px 16px -4px rgba(226, 84, 76, 0.5);
+}
+
+.ngi-skillbuild-heading {
+  min-width: 0;
+}
+
+.ngi-skillbuild-badge {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--ngi-secondary);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(237, 114, 54, 0.3);
+  padding: 3px 9px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+
+.ngi-skillbuild-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ngi-heading);
+  margin: 0;
+  line-height: 1.2;
+
+  @media (max-width: 575px) {
+    font-size: 15.5px;
+  }
+}
+
+.ngi-skillbuild-items {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ngi-skillbuild-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ngi-heading);
+  background: var(--ngi-bg-body);
+  border: 1px solid rgba(226, 84, 76, 0.2);
+  padding: 7px 12px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--ngi-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px -4px rgba(226, 84, 76, 0.35);
+  }
+
+  @media (max-width: 575px) {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
+
+.ngi-skillbuild-chip-tick {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ngi-primary), var(--ngi-secondary));
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.ngi-pmodal-footer {
+  padding: 16px 28px;
+  border-top: 1px solid var(--ngi-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--ngi-bg-section);
+  flex-shrink: 0;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 14px 18px;
+  }
+}
+
+.ngi-pmodal-note {
+  font-size: 12px;
+  color: var(--ngi-body);
+
+  @media (max-width: 767px) {
+    text-align: center;
+  }
+}
+
+.ngi-pmodal-footer-btns {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-shrink: 0;
+
+  .ngi-btn-outline,
+  .ngi-btn-primary {
+    padding: 9px 20px;
+    font-size: 13px;
+  }
+
+  @media (max-width: 767px) {
+    justify-content: stretch;
+
+    .ngi-btn-outline,
+    .ngi-btn-primary {
+      flex: 1;
+      text-align: center;
+      justify-content: center;
+    }
+  }
+}
+
+// --- Hero Section Stats & Accents ---
+.ngi-hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid var(--ngi-border);
+
+  @media (max-width: 991px) {
+    justify-content: center;
+  }
+
+  @media (max-width: 575px) {
+    gap: 16px;
+  }
+}
+
+.ngi-hero-stat-item {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+
+  @media (max-width: 991px) {
+    text-align: center;
+  }
+
+  strong {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.1;
+    background: var(--ngi-gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 3px;
+  }
+
+  span {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ngi-body);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+}
+
+.ngi-hero-stat-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--ngi-border);
+}
+
+// Pulse animation for live badge dots
+.ngi-badge-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ngi-primary);
+  display: inline-block;
+  margin-right: 6px;
+  box-shadow: 0 0 0 0 rgba(226, 84, 76, 0.6);
+  animation: ngiPulse 1.8s infinite;
+}
+
+@keyframes ngiPulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(226, 84, 76, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(226, 84, 76, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(226, 84, 76, 0);
+  }
+}
+
+// --- Courses We Offer Section ---
+.ngi-courses {
+  padding: 40px 0 76px;
+  background: var(--ngi-bg-body);
+  font-family: var(--ngi-font-primary);
+  position: relative;
+  overflow: hidden;
+
+  // Background subtle high-tech dot matrix pattern
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(226, 84, 76, 0.07) 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    opacity: 0.85;
+  }
+
+  .ngi-courses-glow-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    opacity: 0.55;
+    z-index: 0;
+  }
+
+  .ngi-courses-glow-1 {
+    top: -60px;
+    left: 8%;
+    width: 440px;
+    height: 440px;
+    background: radial-gradient(circle, rgba(226, 84, 76, 0.16) 0%, transparent 70%);
+  }
+
+  .ngi-courses-glow-2 {
+    bottom: 20px;
+    right: 6%;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(242, 166, 59, 0.14) 0%, transparent 70%);
+  }
+
+  .ngi-courses-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: 767px) {
+      padding: 0 16px;
+    }
+  }
+
+  .ngi-section-title {
+    margin-bottom: 24px;
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 34px;
+
+      @media (max-width: 767px) {
+        font-size: 26px;
+      }
+    }
+
+    p {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+  }
+
+  .ngi-courses-filter-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 auto 32px;
+    padding: 6px;
+    background: var(--ngi-bg-section);
+    border: 1px solid var(--ngi-border);
+    border-radius: 999px;
+    width: fit-content;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+
+    @media (max-width: 767px) {
+      width: 100%;
+      border-radius: var(--ngi-radius);
+      gap: 6px;
+      margin-bottom: 26px;
+    }
+  }
+
+  .ngi-course-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: var(--ngi-font-primary);
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ngi-heading-alt);
+    cursor: pointer;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .ngi-tab-count {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.06);
+      color: var(--ngi-darker-gray);
+      transition: all 0.22s ease;
+    }
+
+    &:hover {
+      color: var(--ngi-primary);
+      background: rgba(226, 84, 76, 0.08);
+
+      .ngi-tab-count {
+        background: rgba(226, 84, 76, 0.15);
+        color: var(--ngi-primary);
+      }
+    }
+
+    &.active {
+      background: var(--ngi-gradient-primary);
+      color: var(--ngi-white);
+      box-shadow: var(--ngi-shadow-coral-glow);
+      transform: translateY(-1px);
+
+      .ngi-tab-count {
+        background: rgba(255, 255, 255, 0.28);
+        color: var(--ngi-white);
+      }
+    }
+
+    @media (max-width: 767px) {
+      padding: 7px 12px;
+      font-size: 12px;
+    }
+  }
+
+  .ngi-courses-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    position: relative; // offset parent for card-height measurement
+    scroll-behavior: smooth;
+
+    // Tablet: 2 columns (View More reveals 4th row+ via internal scroll)
+    @media (max-width: 1199px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    // Mobile: single column
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    // When collapsible, the grid becomes a fixed-height scroller once expanded.
+    // Reserve the scrollbar gutter in BOTH states (collapsed + expanded) so the
+    // content width never changes — otherwise the appearing scrollbar reflows
+    // the cards and the locked height would shift. This keeps the section height
+    // identical whether collapsed or expanded (scroll only, no growth).
+    &.is-collapsible {
+      scrollbar-gutter: stable;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(226, 84, 76, 0.55) transparent;
+      // Smoothly nudge the height on expand so the peeking next card is felt.
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+      &::-webkit-scrollbar {
+        width: 7px;
+      }
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgba(226, 84, 76, 0.45);
+        border-radius: 999px;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background: rgba(226, 84, 76, 0.7);
+      }
+
+      // Momentum scrolling only when actually expanded. Crucially, do NOT set
+      // `overscroll-behavior: contain` while collapsed — a collapsed grid is
+      // still a scroll container (overflow:hidden + overflowing content), and
+      // `contain` there blocks scroll-chaining, trapping the page scroll on
+      // touch. Only contain the scroll once the user opts into the scroller.
+      &.is-expanded {
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+      }
+    }
+  }
+
+  .ngi-courses-grid-shell {
+    position: relative;
+  }
+
+  // Bottom fade over the peeking card — a soft "more below, scroll down" cue
+  // that only shows while expanded and not yet scrolled to the end.
+  .ngi-courses-scroll-fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 72px;
+    pointer-events: none;
+    z-index: 3;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--ngi-bg-body) 88%);
+    border-radius: 0 0 var(--ngi-radius-big) var(--ngi-radius-big);
+    animation: ngiFadeCueIn 0.35s ease both;
+  }
+
+  @keyframes ngiFadeCueIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .ngi-courses-viewmore-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 26px;
+
+    @media (max-width: 767px) {
+      margin-top: 20px;
+    }
+  }
+
+  .ngi-courses-viewmore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 26px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--ngi-font-primary);
+    color: var(--ngi-primary);
+    background: var(--ngi-bg-body);
+    border: 1.5px solid rgba(226, 84, 76, 0.35);
+    box-shadow: 0 4px 16px rgba(226, 84, 76, 0.1);
+    cursor: pointer;
+    transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover {
+      background: var(--ngi-gradient-primary);
+      color: var(--ngi-white);
+      border-color: transparent;
+      box-shadow: var(--ngi-shadow-coral-glow);
+      transform: translateY(-2px);
+    }
+
+    .ngi-viewmore-chevron {
+      transition: transform 0.28s ease;
+
+      &.is-up {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+.ngi-course-card {
+  background: var(--ngi-bg-body);
+  border: 1px solid var(--ngi-border);
+  border-radius: 18px;
+  padding: 22px 22px 18px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: var(--ngi-shadow-card);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+
+  // Gradient top edge in the card's own accent
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--card-gradient, var(--ngi-gradient-primary));
+    transition: height 0.28s ease;
+  }
+
+  // Soft accent glow bleeding in from the top-right corner
+  &::after {
+    content: '';
+    position: absolute;
+    top: -55px;
+    right: -55px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: var(--card-accent, var(--ngi-primary));
+    opacity: 0.09;
+    filter: blur(8px);
+    z-index: -1;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 50px -14px rgba(226, 84, 76, 0.28);
+    border-color: rgba(226, 84, 76, 0.28);
+
+    &::before {
+      height: 6px;
+    }
+
+    &::after {
+      opacity: 0.18;
+      transform: scale(1.2);
+    }
+
+    .ngi-course-title {
+      color: var(--card-accent, var(--ngi-primary));
+    }
+
+    .ngi-course-icon-wrapper {
+      transform: scale(1.07) rotate(3deg);
+    }
+
+    .ngi-course-explore-btn {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px -8px var(--card-accent, var(--ngi-primary));
+
+      span {
+        transform: translateX(4px);
+      }
+    }
+  }
+
+  .ngi-course-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .ngi-course-category-pill {
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 4px 11px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid transparent;
+  }
+
+  .ngi-course-card-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .ngi-course-icon-wrapper {
+    width: 54px;
+    height: 54px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--ngi-white);
+    box-shadow: 0 10px 22px -8px var(--card-accent, var(--ngi-primary));
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .ngi-course-head-text {
+    flex: 1;
+    min-width: 0;
+    padding-top: 2px;
+  }
+
+  .ngi-course-program-link {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--card-accent, var(--ngi-primary));
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+  }
+
+  .ngi-course-title {
+    font-size: 17.5px;
+    font-weight: 800;
+    color: var(--ngi-heading);
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+    margin: 0;
+    transition: color 0.2s ease;
+
+    @media (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+
+  .ngi-course-desc {
+    font-size: 13px;
+    color: var(--ngi-body-alt);
+    line-height: 1.6;
+    margin: 0 0 15px;
+    flex: 1 0 auto;
+  }
+
+  .ngi-course-highlights-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--ngi-body);
+      line-height: 1.4;
+
+      svg {
+        flex-shrink: 0;
+        width: 18px;
+        height: 18px;
+        padding: 3.5px;
+        stroke: var(--ngi-white);
+        background: var(--card-accent, var(--ngi-primary));
+        border-radius: 50%;
+        box-shadow: 0 3px 8px -2px var(--card-accent, var(--ngi-primary));
+      }
+    }
+  }
+
+  .ngi-course-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+
+  .ngi-course-tag-item {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ngi-muted);
+    background: var(--ngi-bg-section);
+    padding: 4px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--ngi-border);
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--card-accent-bg, var(--ngi-bg-coral-tint));
+      border-color: var(--card-accent, var(--ngi-primary));
+      color: var(--card-accent, var(--ngi-primary));
+      transform: translateY(-1px);
+    }
+  }
+
+  .ngi-course-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid var(--ngi-border);
+    margin-top: auto;
+  }
+
+  .ngi-course-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .ngi-course-meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--ngi-body-alt);
+    background: var(--ngi-bg-section);
+    padding: 5px 10px;
+    border-radius: 999px;
+    border: 1px solid var(--ngi-border);
+
+    svg {
+      color: var(--card-accent, var(--ngi-primary));
+    }
+  }
+
+  .ngi-course-explore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 700;
+    font-family: var(--ngi-font-primary);
+    color: var(--ngi-white);
+    background: var(--card-gradient, var(--ngi-gradient-primary));
+    border: none;
+    box-shadow: 0 6px 16px -5px var(--card-accent, var(--ngi-primary));
+    cursor: pointer;
+    transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+
+    span {
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px -8px var(--card-accent, var(--ngi-primary));
+
+      span {
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+// --- Team Spotlight Section ---
+.ngi-team {
+  padding: 32px 0 36px;
+  background: var(--ngi-bg-section);
+  font-family: var(--ngi-font-primary);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.035) 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  .ngi-team-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: 767px) {
+      padding: 0 16px;
+    }
+  }
+
+  .ngi-section-title {
+    margin-bottom: 16px;
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 4px;
+      font-size: 28px;
+
+      @media (max-width: 767px) {
+        font-size: 24px;
+      }
+    }
+
+    p {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+  }
+}
+
+.ngi-team-spotlight-wrapper {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.ngi-team-spotlight-card {
+  background: var(--ngi-bg-body);
+  border-radius: 20px;
+  border: 1.5px solid var(--ngi-border);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  position: relative;
+  overflow: hidden;
+
+  // Fixed height on the two-column layout so every member's card is identical,
+  // regardless of how many highlights they have (longer lists scroll inside).
+  @media (min-width: 861px) {
+    height: 480px;
+  }
+
+  @media (max-width: 1080px) {
+    grid-template-columns: 320px 1fr;
+  }
+
+  @media (max-width: 860px) {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}
+
+.ngi-team-left-visual {
+  position: relative;
+  background: var(--ngi-bg-coral-tint);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  min-height: 360px;
+  height: 100%; // stretch to match the (taller) info column — no bottom gap
+
+  @media (max-width: 860px) {
+    min-height: 280px;
+    max-height: 320px;
+  }
+
+  .ngi-team-aura-glow {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.35;
+    pointer-events: none;
+    transition: background 0.5s ease;
+  }
+
+  .ngi-team-image-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .ngi-team-photo-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .ngi-team-cutout-img {
+    height: 100%;
+    max-height: 430px;
+    width: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.12));
+    display: block;
+    margin: 0 auto;
+
+    @media (max-width: 860px) {
+      max-height: 270px;
+    }
+  }
+}
+
+.ngi-team-right-info {
+  min-width: 0; // let the scrolling avatar row shrink instead of widening the grid column
+  padding: 26px 30px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+
+  @media (max-width: 860px) {
+    padding: 24px 24px 18px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 20px 18px 16px;
+    gap: 12px;
+  }
+}
+
+.ngi-team-info-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+// --- Identity: name + role on the left, LinkedIn icon button on the right ---
+.ngi-team-identity {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+
+  // On phones the name + links cluster (LinkedIn + Portfolio pill) can't sit
+  // side-by-side without the pill overflowing the card, so stack them.
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+// Gentle "coming soon" toast shown when a member's portfolio isn't wired yet.
+// Floats just under the identity row so it never reflows the layout, then fades.
+.ngi-team-comingsoon-toast {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--ngi-bg-coral-tint);
+  border: 1px solid rgba(226, 84, 76, 0.28);
+  color: var(--ngi-primary);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+  white-space: nowrap;
+  box-shadow: 0 8px 22px -8px rgba(226, 84, 76, 0.45);
+
+  svg { flex: 0 0 auto; }
+
+  @media (max-width: 767px) {
+    left: 0;
+    right: auto;
+    font-size: 11.5px;
+    padding: 7px 12px;
+  }
+}
+
+// Profile links cluster — LinkedIn icon + the highlighted portfolio pill.
+.ngi-team-links {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+// Digital-portfolio pill — deliberately eye-catching: brand gradient, a looping
+// pulse-glow, and a nudging arrow so it reads as "click me". Calms on hover and
+// stops entirely under reduced-motion.
+.ngi-team-portfolio-btn {
+  position: relative;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--ngi-gradient-primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px -3px rgba(226, 84, 76, 0.5);
+  animation: ngiPortfolioGlow 2.4s ease-out infinite;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
+
+  svg { flex: 0 0 auto; }
+
+  .ngi-team-portfolio-arrow {
+    animation: ngiPortfolioArrow 1.6s ease-in-out infinite;
+  }
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -5px rgba(226, 84, 76, 0.62);
+    outline: none;
+
+    .ngi-team-portfolio-arrow {
+      animation: none;
+      transform: translate(2px, -2px);
+    }
+  }
+
+  @media (max-width: 767px) {
+    padding: 7px 12px;
+    font-size: 11.5px;
+  }
+}
+
+@keyframes ngiPortfolioGlow {
+  0%   { box-shadow: 0 4px 14px -3px rgba(226, 84, 76, 0.45), 0 0 0 0 rgba(226, 84, 76, 0.5); }
+  70%  { box-shadow: 0 4px 14px -3px rgba(226, 84, 76, 0.45), 0 0 0 10px rgba(226, 84, 76, 0); }
+  100% { box-shadow: 0 4px 14px -3px rgba(226, 84, 76, 0.45), 0 0 0 0 rgba(226, 84, 76, 0); }
+}
+
+@keyframes ngiPortfolioArrow {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(2px, -2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ngi-team-portfolio-btn,
+  .ngi-team-portfolio-btn .ngi-team-portfolio-arrow {
+    animation: none !important;
+  }
+}
+
+// Smooth full-screen fade shown while a portfolio opens in the same tab.
+.ngi-portfolio-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: grid;
+  place-items: center;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: ngiPortfolioFadeIn 0.32s ease forwards;
+}
+
+.ngi-portfolio-transition-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding: 28px 40px;
+  border-radius: 18px;
+  background: var(--ngi-bg-body);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.30);
+  animation: ngiPortfolioPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.ngi-portfolio-transition-text {
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--ngi-heading);
+}
+
+.ngi-portfolio-spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid var(--ngi-bg-coral-tint);
+  border-top-color: var(--ngi-primary);
+  animation: ngiPortfolioSpin 0.7s linear infinite;
+}
+
+@keyframes ngiPortfolioFadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ngiPortfolioPop {
+  from { opacity: 0; transform: translateY(10px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes ngiPortfolioSpin { to { transform: rotate(360deg); } }
+
+.ngi-team-identity-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ngi-team-member-name {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--ngi-heading);
+  margin: 0;
+  line-height: 1.15;
+  letter-spacing: -0.4px;
+
+  @media (max-width: 767px) {
+    font-size: 21px;
+  }
+}
+
+.ngi-team-role-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--member-accent, var(--ngi-primary));
+  background: var(--member-accent-bg, var(--ngi-bg-coral-tint));
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  // Brand terms (e.g. "DevOps") keep their exact casing inside the uppercase pill.
+  .ngi-tt-exact {
+    text-transform: none;
+  }
+}
+
+.ngi-team-linkedin-btn {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #0A66C2;
+  background: rgba(10, 102, 194, 0.10);
+  border: 1px solid rgba(10, 102, 194, 0.20);
+  text-decoration: none;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+
+  svg {
+    transition: transform 0.22s ease;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background: #0A66C2;
+    color: #FFFFFF;
+    border-color: #0A66C2;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(10, 102, 194, 0.35);
+
+    svg {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.ngi-team-member-tagline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--member-accent, var(--ngi-primary));
+  margin: -4px 0 0;
+  line-height: 1.35;
+
+  &::before {
+    content: '';
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--member-accent, var(--ngi-primary));
+  }
+}
+
+// --- Highlights: subtle surface with an accent bar + label ---
+.ngi-team-highlights-box {
+  position: relative;
+  background: var(--ngi-bg-section);
+  border: 1px solid var(--ngi-border);
+  border-left: 3px solid var(--member-accent, var(--ngi-primary));
+  border-radius: 14px;
+  padding: 14px 16px 14px 17px;
+
+  // On the fixed-height desktop card, cap the highlights and scroll internally
+  // so members with more/longer points keep the exact same card height.
+  @media (min-width: 861px) {
+    max-height: 208px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.22) transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.16);
+      border-radius: 999px;
+    }
+  }
+}
+
+.ngi-team-highlights-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: var(--member-accent, var(--ngi-primary));
+  margin-bottom: 11px;
+
+  svg {
+    width: 13px;
+    height: 13px;
+  }
+}
+
+.ngi-team-points-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12.5px;
+    color: var(--ngi-body);
+    line-height: 1.45;
+
+    @media (max-width: 767px) {
+      font-size: 12px;
+    }
+  }
+
+  .ngi-team-check-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--member-accent, var(--ngi-primary));
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+
+    svg {
+      width: 10px;
+      height: 10px;
+    }
+  }
+}
+
+.ngi-team-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ngi-team-tag-pill {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ngi-heading-alt);
+  background: var(--ngi-bg-body);
+  border: 1px solid var(--ngi-border);
+  padding: 4px 11px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: var(--member-accent, var(--ngi-primary));
+    border-color: var(--member-accent, var(--ngi-primary));
+    background: var(--member-accent-bg, var(--ngi-bg-coral-tint));
+  }
+}
+
+.ngi-team-bottom-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--ngi-border);
+  flex-wrap: wrap;
+
+  @media (max-width: 575px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+// One scrolling row (not wrapped) so 15 pills don't eat into the highlights in
+// the fixed-height card. The row fades out at both edges to hint at more.
+.ngi-team-avatars-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: nowrap;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  // Room for the active pill's glow inside the scroll box, cancelled by the
+  // negative margin so the row sits exactly where the original wrapped row did.
+  padding: 6px 2px;
+  margin: -6px 0;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 28px), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 28px), transparent 100%);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > * {
+    scroll-snap-align: center;
+  }
+}
+
+.ngi-team-avatar-thumb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px 3px 3px;
+  border-radius: 999px;
+  border: 1.5px solid var(--ngi-border);
+  background: var(--ngi-bg-section);
+  cursor: pointer;
+  transition: all 0.22s ease;
+  font-family: var(--ngi-font-primary);
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  img {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--ngi-bg-coral-tint);
+  }
+
+  .ngi-team-avatar-thumb-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ngi-heading-alt);
+    white-space: nowrap;
+  }
+
+  &:hover {
+    border-color: var(--ngi-primary);
+
+    .ngi-team-avatar-thumb-label {
+      color: var(--ngi-primary);
+    }
+  }
+
+  &.active {
+    border-color: var(--ngi-primary);
+    background: var(--ngi-bg-coral-tint);
+    box-shadow: 0 4px 12px rgba(226, 84, 76, 0.2);
+
+    .ngi-team-avatar-thumb-label {
+      color: var(--ngi-primary);
+    }
+  }
+}
+
+// Prev / counter / next control — floats on the top-right corner of the member
+// image as a compact glass pill across ALL breakpoints (desktop, tablet, mobile).
+// It lives inside .ngi-team-left-visual (position: relative), so it anchors to
+// the image whether the card is two-column (desktop) or stacked (mobile/tablet).
+.ngi-team-nav-arrows {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  width: auto;
+  gap: 2px;
+  padding: 4px 7px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+
+  @media (max-width: 767px) {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+.ngi-team-arrow-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--ngi-heading);
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1;
+
+  &:hover {
+    background: var(--ngi-primary);
+    color: var(--ngi-white);
+    box-shadow: var(--ngi-shadow-coral-glow);
+  }
+}
+
+.ngi-team-counter {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ngi-primary);
+  padding: 0 2px;
+
+  small {
+    color: var(--ngi-muted);
+    font-weight: 500;
+  }
+}
+
+// --- Utility ---
+.ngi-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+// Final NGI header and gallery alignment overrides
+.ngi-header {
+  background: var(--ngi-bg-body);
+  box-shadow: var(--ngi-shadow-neutral);
+  border-bottom: 1px solid var(--ngi-border);
+}
+
+.ngi-header .ngi-header-container {
+  height: 86px;
+  padding: 0 32px;
+  gap: 18px;
+}
+
+.ngi-header .ngi-collab-brand { gap: 2px; }
+.ngi-header .ngi-brand-logo-torii { width: 154px; height: 48px; padding: 0; background: transparent; box-shadow: none; border-radius: 0; }
+.ngi-header .ngi-brand-logo-torii img { transform: scale(1.4); }
+.ngi-header .ngi-brand-logo-college { width: 92px; height: 54px; padding: 0; border-radius: 0; box-shadow: none; }
+.ngi-header .ngi-brand-logo-college img { border-radius: 0; object-fit: contain; mix-blend-mode: multiply; }
+.ngi-header .ngi-brand-separator { width: 16px; color: var(--ngi-muted); font-size: 17px; }
+
+.ngi-header .ngi-nav { gap: 4px; }
+.ngi-header .ngi-nav li a { padding: 9px 12px; border-radius: 7px; border-bottom: 3px solid transparent; color: var(--ngi-heading-alt) !important; transition: none !important; }
+.ngi-header .ngi-nav li a::after { display: none; }
+.ngi-header .ngi-nav li a:hover { color: var(--ngi-primary) !important; }
+.ngi-header .ngi-nav li a.active { color: var(--ngi-primary) !important; background: var(--ngi-bg-coral-tint); border-bottom-color: var(--ngi-primary); }
+.ngi-header .ngi-btn-whatsapp { border-radius: 999px; }
+.ngi-header .ngi-btn-login { border-radius: 999px; }
+.ngi-header-spacer { height: 86px; }
+
+.ngi-hero .ngi-hero-visual { display: block; width: 100%; min-width: 0; flex: 1 1 0; perspective: 1400px; }
+.ngi-hero .ngi-gallery-heading, .ngi-hero .ngi-gallery-stage, .ngi-hero .ngi-gallery-dots, .ngi-hero .ngi-gallery-stage-wrapper {
+  width: 100%;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: 54px;
+
+  @media (max-width: 1199px) {
+    margin-right: 28px;
+  }
+
+  @media (max-width: 991px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+.ngi-hero .ngi-gallery-heading { min-height: 36px; display: flex; align-items: baseline; justify-content: center; margin-bottom: 8px; }
+.ngi-hero .ngi-gallery-heading strong { position: relative; display: inline-block; text-align: center; }
+.ngi-hero .ngi-gallery-heading strong::after { content: ''; position: absolute; left: 50%; right: auto; bottom: -8px; width: 42px; height: 3px; border-radius: 999px; background: var(--ngi-tertiary); transform: translateX(-50%); }
+.ngi-hero .ngi-gallery-stage { position: relative; height: 345px; transform-style: preserve-3d; }
+.ngi-hero .ngi-gallery-card { position: absolute; inset: 0; width: 86%; max-width: 560px; height: auto; aspect-ratio: 16 / 10; margin: auto; padding: 0; overflow: hidden; border: 0; border-radius: var(--ngi-radius-big); background: var(--ngi-bg-footer); box-shadow: var(--ngi-shadow-card); transform-style: preserve-3d; }
+.ngi-hero .ngi-gallery-card img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ngi-hero .ngi-gallery-description { opacity: 0; transform: translateY(100%); transition: opacity .35s ease, transform .35s ease; }
+.ngi-hero .ngi-gallery-card.is-active:hover .ngi-gallery-description, .ngi-hero .ngi-gallery-card.is-active:focus-visible .ngi-gallery-description { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 767px) {
+  .ngi-header .ngi-header-container { height: 76px; padding: 0 16px; }
+  .ngi-header .ngi-brand-logo-torii { width: 112px; height: 38px; }
+  .ngi-header .ngi-brand-logo-torii img { transform: scale(1.35); }
+  .ngi-header .ngi-brand-logo-college { width: 66px; height: 40px; }
+  .ngi-header .ngi-brand-separator { width: 13px; height: 16px; font-size: 14px; }
+  .ngi-header-spacer { height: 76px; }
+  .ngi-mobile-nav { top: 76px; }
+}
+
+@media (max-width: 575px) {
+  .ngi-hero .ngi-gallery-stage { height: 245px; }
+  .ngi-hero .ngi-gallery-card { width: 90%; border-radius: var(--ngi-radius); }
+}
+
+// Hero identity mark and in-image gallery navigation
+.ngi-hero .ngi-stepin-logo {
+  display: block;
+  width: min(460px, 102%);
+  height: auto;
+  max-height: 170px;
+  margin: 0 0 -38px -38px;
+  object-fit: contain;
+  object-position: left center;
+
+  @media (max-width: 991px) {
+    width: min(390px, 90%);
+    max-height: 150px;
+    margin: 0 auto -24px auto;
+    object-position: center;
+  }
+
+  @media (max-width: 767px) {
+    width: min(320px, 88%);
+    max-height: 125px;
+    margin: 0 auto -18px auto;
+    object-position: center;
+  }
+
+  @media (max-width: 575px) {
+    width: min(270px, 85%);
+    max-height: 105px;
+    margin: 0 auto -14px auto;
+    object-position: center;
+  }
+}
+
+.ngi-hero .ngi-gallery-stage-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 54px 0 auto;
+
+  @media (max-width: 1199px) {
+    margin: 0 28px 0 auto;
+  }
+
+  @media (max-width: 991px) {
+    margin: 0 auto;
+  }
+}
+
+.ngi-hero .ngi-gallery-stage {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  height: 350px;
+  margin: 0 auto;
+  isolation: isolate;
+  transform-style: preserve-3d;
+}
+
+.ngi-hero .ngi-gallery-card {
+  width: 86%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+}
+
+.ngi-hero .ngi-gallery-arrows {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.ngi-hero .ngi-gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 101;
+  display: inline-flex;
+  width: 32px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  color: var(--ngi-white);
+  background: transparent;
+  backdrop-filter: none;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 38px;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0.88;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  transition: color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+  user-select: none;
+}
+
+.ngi-hero .ngi-gallery-arrow-prev {
+  left: calc(7% + 14px);
+}
+
+.ngi-hero .ngi-gallery-arrow-next {
+  right: calc(7% + 14px);
+}
+
+.ngi-hero .ngi-gallery-arrow:hover {
+  color: var(--ngi-tertiary);
+  background: transparent;
+  opacity: 1;
+  transform: translateY(-50%) scale(1.18);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7));
+}
+
+.ngi-hero .ngi-gallery-arrow:focus-visible {
+  outline: 2px solid var(--ngi-tertiary);
+  outline-offset: 3px;
+}
+
+@media (max-width: 575px) {
+  .ngi-hero .ngi-gallery-stage { height: 245px; }
+  .ngi-hero .ngi-gallery-card { width: 90%; }
+  .ngi-hero .ngi-gallery-arrow { width: 28px; height: 38px; font-size: 30px; }
+  .ngi-hero .ngi-gallery-arrow-prev { left: calc(5% + 10px); }
+  .ngi-hero .ngi-gallery-arrow-next { right: calc(5% + 10px); }
+}
+
+// Final collaboration header polish
+.ngi-header .ngi-collab-brand {
+  gap: 0;
+}
+
+.ngi-header .ngi-brand-logo-college {
+  border: 0;
+  box-shadow: none;
+}
+
+.ngi-header .ngi-brand-separator {
+  margin: 0 -2px;
+}
+
+.ngi-header .ngi-btn-whatsapp {
+  background: transparent;
+  color: var(--ngi-heading-alt) !important;
+  border: 1px solid var(--ngi-heading-alt);
+  border-radius: 999px;
+}
+
+.ngi-header .ngi-btn-whatsapp:hover {
+  background: var(--ngi-whatsapp) !important;
+  color: var(--ngi-white) !important;
+}
+
+@media (max-width: 767px) {
+  .ngi-header .ngi-collab-brand { gap: 0; }
+  .ngi-header .ngi-brand-separator { margin: 0 -1px; }
+}
+
+// ---------------------------------------------------------------
+// Persistent header actions (Join Community + Register)
+// These two are the page's primary calls to action, so they stay in
+// the header at every width instead of collapsing into the hamburger
+// menu. The brand marks and button padding step down at each
+// breakpoint to buy back the horizontal space this needs, keeping the
+// row on a single line down to a 320px viewport.
+// ---------------------------------------------------------------
+.ngi-header .ngi-header-actions {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 1199px) {
+  // Keeps the actions beside the hamburger rather than being pushed to
+  // the middle by the container's space-between.
+  .ngi-header .ngi-header-actions { margin-left: auto; }
+}
+
+@media (max-width: 767px) {
+  .ngi-header .ngi-header-actions { gap: 8px; }
+  .ngi-header .ngi-header-container { gap: 10px; }
+
+  // Icon-only WhatsApp button (the label is hidden at this width, so the
+  // accessible name comes from its aria-label).
+  .ngi-header .ngi-btn-whatsapp { padding: 7px 11px; border-radius: 999px; }
+  .ngi-header .ngi-btn-whatsapp svg { width: 17px; height: 17px; }
+  .ngi-header .ngi-btn-login { padding: 7px 14px; font-size: 12px; border-radius: 999px; }
+}
+
+@media (max-width: 575px) {
+  .ngi-header .ngi-header-container { padding: 0 12px; gap: 8px; }
+  .ngi-header .ngi-brand-logo-torii { width: 96px; height: 34px; }
+  .ngi-header .ngi-brand-logo-college { width: 54px; height: 36px; }
+  .ngi-header .ngi-brand-separator { width: 11px; font-size: 12px; }
+
+  .ngi-header .ngi-header-actions { gap: 6px; }
+  .ngi-header .ngi-btn-whatsapp { padding: 6px 9px; }
+  .ngi-header .ngi-btn-whatsapp svg { width: 16px; height: 16px; }
+  .ngi-header .ngi-btn-login { padding: 6px 12px; font-size: 11.5px; }
+  .ngi-header .ngi-mobile-toggle { width: 38px; height: 38px; }
+}
+
+@media (max-width: 400px) {
+  .ngi-header .ngi-header-container { padding: 0 8px; gap: 6px; }
+  .ngi-header .ngi-brand-logo-torii { width: 82px; height: 30px; }
+  .ngi-header .ngi-brand-logo-college { width: 44px; height: 32px; }
+  .ngi-header .ngi-brand-separator { width: 10px; font-size: 11px; margin: 0 -2px; }
+
+  .ngi-header .ngi-header-actions { gap: 5px; }
+  .ngi-header .ngi-btn-whatsapp { padding: 5px 8px; }
+  .ngi-header .ngi-btn-whatsapp svg { width: 15px; height: 15px; }
+  .ngi-header .ngi-btn-login { padding: 5px 10px; font-size: 11px; }
+  .ngi-header .ngi-mobile-toggle { width: 34px; height: 34px; }
+  .ngi-header .ngi-mobile-toggle span { width: 15px; }
+}
+
+// ============================================
+// STUDENT REGISTRATION POP-UP MODAL
+// ============================================
+@keyframes ngiFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ngiSlideUp {
+  from { opacity: 0; transform: translateY(22px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes ngiSpin {
+  to { transform: rotate(360deg); }
+}
+
+.ngi-reg-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: ngiFadeIn 0.22s ease forwards;
+}
+
+.ngi-reg-modal-container {
+  background: var(--ngi-bg-body);
+  border: 1.5px solid var(--ngi-border);
+  border-radius: 22px;
+  width: 100%;
+  max-width: 640px;
+  max-height: calc(100vh - 36px);
+  overflow-y: auto;
+  padding: 30px 28px 24px;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+  animation: ngiSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  font-family: var(--ngi-font-primary);
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--ngi-border);
+    border-radius: 999px;
+  }
+
+  @media (max-width: 575px) {
+    padding: 24px 18px 20px;
+    border-radius: 18px;
+    max-height: calc(100vh - 20px);
+  }
+}
+
+.ngi-reg-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ngi-bg-section);
+  border: 1px solid var(--ngi-border);
+  color: var(--ngi-heading);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 5;
+
+  &:hover {
+    background: var(--ngi-primary);
+    color: #FFFFFF;
+    border-color: var(--ngi-primary);
+    transform: rotate(90deg) scale(1.08);
+  }
+}
+
+.ngi-reg-modal-header {
+  text-align: center;
+  margin-bottom: 22px;
+
+  .ngi-reg-header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 13px;
+    border-radius: 999px;
+    background: var(--ngi-bg-coral-tint);
+    color: var(--ngi-primary);
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(226, 84, 76, 0.2);
+  }
+
+  h2 {
+    font-size: 23px;
+    font-weight: 800;
+    color: var(--ngi-heading);
+    margin-bottom: 4px;
+    letter-spacing: -0.02em;
+
+    span {
+      background: var(--ngi-gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @media (max-width: 575px) {
+      font-size: 20px;
+    }
+  }
+
+  p {
+    font-size: 12.5px;
+    color: var(--ngi-body);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.45;
+  }
+}
+
+.ngi-reg-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ngi-reg-row-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+
+  @media (max-width: 575px) {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+.ngi-reg-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ngi-heading);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    .required {
+      color: var(--ngi-primary);
+      font-weight: 700;
+    }
+
+    .ngi-reg-hint {
+      font-size: 11px;
+      color: var(--ngi-muted);
+      font-weight: 400;
+    }
+  }
+}
+
+.ngi-reg-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .ngi-reg-input-icon {
+    position: absolute;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    color: var(--ngi-muted);
+    pointer-events: none;
+    user-select: none;
+    transition: color 0.2s ease;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  // Icon reacts to focus — the small "alive" cue of a hand-built form
+  &:focus-within .ngi-reg-input-icon {
+    color: var(--ngi-primary);
+  }
+
+  .ngi-reg-input-prefix {
+    position: absolute;
+    left: 13px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ngi-body-alt);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  &.has-prefix input {
+    padding-left: 46px;
+  }
+
+  input, select {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px 0 34px;
+    border-radius: 10px;
+    border: 1.5px solid var(--ngi-border);
+    background: var(--ngi-bg-section);
+    color: var(--ngi-heading);
+    font-size: 12.5px;
+    font-family: var(--ngi-font-primary);
+    transition: all 0.2s ease;
+    outline: none;
+
+    &::placeholder {
+      color: #94A3B8;
+      font-size: 12px;
+    }
+
+    &:focus {
+      background: var(--ngi-bg-body);
+      border-color: var(--ngi-primary);
+      box-shadow: 0 0 0 3px rgba(226, 84, 76, 0.12);
+    }
+
+    &.has-error {
+      border-color: #EF4444;
+      background: #FEF2F2;
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+      }
+    }
+  }
+
+  select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+}
+
+// Custom branch dropdown — a themed, brand-styled replacement for the native
+// <select>, whose option list can't be styled and opens whichever way the browser
+// decides. Trigger mirrors the input styling; the popover is a branded listbox.
+.ngi-reg-select {
+  position: relative;
+  width: 100%;
+
+  .ngi-reg-select-trigger {
+    position: relative;
+    width: 100%;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px 0 34px;
+    border-radius: 10px;
+    border: 1.5px solid var(--ngi-border);
+    background: var(--ngi-bg-section);
+    color: var(--ngi-heading);
+    font-size: 12.5px;
+    font-family: var(--ngi-font-primary);
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  .ngi-reg-select-icon {
+    position: absolute;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    color: var(--ngi-muted);
+    pointer-events: none;
+    transition: color 0.2s ease;
+    svg { width: 16px; height: 16px; }
+  }
+
+  .ngi-reg-select-value {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &.is-placeholder { color: #94A3B8; }
+  }
+
+  .ngi-reg-select-chevron {
+    flex: 0 0 auto;
+    color: var(--ngi-muted);
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  &:hover .ngi-reg-select-trigger {
+    border-color: rgba(226, 84, 76, 0.4);
+  }
+
+  // Open state mirrors the input's focus treatment
+  &.is-open {
+    .ngi-reg-select-trigger {
+      background: var(--ngi-bg-body);
+      border-color: var(--ngi-primary);
+      box-shadow: 0 0 0 3px rgba(226, 84, 76, 0.12);
+    }
+    .ngi-reg-select-icon { color: var(--ngi-primary); }
+    .ngi-reg-select-chevron { transform: rotate(180deg); color: var(--ngi-primary); }
+  }
+
+  &.has-error .ngi-reg-select-trigger {
+    border-color: #EF4444;
+    background: #FEF2F2;
+  }
+
+  // ── Popover listbox ──
+  .ngi-reg-select-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 60;
+    max-height: 248px;
+    overflow-y: auto;
+    padding: 6px;
+    background: var(--ngi-bg-body);
+    border: 1.5px solid var(--ngi-border);
+    border-radius: 12px;
+    box-shadow: 0 18px 44px -14px rgba(15, 23, 42, 0.30), 0 4px 12px rgba(15, 23, 42, 0.07);
+    animation: ngiSelectIn 0.16s ease;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--ngi-border) transparent;
+    &::-webkit-scrollbar { width: 8px; }
+    &::-webkit-scrollbar-thumb { background: var(--ngi-border); border-radius: 999px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+  }
+
+  .ngi-reg-select-group + .ngi-reg-select-group { margin-top: 6px; }
+
+  // Section header — deliberately styled to read as a label, NOT a pickable option:
+  // tinted bar, leading accent tick, uppercase, and non-interactive cursor.
+  .ngi-reg-select-group-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 2px 2px 4px;
+    padding: 6px 10px;
+    font-size: 9.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--ngi-secondary);
+    background: var(--ngi-bg-warm-tint);
+    border-radius: 6px;
+    cursor: default;
+    user-select: none;
+
+    &::before {
+      content: '';
+      flex: 0 0 auto;
+      width: 12px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--ngi-secondary);
+    }
+  }
+
+  .ngi-reg-select-option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 9px 10px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--ngi-body);
+    font-size: 12.5px;
+    line-height: 1.3;
+    font-family: var(--ngi-font-primary);
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+
+    svg { flex: 0 0 auto; color: var(--ngi-primary); }
+
+    &:hover {
+      background: var(--ngi-bg-coral-tint);
+      color: var(--ngi-primary);
+    }
+
+    &.is-selected {
+      background: var(--ngi-bg-coral-tint);
+      color: var(--ngi-primary);
+      font-weight: 600;
+    }
+  }
+}
+
+@keyframes ngiSelectIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ngi-reg-error {
+  font-size: 11px;
+  color: #EF4444;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+// Submit-level failure banner (duplicate registration, server or network error)
+.ngi-reg-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 10px;
+  background: rgba(239, 68, 68, 0.08);
+  color: #B91C1C;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.45;
+
+  svg { flex: 0 0 auto; margin-top: 1px; }
+}
+
+// Segmented choice control (Gender, Residence)
+.ngi-reg-segment {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    height: 42px;
+    padding: 0 10px;
+    border-radius: 10px;
+    border: 1.5px solid var(--ngi-border);
+    background: var(--ngi-bg-section);
+    color: var(--ngi-body-alt);
+    font-size: 12.5px;
+    font-weight: 600;
+    font-family: var(--ngi-font-primary);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+    svg {
+      width: 16px;
+      height: 16px;
+      color: var(--ngi-muted);
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    &:hover {
+      border-color: rgba(226, 84, 76, 0.4);
+      background: var(--ngi-bg-coral-tint);
+    }
+
+    &.active {
+      border-color: var(--ngi-primary);
+      background: var(--ngi-bg-coral-tint);
+      color: var(--ngi-primary);
+      box-shadow: 0 3px 10px rgba(226, 84, 76, 0.12);
+
+      svg {
+        color: var(--ngi-primary);
+        transform: scale(1.08);
+      }
+    }
+  }
+
+  &.has-error button {
+    border-color: rgba(239, 68, 68, 0.55);
+  }
+}
+
+// Year Radio Cards
+.ngi-reg-year-grid {
+  display: grid;
+  // auto-fit so the grid adapts to however many passout years are open: a single
+  // open year (2030) fills the row, while re-adding years reflows to 2–3 columns.
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+
+  @media (max-width: 575px) {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+.ngi-reg-year-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1.5px solid var(--ngi-border);
+  background: var(--ngi-bg-section);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: var(--ngi-font-primary);
+
+  .ngi-reg-year-radio {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    // Keep the title clear of the Open / Closed tag in the top-right corner.
+    padding-right: 50px;
+
+    .ngi-radio-dot {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 1.5px solid var(--ngi-border);
+      background: var(--ngi-bg-body);
+      display: inline-block;
+      position: relative;
+      transition: all 0.2s ease;
+
+      &.checked {
+        border-color: var(--year-accent, var(--ngi-primary));
+        background: var(--year-accent, var(--ngi-primary));
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #FFFFFF;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+
+    strong {
+      font-size: 11.5px;
+      color: var(--ngi-heading);
+    }
+
+    // "(1st Years)" descriptor — lighter sub-label alongside the passout year.
+    .ngi-reg-year-ord {
+      font-weight: 600;
+      color: var(--ngi-muted);
+      white-space: nowrap;
+    }
+  }
+
+  .ngi-reg-year-mapped {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ngi-primary);
+    padding-left: 19px;
+  }
+
+  &:hover {
+    border-color: rgba(226, 84, 76, 0.4);
+    background: var(--ngi-bg-coral-tint);
+    transform: translateY(-1.5px);
+  }
+
+  &.active {
+    border-color: var(--year-accent, var(--ngi-primary));
+    background: var(--ngi-bg-coral-tint);
+    box-shadow: 0 4px 14px rgba(226, 84, 76, 0.14);
+  }
+
+  // Closed batch — visible but not selectable.
+  &.is-closed {
+    cursor: not-allowed;
+    opacity: 0.65;
+
+    strong,
+    .ngi-reg-year-mapped { color: var(--ngi-muted); }
+
+    &:hover {
+      border-color: var(--ngi-border);
+      background: var(--ngi-bg-section);
+      transform: none;
+    }
+  }
+}
+
+.ngi-reg-year-closed-tag {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--ngi-muted);
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+// Notice shown when a user taps a closed batch in the year grid.
+.ngi-reg-closed-notice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: var(--ngi-bg-coral-tint);
+  border: 1px solid rgba(226, 84, 76, 0.3);
+  color: var(--ngi-primary);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  animation: ngiClosedNoticeIn 0.25s ease;
+
+  svg { flex-shrink: 0; }
+  strong { font-weight: 800; }
+
+  @media (max-width: 575px) {
+    font-size: 11.5px;
+    padding: 8px 11px;
+  }
+}
+
+@keyframes ngiClosedNoticeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// Open intake tag on a program card (counterpart of the "Closed" tag).
+.ngi-reg-year-open-tag {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, #059669, #10b981); // --ngi-success family
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+// ── Roster-gated intake (Moon Coder): step 1 "find yourself" ─────────────
+.ngi-reg-step-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  strong {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 800;
+    color: var(--ngi-heading);
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    margin: 2px 0 0;
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--ngi-body);
+  }
+}
+
+.ngi-reg-step-no {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: #fff;
+  background: var(--ngi-gradient-primary);
+  box-shadow: 0 4px 10px rgba(226, 84, 76, 0.3);
+  margin-top: 1px;
+
+  &.is-done {
+    background: linear-gradient(135deg, #059669, #10b981); // --ngi-success family
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+  }
+}
+
+.ngi-reg-finder {
+  padding: 14px 14px 12px;
+  border-radius: 14px;
+  background: var(--ngi-bg-coral-tint);
+  border: 1.5px solid rgba(226, 84, 76, 0.22);
+  margin-bottom: 14px;
+
+  .ngi-reg-input-wrap input {
+    height: 46px;
+    font-size: 13.5px;
+    font-weight: 600;
+    background: var(--ngi-bg-body);
+    letter-spacing: 0.2px;
+    padding-right: 40px;
+
+    &::placeholder {
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+  }
+
+  @media (max-width: 575px) {
+    padding: 12px 11px 10px;
+  }
+}
+
+.ngi-reg-finder-box {
+  position: relative;
+}
+
+.ngi-reg-finder-spinner {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+  border: 2px solid rgba(226, 84, 76, 0.2);
+  border-top-color: var(--ngi-primary);
+  border-radius: 50%;
+  animation: ngiSpin 0.7s linear infinite;
+}
+
+// Suggestion list — same visual language as the branch listbox, but laid out in
+// normal flow rather than as a popover: the modal scrolls internally, so an
+// absolutely positioned list would be clipped at the modal's bottom edge while the
+// form is still short. In flow, the modal simply grows with the list.
+.ngi-reg-suggest {
+  position: relative;
+  z-index: 70;
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 6px;
+  max-height: 296px;
+  overflow-y: auto;
+  background: var(--ngi-bg-body);
+  border: 1.5px solid var(--ngi-border);
+  border-radius: 12px;
+  box-shadow: 0 18px 44px -14px rgba(15, 23, 42, 0.30), 0 4px 12px rgba(15, 23, 42, 0.07);
+  animation: ngiSelectIn 0.16s ease;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--ngi-border) transparent;
+  &::-webkit-scrollbar { width: 8px; }
+  &::-webkit-scrollbar-thumb { background: var(--ngi-border); border-radius: 999px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+}
+
+.ngi-reg-suggest-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  & + & { margin-top: 2px; }
+
+  .ngi-reg-suggest-avatar {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: var(--ngi-primary);
+    background: var(--ngi-bg-coral-tint);
+    border: 1px solid rgba(226, 84, 76, 0.2);
+  }
+
+  .ngi-reg-suggest-main {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+
+    strong {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ngi-heading);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    small {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ngi-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.2px;
+    }
+
+    mark {
+      background: rgba(242, 166, 59, 0.28); // --ngi-tertiary tint
+      color: inherit;
+      border-radius: 3px;
+      padding: 0 1px;
+    }
+  }
+
+  .ngi-reg-suggest-go {
+    flex: 0 0 auto;
+    color: var(--ngi-muted);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease, color 0.15s ease;
+  }
+
+  &.is-active,
+  &:hover {
+    background: var(--ngi-bg-coral-tint);
+
+    .ngi-reg-suggest-go {
+      opacity: 1;
+      transform: translateX(0);
+      color: var(--ngi-primary);
+    }
+  }
+}
+
+.ngi-reg-finder-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 9px 2px 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--ngi-body);
+
+  svg { flex-shrink: 0; margin-top: 2px; color: var(--ngi-secondary); }
+
+  &.is-empty,
+  &.is-error { color: #B91C1C; font-weight: 600; }
+  &.is-ready { color: #047857; font-weight: 600; }
+}
+
+// The picked student — replaces the finder once step 1 is done.
+.ngi-reg-picked {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--ngi-bg-section);
+  border: 1.5px solid var(--ngi-border);
+  margin-bottom: 14px;
+  animation: ngiClosedNoticeIn 0.25s ease;
+
+  .ngi-reg-picked-avatar {
+    flex: 0 0 auto;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    background: var(--ngi-gradient-primary);
+    box-shadow: 0 4px 10px rgba(226, 84, 76, 0.28);
+  }
+
+  .ngi-reg-picked-main {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    strong {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--ngi-heading);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    small {
+      font-size: 11.5px;
+      color: var(--ngi-muted);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ngi-reg-picked-ok {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      color: #047857;
+      font-weight: 700;
+    }
+  }
+
+  .ngi-reg-picked-reset {
+    flex: 0 0 auto;
+    background: transparent;
+    border: 1px solid var(--ngi-border);
+    color: var(--ngi-body);
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 11.5px;
+    font-weight: 600;
+    font-family: var(--ngi-font-primary);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+      border-color: var(--ngi-primary);
+      color: var(--ngi-primary);
+      background: var(--ngi-bg-coral-tint);
+    }
+  }
+
+  @media (max-width: 575px) {
+    flex-wrap: wrap;
+
+    .ngi-reg-picked-reset {
+      flex-basis: 100%;
+      text-align: center;
+    }
+  }
+}
+
+// Shared layout for the three message cards below (locked / prefilled / already).
+%ngi-reg-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 13px;
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+
+  > svg { flex-shrink: 0; margin-top: 2px; }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  strong { font-size: 12.5px; font-weight: 800; }
+}
+
+.ngi-reg-locked {
+  @extend %ngi-reg-note;
+  background: var(--ngi-bg-section);
+  border: 1.5px dashed var(--ngi-border);
+  color: var(--ngi-body);
+
+  > svg { color: var(--ngi-muted); }
+  strong { color: var(--ngi-heading); }
+}
+
+.ngi-reg-prefill-banner {
+  @extend %ngi-reg-note;
+  background: rgba(16, 185, 129, 0.08); // --ngi-success tint
+  border: 1.5px solid rgba(16, 185, 129, 0.35);
+  color: #065f46;
+  animation: ngiClosedNoticeIn 0.25s ease;
+
+  strong { color: #065f46; }
+}
+
+.ngi-reg-already {
+  @extend %ngi-reg-note;
+  background: var(--ngi-bg-coral-tint);
+  border: 1.5px solid rgba(226, 84, 76, 0.3);
+  color: var(--ngi-body);
+
+  > svg { color: var(--ngi-primary); }
+  strong { color: var(--ngi-primary); }
+}
+
+// "edited" tag beside a label whose pre-filled value was changed.
+.ngi-reg-edited-tag {
+  margin-left: 6px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #92400e;
+  background: rgba(242, 166, 59, 0.22); // --ngi-tertiary tint
+  animation: ngiClosedNoticeIn 0.2s ease;
+}
+
+// Academic details group — the two mandatory numeric fields sit in a soft panel so
+// they read as "the new bit" of a pre-filled form.
+.ngi-reg-academics {
+  padding: 12px 12px 10px;
+  border-radius: 12px;
+  background: var(--ngi-bg-warm-tint);
+  border: 1.5px solid rgba(237, 114, 54, 0.22); // --ngi-secondary
+
+  > label { margin-bottom: 4px; }
+
+  .ngi-reg-row-2 {
+    @media (max-width: 575px) {
+      gap: 10px;
+    }
+  }
+
+  .ngi-reg-field label {
+    flex-wrap: wrap;
+  }
+}
+
+// Quick form (roster-gated intakes): after the student picks themselves there is
+// no form to re-check — just the step-2 note, the two academic fields and the
+// class time slot. The slot picker is a pair of radio cards.
+.ngi-reg-quick-head {
+  @extend %ngi-reg-note;
+  background: rgba(16, 185, 129, 0.08); // --ngi-success tint
+  border: 1.5px solid rgba(16, 185, 129, 0.35);
+  color: #065f46;
+  animation: ngiClosedNoticeIn 0.25s ease;
+
+  strong { color: #065f46; }
+}
+
+.ngi-reg-slot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+
+  @media (max-width: 575px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ngi-reg-slot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1.5px solid var(--ngi-border);
+  background: var(--ngi-bg-section);
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--ngi-font-primary);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+
+  .ngi-reg-slot-ic {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid var(--ngi-border);
+    color: var(--ngi-muted);
+    transition: all 0.2s ease;
+
+    svg { width: 20px; height: 20px; }
+  }
+
+  .ngi-reg-slot-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    small {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--ngi-muted);
+    }
+
+    strong {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--ngi-heading);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+  }
+
+  .ngi-reg-slot-dot {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--ngi-border);
+    background: #fff;
+    display: grid;
+    place-items: center;
+    transition: border-color 0.2s ease;
+
+    &::after {
+      content: '';
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--ngi-gradient-primary);
+      transform: scale(0);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  }
+
+  &:hover {
+    border-color: rgba(226, 84, 76, 0.4);
+    background: var(--ngi-bg-coral-tint);
+  }
+
+  &.active {
+    border-color: var(--ngi-primary);
+    background: var(--ngi-bg-coral-tint);
+    box-shadow: 0 6px 16px rgba(226, 84, 76, 0.14);
+
+    .ngi-reg-slot-ic {
+      background: var(--ngi-gradient-primary);
+      border-color: transparent;
+      color: #fff;
+    }
+
+    .ngi-reg-slot-body strong { color: var(--ngi-primary); }
+
+    .ngi-reg-slot-dot {
+      border-color: var(--ngi-primary);
+      &::after { transform: scale(1); }
+    }
+  }
+
+  @media (max-width: 575px) {
+    padding: 11px 12px;
+    .ngi-reg-slot-ic { width: 36px; height: 36px; }
+  }
+}
+
+.ngi-reg-slots.has-error .ngi-reg-slot {
+  border-color: rgba(239, 68, 68, 0.55);
+}
+
+// Program Preview Box
+.ngi-reg-program-preview {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid;
+  transition: all 0.25s ease;
+
+  .ngi-reg-program-preview-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .ngi-reg-program-icon-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    background: #FFFFFF;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .ngi-reg-program-details {
+    flex: 1;
+  }
+
+  .ngi-reg-program-tags {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 2px;
+
+    .ngi-reg-tag-code {
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: #FFFFFF;
+      color: var(--ngi-heading);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .ngi-reg-tag-badge {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--ngi-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .ngi-reg-tag-year {
+      font-size: 9.5px;
+      color: var(--ngi-muted);
+      font-weight: 600;
+    }
+  }
+
+  .ngi-reg-program-title {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ngi-heading);
+    margin: 0;
+
+    strong {
+      color: var(--ngi-primary);
+      font-weight: 700;
+    }
+  }
+
+  .ngi-reg-program-desc {
+    font-size: 11.5px;
+    color: var(--ngi-body);
+    line-height: 1.4;
+    margin: 0;
+  }
+}
+
+// CTA button
+.ngi-reg-submit-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+
+  .ngi-reg-submit-btn {
+    width: 100%;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--ngi-gradient-primary);
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--ngi-font-primary);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(226, 84, 76, 0.32);
+    }
+
+    &:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+    }
+  }
+
+  .ngi-reg-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #FFFFFF;
+    border-radius: 50%;
+    animation: ngiSpin 0.7s linear infinite;
+  }
+
+  .ngi-reg-terms-text {
+    font-size: 10.5px;
+    color: var(--ngi-muted);
+    font-weight: 500;
+    text-align: center;
+  }
+}
+
+// SUCCESS STATE
+// ============================================
+// REGISTRATION MODAL — CLOSED INTAKE PANEL
+// What the modal shows instead of a form once an intake stops accepting
+// entries. Centred like the success card, muted instead of celebratory.
+// ============================================
+.ngi-reg-closed-card {
+  text-align: center;
+  padding: 2px 4px;
+  animation: ngiClosedNoticeIn 0.28s ease;
+
+  .ngi-reg-closed-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    color: var(--ngi-primary);
+    background: var(--ngi-bg-coral-tint);
+    border: 2px solid rgba(226, 84, 76, 0.22); // --ngi-primary
+    box-shadow: 0 8px 20px rgba(226, 84, 76, 0.12);
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--ngi-heading);
+    line-height: 1.3;
+    margin-bottom: 7px;
+  }
+
+  .ngi-reg-closed-sub {
+    font-size: 13px;
+    color: var(--ngi-body);
+    line-height: 1.55;
+    max-width: 440px;
+    margin: 0 auto 18px;
+
+    strong { color: var(--ngi-heading); font-weight: 700; }
+  }
+
+  // Status of every intake, so the answer to "what about the others?" is on
+  // screen rather than one more message to the team.
+  .ngi-reg-closed-list {
+    list-style: none;
+    margin: 0 auto 16px;
+    padding: 6px;
+    max-width: 440px;
+    border-radius: 12px;
+    background: var(--ngi-bg-section);
+    border: 1px solid var(--ngi-border);
+    text-align: left;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 8px;
+
+      + li { margin-top: 2px; }
+
+      &.is-current {
+        background: var(--ngi-bg-body);
+        box-shadow: inset 0 0 0 1.5px rgba(226, 84, 76, 0.28); // --ngi-primary
+      }
+    }
+  }
+
+  .ngi-reg-closed-list__main {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+    flex: 1;
+
+    strong {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--ngi-heading);
+      line-height: 1.3;
+    }
+
+    small {
+      font-size: 11px;
+      color: var(--ngi-muted);
+      line-height: 1.35;
+    }
+  }
+
+  .ngi-reg-closed-list__tag {
+    flex-shrink: 0;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--ngi-muted);
+
+    &.is-open {
+      background: rgba(16, 185, 129, 0.14); // --ngi-success
+      color: #047857;
+      box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.4);
+    }
+  }
+
+  // Shown only while another intake is live — a one-tap way across to it.
+  .ngi-reg-closed-switch {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .ngi-reg-closed-switch__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border: none;
+    border-radius: 10px;
+    background: var(--ngi-gradient-primary);
+    color: #fff;
+    font-family: var(--ngi-font-primary);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.22s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--ngi-shadow-coral-glow);
+    }
+  }
+
+  .ngi-reg-closed-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    .ngi-btn-whatsapp-join {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 24px;
+      border-radius: 10px;
+      background: var(--ngi-whatsapp);
+      color: #FFFFFF;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.22s ease;
+      width: 100%;
+      max-width: 380px;
+
+      &:hover {
+        background: var(--ngi-whatsapp-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(37, 211, 102, 0.3); // --ngi-whatsapp
+      }
+    }
+
+    .ngi-btn-done {
+      background: transparent;
+      border: 1px solid var(--ngi-border);
+      color: var(--ngi-body);
+      padding: 8px 24px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--ngi-font-primary);
+
+      &:hover {
+        background: var(--ngi-bg-section);
+        color: var(--ngi-heading);
+      }
+    }
+  }
+
+  .ngi-reg-closed-foot {
+    margin: 14px auto 0;
+    max-width: 380px;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--ngi-muted);
+  }
+
+  @media (max-width: 575px) {
+    .ngi-reg-closed-icon {
+      width: 52px;
+      height: 52px;
+      margin-bottom: 12px;
+
+      svg { width: 25px; height: 25px; }
+    }
+
+    h3 { font-size: 17.5px; }
+    .ngi-reg-closed-sub { font-size: 12.5px; margin-bottom: 15px; }
+
+    .ngi-reg-closed-list li { padding: 8px; gap: 8px; }
+    .ngi-reg-closed-list__main strong { font-size: 12px; }
+    .ngi-reg-closed-list__main small { font-size: 10.5px; }
+    .ngi-reg-closed-list__tag { padding: 3px 8px; font-size: 9px; }
+
+    .ngi-reg-closed-switch__btn,
+    .ngi-reg-closed-actions .ngi-btn-whatsapp-join,
+    .ngi-reg-closed-actions .ngi-btn-done { width: 100%; justify-content: center; }
+
+    .ngi-reg-closed-foot { font-size: 11px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+
+    .ngi-reg-closed-switch__btn:hover,
+    .ngi-reg-closed-actions .ngi-btn-whatsapp-join:hover { transform: none; }
+  }
+}
+
+.ngi-reg-success-card {
+  text-align: center;
+  padding: 10px 6px;
+
+  .ngi-reg-success-icon-wrap {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--ngi-bg-coral-tint);
+    border: 2px solid rgba(226, 84, 76, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 20px rgba(226, 84, 76, 0.15);
+
+    .ngi-reg-success-icon {
+      color: var(--ngi-primary);
+    }
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--ngi-heading);
+    margin-bottom: 6px;
+  }
+
+  .ngi-reg-success-sub {
+    font-size: 13px;
+    color: var(--ngi-body);
+    line-height: 1.5;
+    max-width: 460px;
+    margin: 0 auto 18px;
+
+    strong {
+      color: var(--ngi-heading);
+    }
+  }
+
+  .ngi-reg-id-box {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 10px 22px;
+    border-radius: 12px;
+    background: var(--ngi-bg-section);
+    border: 1.5px dashed var(--ngi-primary);
+    margin-bottom: 20px;
+
+    small {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--ngi-muted);
+      font-weight: 700;
+    }
+
+    strong {
+      font-size: 18px;
+      color: var(--ngi-primary);
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  // The program's own WhatsApp group — the one step left after registering, so
+  // it sits right under the ID and is the loudest thing on the card.
+  .ngi-reg-group-cta {
+    max-width: 440px;
+    margin: 0 auto 20px;
+    padding: 16px 18px 18px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(37, 211, 102, 0.13), rgba(37, 211, 102, 0.05)); // --ngi-whatsapp
+    border: 1.5px solid rgba(37, 211, 102, 0.42); // --ngi-whatsapp
+    text-align: center;
+
+    &__title {
+      margin: 0 0 4px;
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ngi-whatsapp-hover);
+    }
+
+    &__text {
+      margin: 0 0 14px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--ngi-body);
+
+      strong {
+        color: var(--ngi-heading);
+      }
+    }
+
+    &__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 50px;
+      padding: 12px 20px;
+      border-radius: 13px;
+      background: var(--ngi-whatsapp);
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      box-shadow: 0 10px 24px rgba(37, 211, 102, 0.3); // --ngi-whatsapp
+      animation: ngiJoinPulse 2.2s ease-in-out infinite;
+      transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+
+      svg {
+        flex: none;
+      }
+
+      &:hover,
+      &:focus-visible {
+        background: var(--ngi-whatsapp-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(37, 211, 102, 0.36); // --ngi-whatsapp
+        animation: none;
+
+        .ngi-reg-group-cta__arrow {
+          transform: translateX(3px);
+        }
+      }
+    }
+
+    &__arrow {
+      transition: transform 0.22s ease;
+    }
+
+    @media (max-width: 480px) {
+      padding: 14px 14px 16px;
+
+      &__text {
+        font-size: 12.5px;
+        margin-bottom: 12px;
+      }
+
+      &__btn {
+        font-size: 14px;
+        min-height: 48px;
+        padding: 11px 14px;
+        gap: 8px;
+      }
+    }
+  }
+
+  .ngi-reg-success-details {
+    background: var(--ngi-bg-section);
+    border-radius: 12px;
+    border: 1px solid var(--ngi-border);
+    padding: 12px 18px;
+    max-width: 440px;
+    margin: 0 auto 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+
+    .ngi-reg-success-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+
+      span {
+        color: var(--ngi-muted);
+        font-weight: 500;
+      }
+
+      strong {
+        color: var(--ngi-heading);
+        font-weight: 600;
+      }
+    }
+  }
+
+  .ngi-reg-success-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    .ngi-btn-whatsapp-join {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 24px;
+      border-radius: 10px;
+      background: var(--ngi-whatsapp);
+      color: #FFFFFF;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.22s ease;
+      width: 100%;
+      max-width: 380px;
+
+      &:hover {
+        background: var(--ngi-whatsapp-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(37, 211, 102, 0.3);
+      }
+
+      // Outlined when the program's own group button is shown above it.
+      &--ghost {
+        background: transparent;
+        color: var(--ngi-whatsapp-hover);
+        border: 1.5px solid rgba(37, 211, 102, 0.45); // --ngi-whatsapp
+        padding: 9px 22px;
+        font-size: 13px;
+
+        &:hover {
+          background: rgba(37, 211, 102, 0.08); // --ngi-whatsapp
+          color: var(--ngi-whatsapp-hover);
+          transform: none;
+          box-shadow: none;
+        }
+      }
+    }
+
+    .ngi-btn-done {
+      background: transparent;
+      border: 1px solid var(--ngi-border);
+      color: var(--ngi-body);
+      padding: 8px 24px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--ngi-font-primary);
+
+      &:hover {
+        background: var(--ngi-bg-section);
+        color: var(--ngi-heading);
+      }
+    }
+  }
+}
+
+// Soft ring that breathes around the program-group join button.
+@keyframes ngiJoinPulse {
+  0%, 100% { box-shadow: 0 10px 24px rgba(37, 211, 102, 0.3), 0 0 0 0 rgba(37, 211, 102, 0.38); } // --ngi-whatsapp
+  60% { box-shadow: 0 10px 24px rgba(37, 211, 102, 0.3), 0 0 0 11px rgba(37, 211, 102, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ngi-reg-success-card .ngi-reg-group-cta__btn { animation: none; }
+}
+
+// Mobile Register button in header
+.ngi-mobile-register-link {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 12px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ngi-primary);
+  cursor: pointer;
+  font-family: var(--ngi-font-primary);
+  display: block;
+}
+
+// ============================================================================
+// Announcement pop-up modal (auto-opens once per visitor; reopens via the bell).
+// Laptop & tablet: poster spotlight. Mobile (<=600px): hybrid banner + text.
+// ============================================================================
+@keyframes ngiFlagBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@keyframes ngiFlagDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.65); }
+}
+@keyframes ngiPingRing {
+  0% { transform: scale(0.6); opacity: 0.85; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+.ngi-ann-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 4000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.62);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  overflow-y: auto;
+
+  @media (max-width: 600px) { padding: 14px; }
+}
+
+.ngi-ann-dialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  max-width: min(94vw, 560px);
+  max-height: calc(100vh - 40px);
+  max-height: calc(100dvh - 40px);
+  margin: auto;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--ngi-bg-body);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+.ngi-ann-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover { background: var(--ngi-primary); transform: rotate(90deg); }
+}
+
+// ---- Highlighted "which batch" ribbon across the top of the pop-up ----
+.ngi-ann-ribbon {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 52px; // symmetric so text stays centred while clearing the ✕
+  overflow: hidden;
+  color: #fff;
+  font-family: var(--ngi-font-primary);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  text-align: center;
+  line-height: 1.25;
+  background: linear-gradient(135deg, var(--ngi-primary), var(--ngi-secondary));
+  box-shadow: 0 2px 12px rgba(226, 84, 76, 0.35);
+
+  svg { flex-shrink: 0; }
+  strong { font-weight: 800; }
+
+  // A slow light-sweep so the ribbon catches the eye without being noisy.
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.38) 50%, transparent 70%);
+    transform: translateX(-100%);
+    animation: ngiRibbonShine 3.4s ease-in-out infinite;
+  }
+}
+
+@keyframes ngiRibbonShine {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ngi-ann-ribbon::after { display: none; }
+}
+
+// Scrollable middle section (poster + optional text) — the dialog itself
+// keeps a fixed max-height, so this is what actually scrolls if content
+// (a tall poster, or a poster plus a long note) exceeds the viewport.
+.ngi-ann-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+// ---- Poster — full & uncropped at every breakpoint ----
+// Admin-uploaded posters can be any aspect ratio, so the one safe treatment is
+// "contain": the whole poster always fits, never cropped, regardless of shape.
+.ngi-ann-poster {
+  display: block;
+  line-height: 0;
+  flex-shrink: 0;
+
+  // <picture> is inline by default, which would leave a baseline gap under the
+  // poster; the <source> inside it is what swaps in the phone artwork.
+  picture { display: block; }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: min(90vw, 540px);
+    max-height: 78vh; // desktop/tablet — unchanged from before
+    margin: 0 auto;
+    object-fit: contain;
+  }
+}
+
+// ---- Optional text block below the poster (title/note/etc., if present) ----
+// Desktop/tablet stay exactly as before: poster only, no text block underneath.
+// The text block (title/note/etc.) is a mobile-only addition — see the
+// max-width: 600px override below, which is the only place it's switched on.
+.ngi-ann-textblock {
+  display: none;
+}
+
+.ngi-ann-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-top: 1px solid var(--ngi-border);
+  background: var(--ngi-bg-body);
+}
+
+.ngi-ann-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  padding: 11px 16px;
+  border-radius: 12px;
+  background: var(--ngi-whatsapp);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--ngi-font-primary);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: var(--ngi-transition);
+
+  &:hover { background: var(--ngi-whatsapp-hover); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(37, 211, 102, 0.3); }
+}
+
+.ngi-ann-btn-ghost {
+  flex-shrink: 0;
+  padding: 11px 18px;
+  border-radius: 12px;
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-bg-section);
+  color: var(--ngi-heading);
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--ngi-font-primary);
+  cursor: pointer;
+  transition: var(--ngi-transition);
+
+  &:hover { border-color: var(--ngi-primary); color: var(--ngi-primary); }
+}
+
+@media (max-width: 600px) {
+  .ngi-ann-dialog { max-width: 94vw; border-radius: 18px; }
+  // A web/tablet poster squeezed onto a phone has to stay small or its text
+  // gets unreadable, so it keeps the conservative cap and leans on the text
+  // block below it. A purpose-built 4:5 mobile poster is readable at full
+  // width, so it gets the room to actually fill the screen.
+  .ngi-ann-poster img { max-height: 48vh; }
+  .ngi-ann-poster.has-mobile img { max-height: 64vh; max-width: 100%; }
+  .ngi-ann-ribbon { font-size: 12px; padding: 9px 46px; gap: 6px; }
+  .ngi-ann-textblock { display: flex; flex-direction: column; gap: 10px; padding: 12px 16px 4px; overflow-y: auto; }
+
+  .ngi-ann-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    align-self: flex-start;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ngi-primary);
+    background: var(--ngi-bg-coral-tint);
+    border: 1px solid rgba(226, 84, 76, 0.25);
+    padding: 4px 11px;
+    border-radius: 999px;
+  }
+
+  .ngi-ann-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ngi-primary); }
+
+  .ngi-ann-title { font-size: 20px; font-weight: 800; color: var(--ngi-heading); margin: 0; line-height: 1.15; }
+  .ngi-ann-tagline { font-size: 13px; color: var(--ngi-body); margin: 0; line-height: 1.4; }
+
+  .ngi-ann-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--ngi-body-alt);
+    margin-top: 2px;
+  }
+
+  .ngi-ann-topics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  .ngi-ann-topic-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 11px;
+    border-radius: 10px;
+    background: var(--ngi-bg-section);
+    border: 1px solid var(--ngi-border);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ngi-heading);
+    line-height: 1.2;
+  }
+
+  .ngi-ann-topic-num { flex-shrink: 0; font-size: 11px; font-weight: 800; color: var(--ngi-primary); }
+
+  .ngi-ann-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 2px; }
+
+  .ngi-ann-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--ngi-bg-coral-tint);
+    border: 1px solid rgba(226, 84, 76, 0.2);
+  }
+
+  .ngi-ann-meta-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--ngi-body-alt);
+  }
+
+  .ngi-ann-meta-value { font-size: 15px; font-weight: 800; color: var(--ngi-primary); }
+
+  .ngi-ann-note { font-size: 11.5px; color: var(--ngi-body-alt); margin: 0; font-style: italic; }
+
+  .ngi-ann-actions { flex-direction: column; padding: 12px 16px 16px; }
+  .ngi-ann-btn-primary, .ngi-ann-btn-ghost { width: 100%; }
+}
+
+/* =========================================================================
+   WhatsApp Community pop-up (Community + Year-wise Groups tabs)
+   ========================================================================= */
+.ngi-wa-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 4100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.62);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  overflow-y: auto;
+
+  @media (max-width: 600px) { padding: 14px; align-items: flex-end; }
+}
+
+.ngi-wa-dialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: min(94vw, 440px);
+  max-height: calc(100dvh - 40px);
+  margin: auto;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--ngi-bg-body);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+
+  @media (max-width: 600px) {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 20px 20px 0 0;
+  }
+}
+
+.ngi-wa-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(15, 23, 42, 0.28);
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover { background: var(--ngi-whatsapp-hover); transform: rotate(90deg); }
+}
+
+.ngi-wa-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 22px 18px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--ngi-whatsapp), var(--ngi-whatsapp-hover));
+}
+
+.ngi-wa-head-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.ngi-wa-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  font-family: var(--ngi-font-primary);
+  line-height: 1.25;
+}
+
+.ngi-wa-subtitle {
+  margin: 3px 0 0;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.ngi-wa-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 10px 14px 0;
+  background: var(--ngi-bg-section);
+  border-bottom: 1px solid var(--ngi-border);
+}
+
+.ngi-wa-tab {
+  flex: 1;
+  padding: 11px 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--ngi-font-primary);
+  color: var(--ngi-muted);
+  border-bottom: 2.5px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+
+  &:hover { color: var(--ngi-heading); }
+  &.is-active { color: var(--ngi-whatsapp); border-bottom-color: var(--ngi-whatsapp); }
+}
+
+.ngi-wa-body {
+  padding: 20px 22px 24px;
+  overflow-y: auto;
+}
+
+.ngi-wa-panel-text {
+  margin: 0 0 16px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ngi-body-alt);
+}
+
+.ngi-wa-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 13px 18px;
+  border-radius: 12px;
+  background: var(--ngi-whatsapp);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--ngi-font-primary);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: var(--ngi-transition);
+
+  &:hover { background: var(--ngi-whatsapp-hover); transform: translateY(-2px); box-shadow: 0 8px 22px rgba(37, 211, 102, 0.3); }
+}
+
+.ngi-wa-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ngi-wa-group {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 13px 15px;
+  border-radius: 13px;
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-bg-section);
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--ngi-transition);
+
+  &:hover {
+    border-color: var(--ngi-whatsapp);
+    background: var(--ngi-bg-body);
+    transform: translateY(-2px);
+    box-shadow: var(--ngi-shadow-card);
+
+    .ngi-wa-group-arrow { transform: translateX(3px); color: var(--ngi-whatsapp); }
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.62;
+    &:hover { transform: none; box-shadow: none; border-color: var(--ngi-border); background: var(--ngi-bg-section); }
+  }
+}
+
+.ngi-wa-group-icon {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--ngi-whatsapp);
+  color: #fff;
+}
+
+.ngi-wa-group-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+
+  strong { font-size: 13.5px; font-weight: 700; color: var(--ngi-heading); font-family: var(--ngi-font-primary); }
+  small { font-size: 11.5px; color: var(--ngi-muted); }
+}
+
+/* Raised ordinal suffix — the "st" in 1ˢᵗ Year. `line-height: 0` keeps the
+   <sup> from stretching the row it sits in, so the group card height is
+   identical to a label with no ordinal in it. */
+.ngi-wa-ord {
+  font-size: 0.65em;
+  font-weight: 700;
+  line-height: 0;
+  vertical-align: super;
+  margin-left: 0.5px;
+  letter-spacing: 0.2px;
+}
+
+.ngi-wa-group-arrow {
+  flex-shrink: 0;
+  color: var(--ngi-muted);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* =========================================================================
+   COURSE DETAIL MODAL — redesigned syllabus (Overview · Outcomes ·
+   Practice Journey pipeline · Modules roadmap). Fully responsive.
+   ========================================================================= */
+.ngi-syll { width: 100%; padding: 14px 0 24px; }
+
+/* ---- Sticky section rail ---- */
+.ngi-syll-rail {
+  position: sticky;
+  top: 0;
+  z-index: 6;
+  display: flex;
+  gap: 6px;
+  margin: 0 -24px 10px;
+  padding: 11px 24px;
+  // Opaque so scrolled content never shows through the stuck rail.
+  background: var(--ngi-bg-body);
+  border-bottom: 1px solid var(--ngi-border);
+  box-shadow: 0 6px 14px -10px rgba(15, 23, 42, 0.25);
+  overflow-x: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+
+  @media (max-width: 767px) { margin: 0 -14px 10px; padding: 10px 14px; }
+}
+
+.ngi-syll-rail-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-bg-section);
+  color: var(--ngi-body-alt);
+  font-family: var(--ngi-font-primary);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--ngi-transition);
+
+  svg { opacity: 0.8; }
+  &:hover { color: var(--ngi-primary); border-color: rgba(226, 84, 76, 0.4); }
+  &.is-active {
+    color: #fff;
+    background: var(--ngi-gradient-primary);
+    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(226, 84, 76, 0.28);
+    svg { opacity: 1; }
+  }
+}
+
+// The track's specialty tab (Moon Coder's "Contest Upsolving"): a gradient
+// outline with a slow glow until it becomes the active (filled) pill.
+.ngi-syll-rail-btn.is-highlight:not(.is-active) {
+  color: var(--ngi-primary);
+  border-color: transparent;
+  background:
+    linear-gradient(var(--ngi-bg-section), var(--ngi-bg-section)) padding-box,
+    var(--ngi-gradient-primary) border-box;
+  animation: ngiRailGlow 2.4s ease-in-out infinite;
+  svg { opacity: 1; }
+  &:hover { background: linear-gradient(var(--ngi-bg-coral-tint), var(--ngi-bg-coral-tint)) padding-box, var(--ngi-gradient-primary) border-box; }
+}
+@keyframes ngiRailGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(226, 84, 76, 0.3); }
+  60% { box-shadow: 0 0 0 7px rgba(226, 84, 76, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ngi-syll-rail-btn.is-highlight:not(.is-active) { animation: none; }
+}
+
+/* ---- Section shell + heading ---- */
+.ngi-syll-section { scroll-margin-top: 72px; padding: 8px 0 10px; }
+
+.ngi-syll-head {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  margin: 24px 0 18px;
+
+  .ngi-syll-head-ic {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    color: #fff;
+    background: var(--ngi-gradient-primary);
+    box-shadow: 0 6px 16px rgba(226, 84, 76, 0.26);
+  }
+  .ngi-syll-head-eyebrow {
+    display: block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--ngi-primary);
+  }
+  .ngi-syll-head-title { margin: 2px 0 0; font-size: 19px; font-weight: 800; color: var(--ngi-heading); font-family: var(--ngi-font-primary); }
+  .ngi-syll-head-sub { margin: 3px 0 0; font-size: 13px; color: var(--ngi-muted); line-height: 1.5; }
+}
+
+/* ---- Overview hero + stats ---- */
+.ngi-syll-hero { padding: 4px 0; }
+.ngi-syll-hero-title { margin: 0 0 8px; font-size: 24px; font-weight: 800; color: var(--ngi-heading); line-height: 1.2; font-family: var(--ngi-font-primary); }
+.ngi-syll-hero-lead { margin: 0 0 18px; font-size: 14.5px; line-height: 1.65; color: var(--ngi-body-alt); max-width: 70ch; }
+
+.ngi-syll-stats {
+  display: grid;
+  // `min(160px, 100%)` keeps the column floor from ever exceeding the container,
+  // so the grid can still fall to a single column inside the narrow mobile modal
+  // instead of pushing a fixed 150px track past the edge.
+  grid-template-columns: repeat(auto-fit, minmax(min(160px, 100%), 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+// Compact icon-chip KPI card — icon sits left in a tinted badge, number+label
+// stack tight to its right. Rotating accent (coral → orange → amber) per tile
+// keeps the row feeling alive instead of four identical grey boxes.
+.ngi-syll-stat {
+  --stat-accent: var(--ngi-primary);
+  --stat-tint: var(--ngi-bg-coral-tint);
+  display: flex;
+  align-items: center;
+  // Grid items default to `min-width: auto`, which refuses to shrink below the
+  // widest word inside. Without this a long label ("ROADMAP MILESTONES") blows
+  // the track out and the whole row overflows the modal horizontally.
+  min-width: 0;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-bg-body);
+  box-shadow: var(--ngi-shadow-card);
+  transition: var(--ngi-transition);
+
+  &:nth-child(4n+2) { --stat-accent: var(--ngi-secondary); --stat-tint: var(--ngi-bg-warm-tint); }
+  &:nth-child(4n+3) { --stat-accent: var(--ngi-tertiary); --stat-tint: var(--ngi-bg-warm-offwhite); }
+  &:nth-child(4n+4) { --stat-accent: var(--ngi-primary); --stat-tint: var(--ngi-bg-coral-tint); }
+
+  &:hover { transform: translateY(-2px); box-shadow: var(--ngi-shadow-hover); border-color: color-mix(in srgb, var(--stat-accent) 35%, var(--ngi-border)); }
+
+  .ngi-syll-stat-ic {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    color: var(--stat-accent);
+    background: var(--stat-tint);
+    margin-bottom: 0;
+  }
+
+  .ngi-syll-stat-body { display: flex; flex-direction: column; gap: 0; min-width: 0; flex: 1; line-height: 1.15; }
+  strong { font-size: 18px; font-weight: 800; color: var(--ngi-heading); line-height: 1.15; }
+  // Text values (e.g. "Beginner to Intermediate") run longer than a plain
+  // number — scale down so they don't dominate the tile or force it to grow.
+  &.is-text strong { font-size: 13.5px; }
+  // Labels wrap rather than run off the tile. `nowrap` here was what forced the
+  // stats row wider than the mobile modal.
+  span:last-child {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--ngi-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    overflow-wrap: anywhere;
+  }
+  // Long text values ("Beginner to Intermediate") get the same treatment.
+  &.is-text strong { overflow-wrap: anywhere; }
+}
+
+@media (max-width: 560px) {
+  // `minmax(0, …)` — not `1fr` — so a track may shrink past its min-content.
+  .ngi-syll-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ngi-syll-stat { padding: 9px 11px; gap: 8px; }
+  .ngi-syll-stat .ngi-syll-stat-ic { width: 30px; height: 30px; }
+  .ngi-syll-stat strong { font-size: 15.5px; }
+  // "Beginner to Intermediate" is the widest value we ship; at 13.5px its
+  // longest word still overshoots a half-width tile and would break mid-word.
+  .ngi-syll-stat.is-text strong { font-size: 12px; }
+}
+
+@media (max-width: 380px) {
+  // Two tiles stop being legible below this — go single file.
+  .ngi-syll-stats { grid-template-columns: 1fr; }
+}
+
+.ngi-syll-prereq {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px dashed rgba(237, 114, 54, 0.4);
+  background: var(--ngi-bg-warm-tint);
+  font-size: 13px;
+  color: var(--ngi-body-alt);
+
+  .ngi-syll-prereq-ic { color: var(--ngi-secondary); flex-shrink: 0; }
+  strong { color: var(--ngi-heading); }
+}
+
+/* ---- Outcomes card grid ---- */
+.ngi-outcome-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+}
+.ngi-outcome-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 15px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-bg-body);
+  box-shadow: var(--ngi-shadow-card);
+  transition: var(--ngi-transition);
+
+  &:hover { transform: translateY(-3px); box-shadow: var(--ngi-shadow-hover); border-color: rgba(226, 84, 76, 0.32); }
+
+  p { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--ngi-heading); font-weight: 500; }
+
+  .ngi-outcome-ic {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    color: #fff;
+    &.tone-0 { background: var(--ngi-primary); }
+    &.tone-1 { background: var(--ngi-secondary); }
+    &.tone-2 { background: var(--ngi-tertiary); }
+  }
+}
+
+/* ---- Practice Journey pipeline (alternating timeline) ---- */
+.ngi-journey {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 0 4px;
+}
+.ngi-journey-spine {
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--ngi-primary), var(--ngi-secondary), var(--ngi-tertiary));
+  opacity: 0.45;
+}
+.ngi-journey-cap {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-family: var(--ngi-font-primary);
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.ngi-journey-cap--start {
+  background: var(--ngi-bg-section);
+  color: var(--ngi-muted);
+  border: 1px dashed var(--ngi-border);
+  .ngi-journey-cap-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ngi-primary); }
+}
+.ngi-journey-cap--end {
+  margin-top: 10px;
+  color: #fff;
+  background: var(--ngi-gradient-primary);
+  box-shadow: 0 8px 22px rgba(226, 84, 76, 0.32);
+}
+
+.ngi-journey-node {
+  position: relative;
+  width: 100%;
+  display: flex;
+  margin: 16px 0;
+  &.is-left { justify-content: flex-start; }
+  &.is-right { justify-content: flex-end; }
+}
+.ngi-journey-pin {
+  position: absolute;
+  left: 50%;
+  top: 34px;
+  transform: translate(-50%, -50%);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  z-index: 3;
+  background: var(--ngi-gradient-primary);
+  border: 3px solid var(--ngi-bg-body);
+  box-shadow: 0 0 0 3px rgba(226, 84, 76, 0.18);
+}
+
+.ngi-journey-card {
+  position: relative;
+  width: calc(50% - 36px);
+  display: flex;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-bg-body);
+  box-shadow: var(--ngi-shadow-card);
+  transition: var(--ngi-transition);
+
+  /* connector stub from the card to the central spine */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 34px;
+    width: 30px;
+    height: 2px;
+    transform: translateY(-50%);
+    background: linear-gradient(90deg, var(--ngi-primary), var(--ngi-secondary));
+    opacity: 0.55;
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--ngi-shadow-hover);
+    border-color: rgba(226, 84, 76, 0.34);
+    .ngi-journey-figure img { transform: scale(1.05); }
+  }
+}
+.is-left .ngi-journey-card::before { right: -30px; }
+.is-right .ngi-journey-card::before { left: -30px; }
+
+.is-destination .ngi-journey-card {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--ngi-bg-body), var(--ngi-bg-body)) padding-box,
+    var(--ngi-gradient-primary) border-box;
+  border: 2px solid transparent;
+  box-shadow: 0 10px 30px rgba(226, 84, 76, 0.22);
+}
+
+.ngi-journey-figure {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  padding: 4px;
+  background: linear-gradient(135deg, var(--ngi-primary), var(--ngi-tertiary));
+  box-shadow: 0 6px 16px rgba(226, 84, 76, 0.22);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #fff;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+
+  /* Non-square badges (the portrait HackerRank 5-star ones, ~385x418) would
+     lose their edges to `cover` in this square frame — letterbox them on white
+     so the whole badge stays readable. */
+  /* NOTE: never add `overflow: hidden` here — `.ngi-journey-num` is hung
+     outside this box at -9px/-9px and would get clipped. */
+  &.is-contain img {
+    object-fit: contain;
+    padding: 6px;
+    background: #fff;
+  }
+
+  /* A letterboxed badge's white box is wider than its artwork, so the full
+     hover zoom would push white out over the gradient border. Since we can't
+     clip (see note above), ease the zoom back instead. */
+  .ngi-journey-card:hover &.is-contain img { transform: scale(1.02); }
+}
+.ngi-journey-num {
+  position: absolute;
+  top: -9px;
+  left: -9px;
+  z-index: 2;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--ngi-heading);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 800;
+  border: 2px solid var(--ngi-bg-body);
+}
+
+.ngi-journey-body { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+.ngi-journey-headline {
+  h4 { margin: 0; font-size: 15px; font-weight: 800; color: var(--ngi-heading); font-family: var(--ngi-font-primary); line-height: 1.2; }
+  .ngi-journey-caption { display: block; margin-top: 2px; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; color: var(--ngi-secondary); }
+}
+.ngi-journey-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.ngi-journey-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--ngi-bg-coral-tint);
+  border: 1px solid rgba(226, 84, 76, 0.18);
+  color: var(--ngi-heading);
+  font-size: 11.5px;
+  font-weight: 600;
+
+  .ngi-journey-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ngi-primary); flex-shrink: 0; }
+}
+
+/* ---- Modules: "Curriculum Ladder" (numbered accordion spine) ----
+   Replaces the old chip-card grid. A long syllabus (10 modules / 60+ topics)
+   reads as a scannable table of contents; topics reveal on demand. The spine
+   gradient fills down to the deepest open row so the rail doubles as a
+   progress indicator through the course. */
+
+.ngi-modlad {
+  --lad-rail: 52px;    // gutter reserved for the marker column
+  --lad-marker: 42px;
+  --lad-spine-x: 20px; // spine sits on the marker's centre line
+}
+
+/* Summary bar — counts + expand/collapse all */
+.ngi-modlad-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding: 11px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-bg-section);
+}
+
+.ngi-modlad-counts {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.ngi-modlad-count {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ngi-body-alt);
+  white-space: nowrap;
+
+  strong {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+    font-size: 15px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--ngi-heading);
+    margin-right: 3px;
+  }
+}
+
+.ngi-modlad-sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--ngi-tertiary);
+  flex-shrink: 0;
+}
+
+.ngi-modlad-toggleall {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-bg-body);
+  color: var(--ngi-primary);
+  font-family: var(--ngi-font-primary);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--ngi-transition);
+
+  &:hover {
+    border-color: rgba(226, 84, 76, 0.45);
+    background: var(--ngi-bg-coral-tint);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--ngi-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Ladder track + spine */
+.ngi-modlad-track {
+  position: relative;
+  padding-left: var(--lad-rail);
+}
+
+.ngi-modlad-spine {
+  position: absolute;
+  left: var(--lad-spine-x);
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  border-radius: 999px;
+  background: var(--ngi-border);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ngi-modlad-spine-fill {
+  display: block;
+  width: 100%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #E2544C 0%, #ED7236 55%, #F2A63B 100%);
+}
+
+/* Row = one module card, with its number marker hung out into the rail */
+.ngi-modlad-row {
+  position: relative;
+  margin-bottom: 10px;
+  border-radius: 14px;
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-bg-body);
+  box-shadow: var(--ngi-shadow-neutral);
+  transition: border-color var(--ngi-transition), box-shadow var(--ngi-transition), transform var(--ngi-transition);
+
+  &:last-child { margin-bottom: 0; }
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--c-accent, var(--ngi-primary)) 38%, var(--ngi-border));
+    box-shadow: var(--ngi-shadow-card);
+  }
+
+  &.is-open {
+    border-color: color-mix(in srgb, var(--c-accent, var(--ngi-primary)) 45%, var(--ngi-border));
+    box-shadow: var(--ngi-shadow-card);
+  }
+}
+
+.ngi-modlad-marker {
+  position: absolute;
+  left: calc(var(--lad-rail) * -1);
+  top: 10px;
+  z-index: 2;
+  width: var(--lad-marker);
+  height: var(--lad-marker);
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  border: 2px solid color-mix(in srgb, var(--c-accent, var(--ngi-primary)) 35%, var(--ngi-border));
+  background: var(--ngi-bg-body);
+  color: var(--c-accent, var(--ngi-primary));
+  font-family: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.5px;
+  transition: background var(--ngi-transition), color var(--ngi-transition),
+              border-color var(--ngi-transition), box-shadow var(--ngi-transition);
+}
+
+.ngi-modlad-row.is-open .ngi-modlad-marker {
+  border-color: transparent;
+  background: var(--c-grad, var(--ngi-gradient-primary));
+  color: #fff;
+  box-shadow: 0 8px 18px -8px var(--c-accent, var(--ngi-primary));
+}
+
+/* Row header (the whole thing is the toggle) */
+.ngi-modlad-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 62px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--ngi-font-primary);
+
+  &:focus-visible {
+    outline: 2px solid var(--c-accent, var(--ngi-primary));
+    outline-offset: -2px;
+  }
+}
+
+.ngi-modlad-headtext { min-width: 0; }
+
+.ngi-modlad-eyebrow {
+  display: block;
+  font-family: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--c-accent, var(--ngi-primary));
+}
+
+.ngi-modlad-title {
+  display: block;
+  margin-top: 3px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--ngi-heading);
+}
+
+.ngi-modlad-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ngi-modlad-track-tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--c-accent, var(--ngi-primary));
+  background: var(--c-tint, var(--ngi-bg-coral-tint));
+  border: 1px solid color-mix(in srgb, var(--c-accent, var(--ngi-primary)) 22%, transparent);
+}
+
+.ngi-modlad-topiccount {
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--ngi-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ngi-modlad-chevron {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  color: var(--ngi-muted);
+  background: var(--ngi-bg-section);
+  transition: color var(--ngi-transition), background var(--ngi-transition);
+}
+
+.ngi-modlad-row.is-open .ngi-modlad-chevron,
+.ngi-modlad-head:hover .ngi-modlad-chevron {
+  color: var(--c-accent, var(--ngi-primary));
+  background: var(--c-tint, var(--ngi-bg-coral-tint));
+}
+
+/* Expanding topic panel */
+.ngi-modlad-panel { overflow: hidden; }
+
+.ngi-modlad-topics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px 18px;
+  margin: 0 16px;
+  padding: 12px 0 15px;
+  list-style: none;
+  border-top: 1px dashed var(--ngi-border);
+}
+
+.ngi-modlad-topic {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 7px 0;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--ngi-body);
+
+  /* hairline between stacked rows, but not under the last of each column */
+  & + .ngi-modlad-topic { border-top: 1px solid transparent; }
+}
+
+.ngi-modlad-tick {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border-radius: 6px;
+  color: var(--c-accent, var(--ngi-primary));
+  background: var(--c-tint, var(--ngi-bg-coral-tint));
+}
+
+/* ---- Ladder: tablet ---- */
+@media (max-width: 767px) {
+  .ngi-modlad {
+    --lad-rail: 44px;
+    --lad-marker: 36px;
+    --lad-spine-x: 17px;
+  }
+  .ngi-modlad-title { font-size: 15px; }
+  .ngi-modlad-marker { font-size: 13px; border-radius: 11px; }
+}
+
+/* ---- Ladder: mobile ---- */
+@media (max-width: 640px) {
+  .ngi-modlad-topics {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 0 13px;
+  }
+  .ngi-modlad-topic {
+    padding: 8px 0;
+    & + .ngi-modlad-topic { border-top-color: var(--ngi-border); }
+  }
+  .ngi-modlad-head {
+    /* keep a comfortable tap target while the row narrows */
+    min-height: 58px;
+    padding: 11px 13px;
+    gap: 10px;
+  }
+  /* the count is redundant once topics are one-per-line — drop it, keep the chevron */
+  .ngi-modlad-topiccount { display: none; }
+  .ngi-modlad-bar { padding: 10px 13px; }
+}
+
+@media (max-width: 420px) {
+  .ngi-modlad {
+    --lad-rail: 38px;
+    --lad-marker: 30px;
+    --lad-spine-x: 14px;
+  }
+  .ngi-modlad-marker { font-size: 11.5px; border-radius: 9px; border-width: 1.5px; }
+  .ngi-modlad-title { font-size: 14.2px; }
+  .ngi-modlad-track-tag { display: none; }
+  .ngi-modlad-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ngi-modlad-toggleall { width: 100%; }
+}
+
+/* Respect reduced-motion for the CSS-driven transitions too; Framer handles
+   the height/stagger side of it via useReducedMotion. */
+@media (prefers-reduced-motion: reduce) {
+  .ngi-modlad-row,
+  .ngi-modlad-marker,
+  .ngi-modlad-chevron,
+  .ngi-modlad-toggleall { transition: none; }
+}
+
+/* =========================================================================
+   Contest Upsolving — Moon Coder's weekly contest timeline
+   Desktop: seven day columns on one horizontal track (the dot of every column
+   sits on the track at 37px: a 22px day label + 8px gap + half a 15px dot).
+   <=1024px: a vertical timeline, day label left, track at 51px, cards right.
+   The month-end ToriiMinds contest follows as the finale card.
+   ========================================================================= */
+.ngi-contest { padding: 2px 0 6px; }
+
+.ngi-contest-legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.ngi-contest-key {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 5px 11px; border-radius: 999px;
+  font-size: 11.5px; font-weight: 700; color: var(--ngi-body-alt);
+  background: var(--ngi-bg-section); border: 1px solid var(--ngi-border);
+  &::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--ngi-primary); }
+  &.is-biweekly::before { background: var(--ngi-tertiary); }
+  &.is-upsolve::before { background: transparent; border: 2px dashed var(--ngi-muted); }
+  &.is-monthly::before { background: var(--ngi-gradient-primary); }
+}
+
+.ngi-contest-week {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+}
+.ngi-contest-track {
+  position: absolute;
+  left: 7.14%; right: 7.14%; /* half a column in — from the first dot to the last */
+  top: 37px; height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--ngi-primary), var(--ngi-secondary), var(--ngi-tertiary));
+  opacity: 0.45;
+}
+.ngi-contest-day {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center;
+  min-width: 0;
+}
+.ngi-contest-dayname {
+  height: 22px; line-height: 22px;
+  font-family: var(--ngi-font-primary);
+  font-size: 11.5px; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--ngi-muted);
+  .is-weekly &, .is-biweekly & { color: var(--ngi-heading); }
+}
+.ngi-contest-dot {
+  position: relative; z-index: 2;
+  width: 15px; height: 15px; margin: 8px 0 12px;
+  border-radius: 50%;
+  background: var(--ngi-gradient-primary);
+  border: 3px solid var(--ngi-bg-body);
+  box-shadow: 0 0 0 3px rgba(226, 84, 76, 0.18);
+  .is-biweekly & { background: linear-gradient(135deg, var(--ngi-secondary), var(--ngi-tertiary)); box-shadow: 0 0 0 3px rgba(242, 166, 59, 0.24); }
+  .is-upsolve & { background: var(--ngi-bg-body); border: 2px dashed var(--ngi-muted); box-shadow: none; }
+}
+
+.ngi-contest-card {
+  width: 100%;
+  display: flex; flex-direction: column; align-items: center; gap: 9px;
+  padding: 14px 10px 13px;
+  border-radius: 16px;
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-bg-body);
+  box-shadow: var(--ngi-shadow-card);
+  text-align: center;
+  transition: var(--ngi-transition);
+  &:hover { transform: translateY(-3px); box-shadow: var(--ngi-shadow-hover); border-color: rgba(226, 84, 76, 0.34); }
+  &.is-quiet {
+    border-style: dashed; background: var(--ngi-bg-section); box-shadow: none;
+    &:hover { transform: none; box-shadow: none; border-color: var(--ngi-border); }
+  }
+}
+.ngi-contest-card-body { display: flex; flex-direction: column; align-items: center; gap: 7px; min-width: 0; }
+.ngi-contest-logo {
+  width: 54px; height: 54px; flex-shrink: 0;
+  padding: 3px; border-radius: 15px;
+  background: linear-gradient(135deg, var(--ngi-primary), var(--ngi-tertiary));
+  box-shadow: 0 6px 14px rgba(226, 84, 76, 0.2);
+  img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 12px; background: #fff; }
+}
+.ngi-contest-quiet-ic {
+  width: 40px; height: 40px; flex-shrink: 0;
+  display: grid; place-items: center;
+  border-radius: 12px;
+  color: var(--ngi-muted);
+  background: var(--ngi-bg-body);
+  border: 1px solid var(--ngi-border);
+  svg { width: 18px; height: 18px; }
+}
+.ngi-contest-title {
+  font-family: var(--ngi-font-primary);
+  font-size: 12.5px; font-weight: 800; line-height: 1.3;
+  color: var(--ngi-heading);
+  .is-quiet & { color: var(--ngi-body-alt); }
+}
+.ngi-contest-note { font-size: 11px; line-height: 1.4; color: var(--ngi-muted); }
+.ngi-contest-cadence {
+  display: inline-flex; align-items: center;
+  padding: 3px 9px; border-radius: 999px;
+  font-size: 10.5px; font-weight: 800; letter-spacing: 0.3px; text-transform: uppercase;
+  color: var(--ngi-primary); background: var(--ngi-bg-coral-tint);
+  white-space: nowrap;
+  &.is-biweekly { color: #B45309; background: rgba(242, 166, 59, 0.18); } // amber text on --ngi-tertiary tint
+  &.is-monthly { color: #fff; background: var(--ngi-gradient-primary); }
+}
+
+.ngi-contest-flow { display: flex; flex-direction: column; align-items: center; gap: 6px; margin: 14px 0; }
+.ngi-contest-flow-line {
+  width: 3px; height: 22px; border-radius: 999px;
+  background: linear-gradient(180deg, var(--ngi-primary), var(--ngi-tertiary));
+  opacity: 0.45;
+}
+.ngi-contest-flow-pill {
+  display: inline-flex; align-items: center;
+  padding: 6px 14px; border-radius: 999px;
+  border: 1px dashed var(--ngi-border); background: var(--ngi-bg-section);
+  font-family: var(--ngi-font-primary);
+  font-size: 12px; font-weight: 800; color: var(--ngi-muted);
+  text-align: center;
+}
+
+.ngi-contest-finale {
+  display: flex; align-items: center; gap: 18px;
+  padding: 18px 20px;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--ngi-bg-body), var(--ngi-bg-body)) padding-box,
+    var(--ngi-gradient-primary) border-box;
+  box-shadow: 0 10px 30px rgba(226, 84, 76, 0.2);
+}
+.ngi-contest-finale-logo {
+  flex-shrink: 0;
+  width: 84px; height: 84px;
+  display: grid; place-items: center;
+  border-radius: 20px;
+  background: var(--ngi-bg-warm-tint);
+  border: 1px solid rgba(237, 114, 54, 0.25); // --ngi-secondary
+  img { display: block; width: 54px; height: 54px; object-fit: contain; }
+}
+.ngi-contest-finale-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 7px; }
+.ngi-contest-finale-eyebrow {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--ngi-secondary);
+}
+.ngi-contest-finale-title { margin: 0; font-family: var(--ngi-font-primary); font-size: 20px; font-weight: 800; line-height: 1.2; color: var(--ngi-heading); }
+.ngi-contest-finale-note { margin: 0; font-size: 13px; line-height: 1.55; color: var(--ngi-body-alt); max-width: 62ch; }
+
+/* ---- Narrow: the strip becomes a vertical timeline ---- */
+@media (max-width: 1024px) {
+  .ngi-contest-week { display: flex; flex-direction: column; gap: 10px; }
+  .ngi-contest-track {
+    left: 51px; right: auto; top: 18px; bottom: 18px;
+    width: 3px; height: auto;
+    background: linear-gradient(180deg, var(--ngi-primary), var(--ngi-secondary), var(--ngi-tertiary));
+  }
+  .ngi-contest-day { flex-direction: row; align-items: flex-start; padding-left: 72px; }
+  .ngi-contest-dayname { position: absolute; left: 0; top: 10px; width: 40px; height: auto; line-height: 1.2; text-align: right; }
+  .ngi-contest-dot { position: absolute; left: 44px; top: 11px; margin: 0; }
+  .ngi-contest-card { flex-direction: row; align-items: center; gap: 12px; padding: 10px 12px; text-align: left; }
+  .ngi-contest-card-body { flex: 1; align-items: flex-start; gap: 5px; }
+  .ngi-contest-logo { width: 46px; height: 46px; border-radius: 13px; img { border-radius: 10px; } }
+  .ngi-contest-quiet-ic { width: 38px; height: 38px; }
+  .ngi-contest-title { font-size: 13px; }
+}
+
+/* ---- Phone: tighter gutter, stacked finale ---- */
+@media (max-width: 480px) {
+  .ngi-contest-track { left: 43px; }
+  .ngi-contest-day { padding-left: 62px; }
+  .ngi-contest-dayname { width: 32px; font-size: 10.5px; }
+  .ngi-contest-dot { left: 36px; }
+  .ngi-contest-finale { flex-direction: column; align-items: flex-start; gap: 14px; padding: 16px; }
+  .ngi-contest-finale-logo { width: 64px; height: 64px; border-radius: 16px; img { width: 42px; height: 42px; } }
+  .ngi-contest-finale-title { font-size: 18px; }
+  .ngi-contest-flow-pill { font-size: 11.5px; padding: 6px 12px; }
+}
+
+/* ---- Tablet ---- */
+@media (max-width: 900px) {
+  .ngi-journey-card { width: calc(50% - 30px); }
+}
+
+/* ---- Mobile: collapse pipeline to a single left-anchored spine ---- */
+@media (max-width: 700px) {
+  .ngi-syll-hero-title { font-size: 21px; }
+
+  .ngi-journey { align-items: stretch; }
+  .ngi-journey-spine { left: 20px; transform: none; }
+  .ngi-journey-cap { align-self: flex-start; margin-left: 0; }
+  .ngi-journey-cap--end { align-self: flex-start; }
+
+  .ngi-journey-node,
+  .ngi-journey-node.is-left,
+  .ngi-journey-node.is-right { justify-content: flex-start; padding-left: 44px; }
+  .ngi-journey-pin { left: 20px; }
+  .ngi-journey-card { width: 100%; }
+  .ngi-journey-card::before,
+  .is-left .ngi-journey-card::before,
+  .is-right .ngi-journey-card::before { left: -24px; right: auto; width: 24px; }
+}
+
+/* ---- Very small: stack the node card contents ---- */
+@media (max-width: 420px) {
+  .ngi-journey-card { flex-direction: column; }
+  .ngi-journey-figure { width: 84px; height: 84px; }
+}
+
+
+// NGI logo spacing. The NGI wordmark fills its box edge to edge while the
+// ToriiMinds logo carries built-in whitespace, so these margins are tuned (by
+// measuring the rendered header) to make the visible X→NGI gap equal the
+// visible ToriiMinds→X gap at every breakpoint.
+.ngi-header .ngi-brand-logo-college { margin-left: 16.5px; }
+
+@media (max-width: 767px) {
+  .ngi-header .ngi-brand-logo-college { margin-left: 11px; }
+}
+
+@media (max-width: 575px) {
+  .ngi-header .ngi-brand-logo-college { margin-left: 10px; }
+}
+
+@media (max-width: 400px) {
+  .ngi-header .ngi-brand-logo-college { margin-left: 9px; }
+}

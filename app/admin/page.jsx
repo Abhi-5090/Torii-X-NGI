@@ -1,4 +1,4 @@
-import AdminHome from '../../components/srkr/admin/admin-home';
+import AdminHome from '../../components/ngi/admin/admin-home';
 
 export const metadata = { title: 'Overview' };
 

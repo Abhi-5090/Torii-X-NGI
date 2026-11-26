@@ -1,4 +1,4 @@
-import AnnouncementsPage from '../../../components/srkr/admin/announcements-page';
+import AnnouncementsPage from '../../../components/ngi/admin/announcements-page';
 
 export const metadata = { title: 'Announcements' };
 

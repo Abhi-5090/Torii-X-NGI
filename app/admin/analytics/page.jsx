@@ -1,4 +1,4 @@
-import RegistrationsAnalytics from '../../../components/srkr/admin/registrations-analytics';
+import RegistrationsAnalytics from '../../../components/ngi/admin/registrations-analytics';
 
 export const metadata = { title: 'Analytics' };
 

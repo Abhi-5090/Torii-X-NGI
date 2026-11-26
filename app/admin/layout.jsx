@@ -1,4 +1,4 @@
-import AdminShell from '../../components/srkr/admin/admin-shell';
+import AdminShell from '../../components/ngi/admin/admin-shell';
 
 // A thin SERVER layout. Keeping it server-side is what preserves `robots: noindex`
 // on pages that list students by name — a client layout would silently drop the

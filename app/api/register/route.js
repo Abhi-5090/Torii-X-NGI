@@ -190,7 +190,7 @@ export async function POST(request) {
         programTrack: validated.badge,
         yearLabel: validated.yearLabel,
         status: 'registered',
-        source: 'srkr-landing-page',
+        source: 'ngi-landing-page',
         createdAt: new Date(),
         updatedAt: new Date()
     };
