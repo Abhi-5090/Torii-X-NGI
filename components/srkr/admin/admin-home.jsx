@@ -125,7 +125,7 @@ export default function AdminHome() {
                     <div className="cp-topbar__titles">
                         <h1 className="cp-topbar__title">Admin Panel</h1>
                         <p className="cp-topbar__sub">
-                            ToriiMinds × SRKR · internal{data ? ` · updated ${formatDateTime(data.generatedAt)}` : ''}
+                            ToriiMinds × NGI · internal{data ? ` · updated ${formatDateTime(data.generatedAt)}` : ''}
                         </p>
                     </div>
                 </div>

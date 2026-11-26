@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
-import { TORIIMINDS_URL, SRKR_COLLEGE_URL } from '../../lib/site-config';
+import { TORIIMINDS_URL, COLLEGE_URL } from '../../lib/site-config';
 
 const navItems = [
     { label: 'Who We Are', href: '#who-we-are' },
@@ -65,7 +65,7 @@ const SrkrHeader = ({ onOpenRegister, onOpenAnnouncements, onOpenWhatsApp, annou
         <>
             <header className="srkr-header" style={isScrolled ? { boxShadow: 'var(--srkr-shadow-hover)' } : {}}>
                 <div className="srkr-header-container">
-                    <div className="srkr-collab-brand" aria-label="ToriiMinds and SRKR Engineering College collaboration">
+                    <div className="srkr-collab-brand" aria-label="ToriiMinds and Nagarjuna Group of Institutions collaboration">
                         <a
                             href={TORIIMINDS_URL}
                             target="_blank"
@@ -76,15 +76,21 @@ const SrkrHeader = ({ onOpenRegister, onOpenAnnouncements, onOpenWhatsApp, annou
                             <img src="/assets/images/srkr/project-images/logo-white.png" alt="ToriiMinds" />
                         </a>
                         <span className="srkr-brand-separator" aria-hidden="true">X</span>
-                        <a
-                            href={SRKR_COLLEGE_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="srkr-brand-logo srkr-brand-logo-college"
-                            aria-label="Visit S.R.K.R. Engineering College website"
-                        >
-                            <img src="/assets/images/srkr/project-images/srkr_logo.jpeg" alt="S.R.K.R. Engineering College" />
-                        </a>
+                        {COLLEGE_URL ? (
+                            <a
+                                href={COLLEGE_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="srkr-brand-logo srkr-brand-logo-college"
+                                aria-label="Visit Nagarjuna Group of Institutions website"
+                            >
+                                <img src="/assets/images/srkr/project-images/ngi.png" alt="Nagarjuna Group of Institutions (NGI)" />
+                            </a>
+                        ) : (
+                            <span className="srkr-brand-logo srkr-brand-logo-college">
+                                <img src="/assets/images/srkr/project-images/ngi.png" alt="Nagarjuna Group of Institutions (NGI)" />
+                            </span>
+                        )}
                     </div>
 
                     <ul className="srkr-nav">

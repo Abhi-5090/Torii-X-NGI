@@ -8,7 +8,7 @@ import {
     FIELD_LIMITS,
     validateRegistration
 } from '../../lib/registration-schema';
-import { WHATSAPP_COMMUNITY_URL } from '../../lib/site-config';
+import { communityForBatch } from '../../lib/site-config';
 
 // Shared props for the clean line-icon set
 const ico = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.9, strokeLinecap: 'round', strokeLinejoin: 'round' };
@@ -439,6 +439,8 @@ const RegistrationModal = ({ isOpen, onClose, initialProgramKey }) => {
     if (!isOpen) return null;
 
     const program = PROGRAM_BY_KEY[formData.programKey] || PROGRAM_BY_KEY[DEFAULT_PROGRAM_KEY];
+    // The NGI WhatsApp community for this program's batch (null if none is set up).
+    const batchCommunity = communityForBatch(program.passoutYear);
     const gated = program.eligibility === 'skillup-roster';
     const blocked = Boolean(identity?.alreadyRegistered);
     const slotLabel = (key) => program.timeSlots?.find((s) => s.key === key)?.label || '';
@@ -739,7 +741,7 @@ const RegistrationModal = ({ isOpen, onClose, initialProgramKey }) => {
                                     <path d="M22 10 12 5 2 10l10 5 10-5Z" />
                                     <path d="M6 12v5c0 1 2.7 2.5 6 2.5s6-1.5 6-2.5v-5" />
                                 </svg>
-                                <span>SRKR × ToriiMinds Student Portal</span>
+                                <span>NGI × ToriiMinds Student Portal</span>
                             </div>
                             <h2 id="srkr-reg-title">
                                 {program.open
@@ -808,19 +810,21 @@ const RegistrationModal = ({ isOpen, onClose, initialProgramKey }) => {
                                 )}
 
                                 <div className="srkr-reg-closed-actions">
-                                    <a
-                                        href={WHATSAPP_COMMUNITY_URL}
-                                        target="_blank" rel="noopener noreferrer"
-                                        className="srkr-btn-whatsapp-join"
-                                    >
-                                        <WhatsAppGlyph size={18} />
-                                        <span>Join Official WhatsApp Community</span>
-                                    </a>
+                                    {batchCommunity && (
+                                        <a
+                                            href={batchCommunity.url}
+                                            target="_blank" rel="noopener noreferrer"
+                                            className="srkr-btn-whatsapp-join"
+                                        >
+                                            <WhatsAppGlyph size={18} />
+                                            <span>Join the {batchCommunity.label} Community</span>
+                                        </a>
+                                    )}
                                     <button type="button" className="srkr-btn-done" onClick={onClose}>Close</button>
                                 </div>
 
                                 <p className="srkr-reg-closed-foot">
-                                    Every new intake is announced in the ToriiMinds community group first.
+                                    Every new intake is announced in your batch&apos;s NGI WhatsApp community first.
                                 </p>
                             </div>
                         )}
@@ -1140,7 +1144,7 @@ const RegistrationModal = ({ isOpen, onClose, initialProgramKey }) => {
 
                         <h3>Registration Confirmed!</h3>
                         <p className="srkr-reg-success-sub">
-                            Welcome aboard, <strong>{formData.fullName}</strong>! You have been successfully registered for the <strong>{program.programName}</strong> track at SRKR.
+                            Welcome aboard, <strong>{formData.fullName}</strong>! You have been successfully registered for the <strong>{program.programName}</strong> track at NGI.
                         </p>
 
                         <div className="srkr-reg-id-box">
@@ -1194,14 +1198,16 @@ const RegistrationModal = ({ isOpen, onClose, initialProgramKey }) => {
 
                         <div className="srkr-reg-success-actions">
                             {/* Secondary once a program group is shown above; the main action otherwise. */}
-                            <a
-                                href={WHATSAPP_COMMUNITY_URL}
-                                target="_blank" rel="noopener noreferrer"
-                                className={`srkr-btn-whatsapp-join${program.whatsappGroup ? ' srkr-btn-whatsapp-join--ghost' : ''}`}
-                            >
-                                <WhatsAppGlyph size={18} />
-                                <span>Join Official WhatsApp Community</span>
-                            </a>
+                            {batchCommunity && (
+                                <a
+                                    href={batchCommunity.url}
+                                    target="_blank" rel="noopener noreferrer"
+                                    className={`srkr-btn-whatsapp-join${program.whatsappGroup ? ' srkr-btn-whatsapp-join--ghost' : ''}`}
+                                >
+                                    <WhatsAppGlyph size={18} />
+                                    <span>Join the {batchCommunity.label} Community</span>
+                                </a>
+                            )}
 
                             <button type="button" className="srkr-btn-done" onClick={onClose}>Done</button>
                         </div>

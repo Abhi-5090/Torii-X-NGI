@@ -60,7 +60,7 @@ export default function LoginGate({ onSuccess, notConfigured }) {
             <div className="dash-login-card">
                 <div className="dash-brand-mark">TM</div>
                 <h1>Admin Panel</h1>
-                <p>ToriiMinds × SRKR · analytics, coding profiles and announcements</p>
+                <p>ToriiMinds × NGI · analytics, coding profiles and announcements</p>
 
                 {notConfigured ? (
                     <p className="dash-login-error" style={{ textAlign: 'center' }}>

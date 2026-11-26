@@ -15,22 +15,23 @@ const outfit = Outfit({
   display: 'swap',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://srkr.toriiminds.com';
-const siteName = 'SRKR × ToriiMinds';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ngi.toriiminds.com';
+const siteName = 'NGI × ToriiMinds';
 const description =
-  'ToriiMinds is a comprehensive tech education platform transforming SRKR engineering students into industry-ready professionals through structured coding, AI integration, and career-readiness training — from first year through graduation. Explore 5+ flagship programs and 9 specialized tracks.';
+  'ToriiMinds is a comprehensive tech education platform transforming NGI engineering students into industry-ready professionals through structured coding, AI integration, and career-readiness training — from first year through graduation. Explore 5+ flagship programs and 9 specialized tracks.';
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'SRKR × ToriiMinds | Your Gateway to Tech Excellence',
-    template: '%s | SRKR × ToriiMinds',
+    default: 'NGI × ToriiMinds | Your Gateway to Tech Excellence',
+    template: '%s | NGI × ToriiMinds',
   },
   description,
   applicationName: siteName,
   keywords: [
     'ToriiMinds',
-    'SRKR Engineering College',
+    'Nagarjuna Group of Institutions',
+    'NGI',
     'tech education',
     'coding programs',
     'AI integration',
@@ -61,20 +62,20 @@ export const metadata = {
     locale: 'en_IN',
     url: siteUrl,
     siteName,
-    title: 'SRKR × ToriiMinds | Your Gateway to Tech Excellence',
+    title: 'NGI × ToriiMinds | Your Gateway to Tech Excellence',
     description,
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'SRKR × ToriiMinds — Your Gateway to Tech Excellence',
+        alt: 'NGI × ToriiMinds — Your Gateway to Tech Excellence',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SRKR × ToriiMinds | Your Gateway to Tech Excellence',
+    title: 'NGI × ToriiMinds | Your Gateway to Tech Excellence',
     description,
     images: ['/og-image.png'],
   },

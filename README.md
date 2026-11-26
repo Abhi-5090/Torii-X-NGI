@@ -1,8 +1,8 @@
-# SRKR Collaboration — ToriiMinds Landing Page
+# NGI Collaboration — ToriiMinds Landing Page
 
 ## Overview
 
-This is the official collaboration project between **ToriiMinds** and **SRKR Engineering College, Bhimavaram**. The landing page promotes ToriiMinds programs to SRKR students and serves as the entry point before navigating to the LMS portal.
+This is the official collaboration project between **ToriiMinds** and **Nagarjuna Group of Institutions (NGI)**. The landing page promotes ToriiMinds programs to NGI students and serves as the entry point before navigating to the LMS portal.
 
 **Live Route:** `/` (e.g., `http://localhost:3002`)
 
@@ -48,9 +48,16 @@ This is an independent Next.js project. It has no imports from the main Torii fr
 3. **Programs We Offer** — Ignite Coder (1st yr), SkillUp Coder (2nd yr), AI Ready Engineers (3rd yr), Owl Coder (expert)
 4. **Certifications** — Partner certification logos (AWS, GCP, MongoDB, etc.)
 5. **Our Team** — Profile cards with click-to-view detail modal
-6. **Contact Us / Footer** — Standalone SRKR footer
+6. **Contact Us / Footer** — Standalone NGI footer
 
 ---
+
+## Naming note
+
+The site was adapted from the SRKR collaboration. Internal identifiers (the `components/srkr/` and `public/assets/scss/srkr/` folders, `srkr-*` CSS classes and `--srkr-*` variables) keep their original names; they never appear on the page.
+
+---
+
 
 ## Color System
 

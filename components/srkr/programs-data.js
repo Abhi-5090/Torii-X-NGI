@@ -1,5 +1,5 @@
 // =========================================================================
-// ToriiMinds x SRKR — Programs & Course Syllabus Data
+// ToriiMinds x NGI — Programs & Course Syllabus Data
 // Structured curriculum with concise, high-impact statements for optimal UI readability.
 // =========================================================================
 

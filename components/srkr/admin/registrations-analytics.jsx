@@ -162,7 +162,7 @@ export default function RegistrationsAnalytics() {
             const blob = await res.blob();
             const disposition = res.headers.get('Content-Disposition') || '';
             const match = /filename="?([^"]+)"?/.exec(disposition);
-            const filename = match ? match[1] : `SRKR_Registrations_${p}_${r}.xlsx`;
+            const filename = match ? match[1] : `NGI_Registrations_${p}_${r}.xlsx`;
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;

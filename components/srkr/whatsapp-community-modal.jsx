@@ -1,15 +1,14 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { WHATSAPP_COMMUNITY_URL, WHATSAPP_YEAR_GROUPS } from '../../lib/site-config';
+import { WHATSAPP_BATCH_COMMUNITIES } from '../../lib/site-config';
 
-// Compact pop-up that opens when a visitor clicks "Join Community". Two tabs:
-//   1) Community      → the single official WhatsApp community (all updates)
-//   2) Year-wise Groups → batch-specific groups (1st year, 2nd year, …)
+// Compact pop-up that opens when a visitor clicks "Join Community". Lists the NGI
+// WhatsApp community for each batch (lib/site-config.js); the student picks theirs.
 // Clicking the blurred backdrop, the ✕, or pressing Esc dismisses it.
 // Raises the suffix of any ordinal in a string — "1st Year" renders as 1ˢᵗ Year.
 // Driven by the digit+suffix pair rather than a lookup table, so a 3rd/4th year
-// group added to WHATSAPP_YEAR_GROUPS is handled without touching this file.
+// label added to WHATSAPP_BATCH_COMMUNITIES is handled without touching this file.
 const ORDINAL_RE = /(\d+)(st|nd|rd|th)\b/gi;
 const withOrdinalSup = (text) => {
     const parts = [];
@@ -37,12 +36,10 @@ const WhatsAppIcon = ({ size = 18 }) => (
 
 const WhatsAppCommunityModal = ({ isOpen, onClose }) => {
     const reduceMotion = useReducedMotion();
-    const [tab, setTab] = useState('community');
 
     // Esc to close + lock body scroll while the pop-up is open.
     useEffect(() => {
         if (!isOpen) return undefined;
-        setTab('community'); // always land on the Community tab on open
         const onKey = (e) => { if (e.key === 'Escape') onClose(); };
         document.addEventListener('keydown', onKey);
         const prevOverflow = document.body.style.overflow;
@@ -90,89 +87,49 @@ const WhatsAppCommunityModal = ({ isOpen, onClose }) => {
                         <div className="srkr-wa-head">
                             <span className="srkr-wa-head-icon"><WhatsAppIcon size={22} /></span>
                             <div>
-                                <h3 className="srkr-wa-title">Join our WhatsApp Community</h3>
+                                <h3 className="srkr-wa-title">Join the NGI WhatsApp Community</h3>
                                 <p className="srkr-wa-subtitle">Announcements, results & peer discussions — all in one place.</p>
                             </div>
                         </div>
 
-                        {/* Tabs */}
-                        <div className="srkr-wa-tabs" role="tablist" aria-label="WhatsApp groups">
-                            <button
-                                type="button"
-                                role="tab"
-                                aria-selected={tab === 'community'}
-                                className={`srkr-wa-tab ${tab === 'community' ? 'is-active' : ''}`}
-                                onClick={() => setTab('community')}
-                            >
-                                Community
-                            </button>
-                            <button
-                                type="button"
-                                role="tab"
-                                aria-selected={tab === 'years'}
-                                className={`srkr-wa-tab ${tab === 'years' ? 'is-active' : ''}`}
-                                onClick={() => setTab('years')}
-                            >
-                                Year-wise Groups
-                            </button>
-                        </div>
-
-                        {/* Panels */}
                         <div className="srkr-wa-body">
-                            {tab === 'community' ? (
-                                <div className="srkr-wa-panel" role="tabpanel">
-                                    <p className="srkr-wa-panel-text">
-                                        The official community for all program-wide updates — exam
-                                        schedules, results and important notices reach you here first.
-                                    </p>
-                                    <a
-                                        href={WHATSAPP_COMMUNITY_URL}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="srkr-wa-cta"
-                                    >
-                                        <WhatsAppIcon size={18} />
-                                        <span>Join Community</span>
-                                    </a>
+                            <div className="srkr-wa-panel">
+                                <p className="srkr-wa-panel-text">
+                                    Join the community for your batch — exam schedules, results and
+                                    important notices reach you there first.
+                                </p>
+                                <div className="srkr-wa-groups">
+                                    {WHATSAPP_BATCH_COMMUNITIES.map((g) => {
+                                        const ready = g.url && g.url !== '#';
+                                        return ready ? (
+                                            <a
+                                                key={g.id}
+                                                href={g.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="srkr-wa-group"
+                                            >
+                                                <span className="srkr-wa-group-icon"><WhatsAppIcon size={18} /></span>
+                                                <span className="srkr-wa-group-text">
+                                                    <strong>{g.label}</strong>
+                                                    <small>{withOrdinalSup(g.year)} · Tap to join</small>
+                                                </span>
+                                                <svg className="srkr-wa-group-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                                    <path d="M5 12h14M13 6l6 6-6 6" />
+                                                </svg>
+                                            </a>
+                                        ) : (
+                                            <div key={g.id} className="srkr-wa-group is-disabled" aria-disabled="true">
+                                                <span className="srkr-wa-group-icon"><WhatsAppIcon size={18} /></span>
+                                                <span className="srkr-wa-group-text">
+                                                    <strong>{g.label}</strong>
+                                                    <small>{withOrdinalSup(g.year)} · Link coming soon</small>
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
-                            ) : (
-                                <div className="srkr-wa-panel" role="tabpanel">
-                                    <p className="srkr-wa-panel-text">
-                                        Prefer batch-specific updates? Join your year&apos;s group below.
-                                    </p>
-                                    <div className="srkr-wa-groups">
-                                        {WHATSAPP_YEAR_GROUPS.map((g) => {
-                                            const ready = g.url && g.url !== '#';
-                                            return ready ? (
-                                                <a
-                                                    key={g.id}
-                                                    href={g.url}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="srkr-wa-group"
-                                                >
-                                                    <span className="srkr-wa-group-icon"><WhatsAppIcon size={18} /></span>
-                                                    <span className="srkr-wa-group-text">
-                                                        <strong>{withOrdinalSup(g.label)}</strong>
-                                                        <small>{g.groupName || g.year} · Tap to join</small>
-                                                    </span>
-                                                    <svg className="srkr-wa-group-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                                                        <path d="M5 12h14M13 6l6 6-6 6" />
-                                                    </svg>
-                                                </a>
-                                            ) : (
-                                                <div key={g.id} className="srkr-wa-group is-disabled" aria-disabled="true">
-                                                    <span className="srkr-wa-group-icon"><WhatsAppIcon size={18} /></span>
-                                                    <span className="srkr-wa-group-text">
-                                                        <strong>{withOrdinalSup(g.label)}</strong>
-                                                        <small>{g.year} · Link coming soon</small>
-                                                    </span>
-                                                </div>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            )}
+                            </div>
                         </div>
                     </motion.div>
                 </motion.div>

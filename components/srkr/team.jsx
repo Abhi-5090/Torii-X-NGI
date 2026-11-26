@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import teamData from './team-data';
 
@@ -65,9 +65,10 @@ const Team = () => {
 
     // Members whose portfolio isn't ready yet show a gentle "coming soon" toast that
     // auto-fades, instead of a dead link. Keyed by member id so switching cards clears it.
-    const showComingSoon = (e, member) => {
+    // `what` is the link that isn't ready yet ("Portfolio" or "LinkedIn profile").
+    const showComingSoon = (e, member, what = 'Portfolio') => {
         e.preventDefault();
-        setComingSoonMember(member.id);
+        setComingSoonMember({ id: member.id, what });
     };
 
     // Auto-dismiss the coming-soon toast after a short beat.
@@ -107,6 +108,20 @@ const Team = () => {
         setDirection(-1);
         setCurrentIndex((prev) => (prev - 1 + teamData.length) % teamData.length);
     }, []);
+
+    // With 15 members the avatar pills sit in one horizontally scrolling row.
+    // Keep the active pill in view as the carousel advances. This scrolls the
+    // row itself only, never the page.
+    const avatarsNavRef = useRef(null);
+    useEffect(() => {
+        const nav = avatarsNavRef.current;
+        const pill = nav?.children[currentIndex];
+        if (!nav || !pill) return;
+        // Measure against the row itself (offsetLeft would be relative to the card).
+        const pillLeft = pill.getBoundingClientRect().left - nav.getBoundingClientRect().left + nav.scrollLeft;
+        const target = pillLeft - (nav.clientWidth - pill.offsetWidth) / 2;
+        nav.scrollTo({ left: Math.max(0, target), behavior: reduceMotion ? 'auto' : 'smooth' });
+    }, [currentIndex, reduceMotion]);
 
     const selectMember = (index) => {
         setDirection(index > currentIndex ? 1 : -1);
@@ -188,7 +203,7 @@ const Team = () => {
                                     ‹
                                 </button>
                                 <span className="srkr-team-counter">
-                                    0{currentIndex + 1} <small>/ 0{teamData.length}</small>
+                                    {String(currentIndex + 1).padStart(2, '0')} <small>/ {String(teamData.length).padStart(2, '0')}</small>
                                 </span>
                                 <button
                                     type="button"
@@ -224,13 +239,18 @@ const Team = () => {
                                         </div>
 
                                         <div className="srkr-team-links">
-                                            {activeMember.linkedin && (
+                                            {/* Shown for every member. Without a URL yet, it shows the
+                                                "coming soon" toast instead of a dead link. */}
+                                            {(
                                                 <a
-                                                    href={activeMember.linkedin}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
+                                                    href={activeMember.linkedin || '#'}
+                                                    {...(activeMember.linkedin
+                                                        ? { target: '_blank', rel: 'noopener noreferrer' }
+                                                        : { onClick: (e) => showComingSoon(e, activeMember, 'LinkedIn profile') })}
                                                     className="srkr-team-linkedin-btn"
-                                                    aria-label={`Connect with ${activeMember.name} on LinkedIn`}
+                                                    aria-label={activeMember.linkedin
+                                                        ? `Connect with ${activeMember.name} on LinkedIn`
+                                                        : `${activeMember.name}'s LinkedIn profile — coming soon`}
                                                     title={`${activeMember.name} on LinkedIn`}
                                                 >
                                                     <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true">
@@ -269,7 +289,7 @@ const Team = () => {
                                         </div>
 
                                         <AnimatePresence>
-                                            {comingSoonMember === activeMember.id && (
+                                            {comingSoonMember?.id === activeMember.id && (
                                                 <motion.div
                                                     className="srkr-team-comingsoon-toast"
                                                     role="status"
@@ -283,7 +303,7 @@ const Team = () => {
                                                         <circle cx="12" cy="12" r="9" />
                                                         <path d="M12 7v5l3 2" />
                                                     </svg>
-                                                    <span>Portfolio will be updated soon</span>
+                                                    <span>{comingSoonMember.what} will be updated soon</span>
                                                 </motion.div>
                                             )}
                                         </AnimatePresence>
@@ -330,7 +350,7 @@ const Team = () => {
                             {/* BOTTOM CONTROLS & AVATAR THUMBNAIL SELECTOR */}
                             <div className="srkr-team-bottom-controls">
                                 {/* Thumbnail Avatars */}
-                                <div className="srkr-team-avatars-nav" role="tablist" aria-label="Team members">
+                                <div className="srkr-team-avatars-nav" role="tablist" aria-label="Team members" ref={avatarsNavRef}>
                                     {teamData.map((member, idx) => (
                                         <button
                                             key={member.id}

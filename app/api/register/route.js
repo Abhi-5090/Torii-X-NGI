@@ -10,7 +10,7 @@ export const runtime = 'nodejs';
 
 const MAX_BODY_BYTES = 4096;
 
-const buildRegistrationId = () => `TM-SRKR-${100000 + crypto.randomInt(900000)}`;
+const buildRegistrationId = () => `TM-NGI-${100000 + crypto.randomInt(900000)}`;
 
 /** Maps a MongoDB duplicate-key error onto the field the student needs to fix. */
 function duplicateFieldFrom(error) {

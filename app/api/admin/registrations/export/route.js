@@ -75,7 +75,7 @@ export async function GET(request) {
     }
 
     const workbook = new ExcelJS.Workbook();
-    workbook.creator = 'ToriiMinds × SRKR';
+    workbook.creator = 'ToriiMinds × NGI';
     workbook.created = now;
     const sheet = workbook.addWorksheet('Registrations', {
         views: [{ state: 'frozen', ySplit: 3 }]
@@ -84,7 +84,7 @@ export async function GET(request) {
     // ── Title band (rows 1-2) ──
     sheet.mergeCells(1, 1, 1, COLUMNS.length);
     const titleCell = sheet.getCell(1, 1);
-    titleCell.value = 'ToriiMinds × SRKR — Registrations Report';
+    titleCell.value = 'ToriiMinds × NGI — Registrations Report';
     titleCell.font = { name: 'Calibri', size: 15, bold: true, color: { argb: CORAL } };
     titleCell.alignment = { vertical: 'middle' };
     sheet.getRow(1).height = 24;
@@ -146,7 +146,7 @@ export async function GET(request) {
     sheet.autoFilter = { from: { row: 3, column: 1 }, to: { row: 3, column: COLUMNS.length } };
 
     const buffer = await workbook.xlsx.writeBuffer();
-    const filename = `SRKR_Registrations_${program ? `${program.key}_` : ''}${range.key}_${formatIST(now).replace(/[ :]/g, '-')}.xlsx`;
+    const filename = `NGI_Registrations_${program ? `${program.key}_` : ''}${range.key}_${formatIST(now).replace(/[ :]/g, '-')}.xlsx`;
 
     return new NextResponse(buffer, {
         status: 200,

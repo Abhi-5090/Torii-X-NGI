@@ -72,7 +72,7 @@ function readUrlState() {
 }
 
 const EMPTY_ROWS = { students: [], total: 0, page: 1, pages: 1 };
-const ALL_PLACEHOLDER = { code: ALL_PROGRAMS, name: 'All programs', college: 'SRKR', yearLabel: 'Every intake', tagline: 'Every student across every program, ranked together' };
+const ALL_PLACEHOLDER = { code: ALL_PROGRAMS, name: 'All programs', college: 'NGI', yearLabel: 'Every intake', tagline: 'Every student across every program, ranked together' };
 
 export default function CodingClient() {
     const { unauthorized } = useAdmin();
@@ -625,7 +625,7 @@ export default function CodingClient() {
                     <div className="cp-topbar__titles">
                         <h1 className="cp-topbar__title">{program.name}</h1>
                         <p className="cp-topbar__sub">
-                            {program.college || 'SRKR'}
+                            {program.college || 'NGI'}
                             {program.yearLabel ? ` · ${program.yearLabel}` : ''} · Coding profiles
                         </p>
                         <p className="cp-topbar__platforms" aria-label="Platforms tracked">

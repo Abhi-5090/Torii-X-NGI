@@ -3143,6 +3143,7 @@
 }
 
 .srkr-team-right-info {
+  min-width: 0; // let the scrolling avatar row shrink instead of widening the grid column
   padding: 26px 30px 18px;
   display: flex;
   flex-direction: column;
@@ -3552,11 +3553,32 @@
   }
 }
 
+// One scrolling row (not wrapped) so 15 pills don't eat into the highlights in
+// the fixed-height card. The row fades out at both edges to hint at more.
 .srkr-team-avatars-nav {
   display: flex;
   align-items: center;
   gap: 6px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  // Room for the active pill's glow inside the scroll box, cancelled by the
+  // negative margin so the row sits exactly where the original wrapped row did.
+  padding: 6px 2px;
+  margin: -6px 0;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 28px), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 28px), transparent 100%);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > * {
+    scroll-snap-align: center;
+  }
 }
 
 .srkr-team-avatar-thumb-btn {
@@ -7296,3 +7318,16 @@
   .srkr-journey-figure { width: 84px; height: 84px; }
 }
 
+
+// NGI logo spacing. The NGI wordmark fills its box edge to edge (the old SRKR
+// crest had built-in whitespace), so give it a little breathing room from the
+// "x" separator, which keeps its tight negative margins from the rules above.
+.srkr-header .srkr-brand-logo-college { margin-left: 5px; }
+
+@media (max-width: 575px) {
+  .srkr-header .srkr-brand-logo-college { margin-left: 4px; }
+}
+
+@media (max-width: 400px) {
+  .srkr-header .srkr-brand-logo-college { margin-left: 3px; }
+}

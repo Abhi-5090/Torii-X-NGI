@@ -37,7 +37,7 @@ const POSTER_SLOTS = [
         dims: '1080 × 1620px',
         blurb: 'Shown on laptops and tablets.',
         template: '/assets/images/srkr/project-images/announcements/poster-template-web.png',
-        downloadAs: 'SRKR-announcement-template-web-1080x1620.png'
+        downloadAs: 'NGI-announcement-template-web-1080x1620.png'
     },
     {
         key: 'mobile',
@@ -49,7 +49,7 @@ const POSTER_SLOTS = [
         dims: '1080 × 1350px',
         blurb: 'Optional — phones fall back to the web poster if you skip this.',
         template: '/assets/images/srkr/project-images/announcements/poster-template-mobile.png',
-        downloadAs: 'SRKR-announcement-template-mobile-1080x1350.png'
+        downloadAs: 'NGI-announcement-template-mobile-1080x1350.png'
     }
 ];
 

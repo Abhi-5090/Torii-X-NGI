@@ -7,10 +7,10 @@ import AdminShell from '../../components/srkr/admin/admin-shell';
 // passcode cookie.
 export const metadata = {
     title: {
-        default: 'Admin Panel · ToriiMinds × SRKR',
+        default: 'Admin Panel · ToriiMinds × NGI',
         template: '%s · Admin Panel'
     },
-    description: 'Internal ToriiMinds × SRKR admin panel.',
+    description: 'Internal ToriiMinds × NGI admin panel.',
     robots: { index: false, follow: false }
 };
 

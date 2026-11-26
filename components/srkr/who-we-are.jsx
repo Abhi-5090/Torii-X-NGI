@@ -7,7 +7,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 // 3) where and what students learn on, 4) outcomes and the people behind it.
 const gallerySlides = [
 	['Visionary_Leadership_hq.jpg', 'Visionary Leadership', 'Guided by industry visionaries and academic leaders shaping future-ready talent.'],
-	['Official_MOU.jpg', 'Official MOU', 'Strategic institutional collaboration with SRKR to deliver enterprise tech excellence.'],
+	['Official_MOU.jpg', 'Official MOU', 'Strategic institutional collaboration with NGI to deliver enterprise tech excellence.'],
 	['Prarambh_Event.jpg', 'Prarambh Launch', 'Our grand launch ceremony welcoming an entire engineering cohort into the ToriiMinds journey.'],
 	['Bamboo_Coder.jpeg', 'Bamboo Coder', '1st Year foundation track mastering computational logic and hands-on coding in C.'],
 	['SkillUp_Coder.jpeg', 'SkillUp Coder', '2nd Year problem-solving track mastering Data Structures, Algorithms & LeetCode patterns.'],
