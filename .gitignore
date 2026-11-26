@@ -40,3 +40,4 @@ next-env.d.ts
 
 # student data exports — contain names/mobiles/emails; never push these to a shared repo
 *.csv
+.env*
