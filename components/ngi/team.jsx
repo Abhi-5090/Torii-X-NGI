@@ -43,8 +43,13 @@ function RoleText({ role }) {
     );
 }
 
+// The spotlight opens on this member, then continues in the team-data order
+// (wrapping round to the start of the list after the last member).
+const FIRST_MEMBER_ID = 'sudhir';
+const FIRST_MEMBER_INDEX = Math.max(0, teamData.findIndex((m) => m.id === FIRST_MEMBER_ID));
+
 const Team = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const [currentIndex, setCurrentIndex] = useState(FIRST_MEMBER_INDEX);
     const [direction, setDirection] = useState(1);
     const [isPaused, setIsPaused] = useState(false);
     const [isOpeningPortfolio, setIsOpeningPortfolio] = useState(false);
@@ -128,17 +133,31 @@ const Team = () => {
         setCurrentIndex(index);
     };
 
-    // Auto-advance every 5 seconds if not paused
+    // Only auto-advance while the team section is on screen. Otherwise the
+    // spotlight would keep rotating while the visitor is still higher up the
+    // page, and they would arrive part-way through the team instead of at the
+    // first member.
+    const sectionRef = useRef(null);
+    const [inView, setInView] = useState(false);
     useEffect(() => {
-        if (isPaused) return undefined;
+        const el = sectionRef.current;
+        if (!el || typeof IntersectionObserver === 'undefined') { setInView(true); return undefined; }
+        const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.35 });
+        io.observe(el);
+        return () => io.disconnect();
+    }, []);
+
+    // Auto-advance every 5 seconds while visible and not paused
+    useEffect(() => {
+        if (isPaused || !inView) return undefined;
         const timer = setInterval(() => {
             goToNext();
         }, 5000);
         return () => clearInterval(timer);
-    }, [isPaused, goToNext]);
+    }, [isPaused, inView, goToNext]);
 
     return (
-        <section id="team" className="ngi-team">
+        <section id="team" className="ngi-team" ref={sectionRef}>
             <div className="ngi-team-container">
                 {/* Section Title */}
                 <div className="ngi-section-title" data-sal="slide-up" data-sal-delay="100" data-sal-duration="800">

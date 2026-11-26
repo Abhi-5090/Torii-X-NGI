@@ -5,12 +5,75 @@ import ProgramDetailModal from './program-detail-modal';
 
 // Distinct course items linked to programs with rich highlights
 const coursesList = [
+    // ---- 1st Year: Bamboo Coder ----
+    {
+        id: 'bamboo-c',
+        programId: 'bamboo',
+        title: 'C Programming & Logic Building',
+        category: 'core',
+        categoryLabel: 'Foundation',
+        programName: 'Bamboo Coder',
+        programYear: '1st Year',
+        modulesCount: '9 Modules',
+        accentColor: 'var(--ngi-primary)',
+        accentGradient: 'linear-gradient(135deg, var(--ngi-secondary) 0%, var(--ngi-primary) 100%)',
+        accentBg: 'var(--ngi-bg-coral-tint)',
+        icon: (
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2" />
+                <rect x="9" y="9" width="6" height="6" />
+                <line x1="9" y1="1" x2="9" y2="4" />
+                <line x1="15" y1="1" x2="15" y2="4" />
+                <line x1="9" y1="20" x2="9" y2="23" />
+                <line x1="15" y1="20" x2="15" y2="23" />
+                <line x1="20" y1="9" x2="23" y2="9" />
+                <line x1="20" y1="14" x2="23" y2="14" />
+                <line x1="1" y1="9" x2="4" y2="9" />
+                <line x1="1" y1="14" x2="4" y2="14" />
+            </svg>
+        ),
+        description: 'Master computer science fundamentals, memory models, pointer arithmetic, 2D arrays, strings, pointers and structures.',
+        highlights: [
+            'Pointer arithmetic & dynamic memory management',
+            'Searching, sorting & matrix problem solving'
+        ],
+        tags: ['C Fundamentals', 'Pointer Arithmetic', 'Dynamic Memory', 'Structures', 'Modular Design'],
+        courseIndex: 0,
+    },
+    {
+        id: 'bamboo-python',
+        programId: 'bamboo',
+        title: 'Python Programming & Logic Building',
+        category: 'core',
+        categoryLabel: 'Foundation',
+        programName: 'Bamboo Coder',
+        programYear: '1st Year',
+        accentColor: 'var(--ngi-primary)',
+        accentGradient: 'linear-gradient(135deg, var(--ngi-secondary) 0%, var(--ngi-primary) 100%)',
+        accentBg: 'var(--ngi-bg-coral-tint)',
+        modulesCount: '9 Modules',
+        icon: (
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+                <line x1="14" y1="4" x2="10" y2="20" />
+            </svg>
+        ),
+        description: 'Learn to think like a programmer with Python: clean syntax, strong logic building and problem solving with lists, strings, dictionaries, files and OOP basics.',
+        highlights: [
+            'Loops, functions & recursion for logic building',
+            'Lists, strings, dictionaries & sets in practice'
+        ],
+        tags: ['Python Basics', 'Logic Building', 'Lists & Strings', 'Dictionaries & Sets', 'OOP Basics'],
+        courseIndex: 1,
+    },
+    // ---- 2nd Year: SkillUp Coder ----
     {
         id: 'skillup-problem-solving-dsa',
         programId: 'skillup',
-        title: 'Problem Solving & DSA',
+        title: 'Data Structures',
         category: 'dsa',
-        categoryLabel: 'Core DSA',
+        categoryLabel: 'Data Structures',
         programName: 'SkillUp Coder',
         programYear: '2nd Year',
         modulesCount: '10 Modules',
@@ -34,6 +97,119 @@ const coursesList = [
         tags: ['Arrays & Strings', 'Searching & Sorting', 'Hashing & Sets', 'Recursion', 'Linked Lists & Trees'],
         courseIndex: 0,
     },
+    {
+        id: 'skillup-java',
+        programId: 'skillup',
+        title: 'Java Programming',
+        category: 'core',
+        categoryLabel: 'Programming',
+        programName: 'SkillUp Coder',
+        programYear: '2nd Year',
+        accentColor: 'var(--ngi-secondary)',
+        accentGradient: 'linear-gradient(135deg, var(--ngi-tertiary) 0%, var(--ngi-secondary) 100%)',
+        accentBg: 'var(--ngi-bg-warm-tint)',
+        modulesCount: '9 Modules',
+        icon: (
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M17 8h1a3 3 0 0 1 0 6h-1" />
+                <path d="M3 8h14v7a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z" />
+                <line x1="7" y1="2" x2="7" y2="5" />
+                <line x1="11" y1="2" x2="11" y2="5" />
+            </svg>
+        ),
+        description: 'Master Java from the ground up: methods and arrays, object-oriented programming, exception handling and the Collections Framework every Java interview expects.',
+        highlights: [
+            'OOP: encapsulation, inheritance, polymorphism & abstraction',
+            'Collections Framework, lambdas & streams'
+        ],
+        tags: ['Java Fundamentals', 'OOP', 'Exception Handling', 'Collections', 'Streams'],
+        courseIndex: 1,
+    },
+    {
+        id: 'skillup-industry-readiness',
+        programId: 'skillup',
+        title: 'Industry Readiness',
+        category: 'career',
+        categoryLabel: 'Career Skills',
+        programName: 'SkillUp Coder',
+        programYear: '2nd Year',
+        accentColor: 'var(--ngi-secondary)',
+        accentGradient: 'linear-gradient(135deg, var(--ngi-tertiary) 0%, var(--ngi-secondary) 100%)',
+        accentBg: 'var(--ngi-bg-warm-tint)',
+        modulesCount: '7 Modules',
+        icon: (
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" />
+                <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                <line x1="2" y1="13" x2="22" y2="13" />
+            </svg>
+        ),
+        description: 'Bridge college and the workplace: Git and GitHub, web and SQL basics, industry practices, aptitude, communication skills and mock interviews.',
+        highlights: [
+            'Git, GitHub, SQL & industry engineering practices',
+            'Aptitude, resume building & mock interviews'
+        ],
+        tags: ['Git & GitHub', 'SQL', 'Agile', 'Aptitude', 'Mock Interviews'],
+        courseIndex: 2,
+    },
+    // ---- 3rd Year: AI Ready Engineer ----
+    {
+        id: 'aiready-ai-engineer',
+        programId: 'aiready',
+        title: 'AI Engineer',
+        category: 'ai',
+        categoryLabel: 'AI Engineering',
+        programName: 'AI Ready Engineer',
+        programYear: '3rd Year',
+        accentColor: 'var(--ngi-primary)',
+        accentGradient: 'var(--ngi-gradient-primary)',
+        accentBg: 'var(--ngi-bg-warm-offwhite)',
+        modulesCount: '9 Modules',
+        icon: (
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z" />
+                <path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z" />
+            </svg>
+        ),
+        description: 'From Python to production AI: machine learning and deep learning, generative AI with LLM APIs, RAG, AI agents and deploying complete AI applications.',
+        highlights: [
+            'LLM APIs, prompt engineering, RAG & AI agents',
+            'Build and deploy an end-to-end AI capstone'
+        ],
+        tags: ['Machine Learning', 'Generative AI', 'RAG', 'AI Agents', 'Deployment'],
+        courseIndex: 0,
+    },
+    {
+        id: 'aiready-placement-readiness',
+        programId: 'aiready',
+        title: 'Placement Readiness',
+        category: 'dsa',
+        categoryLabel: 'Placements',
+        programName: 'AI Ready Engineer',
+        programYear: '3rd Year',
+        accentColor: 'var(--ngi-primary)',
+        accentGradient: 'var(--ngi-gradient-primary)',
+        accentBg: 'var(--ngi-bg-warm-offwhite)',
+        modulesCount: '10 Modules',
+        icon: (
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M8 21h8" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+                <path d="M7 4h10v5a5 5 0 0 1-10 0z" />
+                <path d="M17 5h3v2a3 3 0 0 1-3 3" />
+                <path d="M7 5H4v2a3 3 0 0 0 3 3" />
+            </svg>
+        ),
+        description: 'Get placement-ready with coding, competitive coding and data structures & algorithms: interview patterns, regular contests and company-wise mock interviews.',
+        highlights: [
+            'DSA interview patterns: trees, graphs & dynamic programming',
+            'Competitive coding contests & company-wise mock interviews'
+        ],
+        tags: ['Coding', 'Competitive Coding', 'DSA', 'Contests', 'Mock Interviews'],
+        courseIndex: 1,
+    },
+    /* HIDDEN (archived): previous AI Ready courses (Full Stack + AI, Flutter + AI, AWS + AI, ServiceNow)
+       are commented out so they are not displayed. Remove this wrapper to show them.
     {
         id: 'aiready-fullstack',
         programId: 'aiready',
@@ -138,40 +314,9 @@ const coursesList = [
         tags: ['Now Platform', 'GlideRecord Scripting', 'Flow Designer', 'Now Assist AI', 'CSA & CAD Prep'],
         courseIndex: 3,
     },
-    {
-        id: 'bamboo-c',
-        programId: 'bamboo',
-        title: 'C Programming & Logic Building',
-        category: 'core',
-        categoryLabel: 'Foundation',
-        programName: 'Bamboo Coder',
-        programYear: '1st Year',
-        modulesCount: '9 Modules',
-        accentColor: 'var(--ngi-primary)',
-        accentGradient: 'linear-gradient(135deg, var(--ngi-secondary) 0%, var(--ngi-primary) 100%)',
-        accentBg: 'var(--ngi-bg-coral-tint)',
-        icon: (
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="4" y="4" width="16" height="16" rx="2" />
-                <rect x="9" y="9" width="6" height="6" />
-                <line x1="9" y1="1" x2="9" y2="4" />
-                <line x1="15" y1="1" x2="15" y2="4" />
-                <line x1="9" y1="20" x2="9" y2="23" />
-                <line x1="15" y1="20" x2="15" y2="23" />
-                <line x1="20" y1="9" x2="23" y2="9" />
-                <line x1="20" y1="14" x2="23" y2="14" />
-                <line x1="1" y1="9" x2="4" y2="9" />
-                <line x1="1" y1="14" x2="4" y2="14" />
-            </svg>
-        ),
-        description: 'Master computer science fundamentals, memory models, pointer arithmetic, 2D arrays, strings, pointers and structures.',
-        highlights: [
-            'Pointer arithmetic & dynamic memory management',
-            'Searching, sorting & matrix problem solving'
-        ],
-        tags: ['C Fundamentals', 'Pointer Arithmetic', 'Dynamic Memory', 'Structures', 'Modular Design'],
-        courseIndex: 0,
-    },
+    */
+    /* HIDDEN: Owl Coder and Moon Coder courses (their programs are hidden in
+       programs-data.js). Remove this wrapper to show them again.
     {
         id: 'owl-cp-dsa',
         programId: 'owlcoder',
@@ -224,6 +369,7 @@ const coursesList = [
         tags: ['Array Math', 'Strings & Palindromes', 'Recursion Stacks', 'HashMaps & HashSets', 'Backtracking'],
         courseIndex: 0,
     }
+    */
 ];
 
 // How many cards to reveal before "View More" kicks in, per viewport.
@@ -339,8 +485,8 @@ const Courses = () => {
                     <div className="ngi-section-title" data-sal="slide-up" data-sal-delay="100" data-sal-duration="800">
                         <h2>Courses We <span>Offer</span></h2>
                         <p>
-                            From foundational programming and algorithmic mastery to enterprise full-stack development, 
-                            mobile engineering, cloud architecture, and automation.
+                            From C and Python foundations in the first year, through data structures, Java and industry
+                            readiness, to AI engineering and placement preparation in the third.
                         </p>
                     </div>
 

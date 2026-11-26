@@ -1,0 +1,959 @@
+// =============================================================
+// Events: "Moments That Define Us" (components/ngi/events.jsx)
+// Carousel of 16:9 event cards + a detail view with a
+// 16:9 / 9:16 / 9:16 / 16:9 image grid. Colours come from the
+// --ngi-* tokens in _ngi-theme.scss.
+// =============================================================
+
+.ngi-events {
+  position: relative;
+  background: var(--ngi-bg-body);
+  padding: 44px 0 64px;
+  overflow-x: clip; // side cards may peek past the viewport edge
+
+  @media (max-width: 767px) { padding: 34px 0 48px; }
+}
+
+.ngi-events-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  opacity: 0.55;
+  z-index: 0;
+}
+.ngi-events-glow-1 {
+  top: -40px; right: 6%;
+  width: 440px; height: 440px;
+  background: radial-gradient(circle, rgba(226, 84, 76, 0.16) 0%, transparent 70%);
+}
+.ngi-events-glow-2 {
+  bottom: 0; left: 4%;
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, rgba(242, 166, 59, 0.14) 0%, transparent 70%);
+}
+
+.ngi-events-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  @media (max-width: 575px) { padding: 0 16px; }
+}
+
+.ngi-events .ngi-section-title {
+  margin-bottom: 30px;
+
+  .ngi-section-badge {
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 32px;
+    @media (max-width: 767px) { font-size: 26px; }
+  }
+
+  p {
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ngi-body);
+    @media (max-width: 767px) { font-size: 13.5px; }
+  }
+}
+
+// -------------------------------------------------------------
+// Carousel
+// -------------------------------------------------------------
+.ngi-events-carousel {
+  --event-card-w: min(720px, 64vw);
+  @media (max-width: 767px) { --event-card-w: 84vw; }
+  @media (max-width: 575px) { --event-card-w: 86vw; }
+}
+
+.ngi-events-stage {
+  position: relative;
+  touch-action: pan-y;
+  user-select: none;
+
+  // Spacer that gives the stage the active card's height.
+  &::before {
+    content: '';
+    display: block;
+    width: var(--event-card-w);
+    aspect-ratio: 16 / 9;
+    margin: 0 auto;
+  }
+}
+
+.ngi-event-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--event-card-w);
+  margin-left: calc(var(--event-card-w) / -2);
+  aspect-ratio: 16 / 9;
+  cursor: pointer;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+
+  &.is-active { cursor: default; }
+}
+
+.ngi-event-flyer {
+  position: relative;
+  transform-origin: 0 0;
+  backface-visibility: hidden;
+
+  // Shadow, radius and position are animated by the FLIP keyframes in JS.
+  &.is-flying {
+    z-index: 40;
+    will-change: transform;
+  }
+}
+
+// The chosen card "lifts" while the others dissolve.
+.ngi-event-card-media {
+  transition: box-shadow 0.44s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ngi-events-carousel.is-opening .ngi-event-card.is-active .ngi-event-card-media {
+  box-shadow: 0 34px 80px rgba(15, 23, 42, 0.30);
+}
+
+.ngi-event-card-media {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--ngi-radius-big);
+  overflow: hidden;
+  background: var(--ngi-bg-section-alt);
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.16);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+.ngi-event-card.is-active:hover .ngi-event-card-media img { transform: scale(1.04); }
+
+.ngi-event-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 20px 20px;
+  border-radius: var(--ngi-radius-big);
+  background: linear-gradient(180deg, rgba(3, 8, 25, 0.28) 0%, rgba(3, 8, 25, 0) 28%, rgba(3, 8, 25, 0) 42%, rgba(3, 8, 25, 0.86) 100%);
+  pointer-events: none;
+
+  .ngi-event-explore-btn { pointer-events: auto; }
+
+  @media (max-width: 575px) { padding: 12px 12px 12px; }
+}
+
+.ngi-event-card:not(.is-active) .ngi-event-card-body { opacity: 0; }
+.ngi-event-card-body { transition: opacity 0.4s ease; }
+
+.ngi-event-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ngi-event-date-chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 58px;
+  padding: 7px 10px 6px;
+  border-radius: 12px;
+  background: var(--ngi-white);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.18);
+  line-height: 1;
+
+  strong {
+    font-family: var(--ngi-font-heading);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--ngi-primary);
+  }
+
+  span {
+    margin-top: 4px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ngi-heading-alt);
+  }
+
+  @media (max-width: 575px) {
+    min-width: 46px;
+    padding: 5px 7px;
+    border-radius: 9px;
+    strong { font-size: 16px; }
+    span { font-size: 8.5px; margin-top: 3px; }
+  }
+}
+
+.ngi-event-category-pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--ngi-white);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  @media (max-width: 575px) { padding: 4px 9px; font-size: 9.5px; }
+}
+
+.ngi-event-card-body {
+  max-width: 560px;
+
+  h3 {
+    margin: 0 0 6px;
+    font-family: var(--ngi-font-primary);
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ngi-white);
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  p {
+    margin: 0 0 14px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.86);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (max-width: 991px) {
+    h3 { font-size: 21px; }
+    p { font-size: 13px; -webkit-line-clamp: 1; margin-bottom: 10px; }
+  }
+
+  @media (max-width: 575px) {
+    h3 { font-size: 15.5px; margin-bottom: 8px; }
+    p { display: none; }
+  }
+}
+
+.ngi-event-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: var(--ngi-radius);
+  background: var(--ngi-gradient-primary);
+  color: var(--ngi-white);
+  font-family: var(--ngi-font-primary);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform var(--ngi-transition), box-shadow var(--ngi-transition);
+
+  svg { width: 16px; height: 16px; transition: transform var(--ngi-transition); }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ngi-shadow-coral-glow);
+    svg { transform: translateX(3px); }
+  }
+
+  &:focus-visible { outline: 3px solid rgba(255, 255, 255, 0.85); outline-offset: 2px; }
+
+  @media (max-width: 575px) {
+    padding: 7px 12px;
+    font-size: 12px;
+    border-radius: 8px;
+    svg { width: 13px; height: 13px; }
+  }
+}
+
+// Controls: arrows, autoplay dots, counter
+.ngi-events-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.ngi-events-arrow {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-white);
+  color: var(--ngi-heading);
+  box-shadow: var(--ngi-shadow-neutral);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  svg { width: 18px; height: 18px; }
+
+  &:hover {
+    background: var(--ngi-primary);
+    border-color: var(--ngi-primary);
+    color: var(--ngi-white);
+    box-shadow: var(--ngi-shadow-coral-glow);
+  }
+
+  &:focus-visible { outline: 2px solid var(--ngi-primary); outline-offset: 2px; }
+
+  @media (max-width: 575px) {
+    width: 36px;
+    height: 36px;
+    svg { width: 16px; height: 16px; }
+  }
+}
+
+.ngi-events-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.ngi-events-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: #CBD5E1;
+  overflow: hidden;
+  cursor: pointer;
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease;
+
+  &:hover { background: var(--ngi-muted); }
+
+  &.is-active {
+    width: 34px;
+    background: rgba(226, 84, 76, 0.2);
+  }
+}
+
+.ngi-events-dot-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--ngi-gradient-primary);
+  transform-origin: left center;
+  will-change: transform;
+
+  // Progress is written each frame by the autoplay clock in events.jsx.
+  &.is-static { transform: none !important; }
+}
+
+.ngi-events-counter {
+  min-width: 54px;
+  text-align: center;
+  font-family: var(--ngi-font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ngi-heading);
+
+  small { font-size: 12px; font-weight: 600; color: var(--ngi-muted); }
+}
+
+@media (max-width: 575px) {
+  .ngi-events-controls { gap: 10px; margin-top: 18px; }
+  .ngi-events-controls .ngi-events-counter { display: none; }
+  .ngi-events-dots { gap: 6px; }
+  .ngi-events-dot { width: 7px; height: 7px; }
+  .ngi-events-dot.is-active { width: 26px; }
+}
+
+// -------------------------------------------------------------
+// Detail view
+// -------------------------------------------------------------
+.ngi-event-detail-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.ngi-event-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px 9px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-white);
+  color: var(--ngi-heading);
+  font-family: var(--ngi-font-primary);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--ngi-shadow-neutral);
+  transition: all 0.2s ease;
+
+  svg { width: 17px; height: 17px; transition: transform 0.2s ease; }
+
+  &:hover {
+    border-color: var(--ngi-primary);
+    color: var(--ngi-primary);
+    svg { transform: translateX(-3px); }
+  }
+}
+
+.ngi-event-detail-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ngi-event-detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 600px) minmax(0, 1fr);
+  gap: 44px;
+  align-items: start;
+
+  @media (max-width: 991px) {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  @media (max-width: 767px) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+}
+
+// Image grid: 16:9 on top, two 9:16 side by side, 16:9 at the bottom
+// Photo grid: 16:9 cover on top; below it a square tile beside two stacked
+// 16:9 tiles (sized so the square lines up exactly with the stack);
+// then an optional extra row: a cinematic strip (1 photo) or a pair (2).
+.ngi-event-gallery {
+  --gal-gap: 14px;
+  @media (max-width: 575px) { --gal-gap: 10px; }
+}
+
+.ngi-event-trio {
+  display: grid;
+  // Right column r holds two 16:9 tiles; the left square must equal their
+  // stacked height (1.125r + gap), so r = (width - 2 gaps) / 2.125.
+  grid-template-columns: minmax(0, 1fr) calc((100% - 2 * var(--gal-gap)) / 2.125);
+  gap: var(--gal-gap);
+  margin-top: var(--gal-gap);
+}
+
+// Height animates when moving between events with different photo counts.
+// The inner padding and negative margin leave room for the tile shadows.
+.ngi-event-extra {
+  overflow: hidden;
+  margin: 0 -24px -28px;
+}
+
+.ngi-event-extra-inner {
+  display: grid;
+  gap: var(--gal-gap);
+  padding: var(--gal-gap) 24px 28px;
+}
+
+.ngi-event-extra.is-pair .ngi-event-extra-inner { grid-template-columns: 1fr 1fr; }
+
+// Portrait events (layout: 'portrait'): whole 4:5 photos, two large then a row
+// of smaller ones.
+.ngi-event-portrait-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gal-gap);
+  margin-top: var(--gal-gap);
+}
+
+.ngi-event-portrait-row {
+  display: grid;
+  gap: var(--gal-gap);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  &.cols-1 { grid-template-columns: minmax(0, 1fr); }
+  &.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  &.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.ngi-event-tile {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  border-radius: var(--ngi-radius-big);
+  overflow: hidden;
+  background: var(--ngi-bg-section-alt);
+  box-shadow: var(--ngi-shadow-card);
+  cursor: zoom-in;
+
+  &.is-cover,
+  &.is-stack,
+  &.is-half { aspect-ratio: 16 / 9; }
+  &.is-square { grid-row: 1 / span 2; height: 100%; }
+  &.is-strip { aspect-ratio: 21 / 9; }
+  &.is-portrait { aspect-ratio: 4 / 5; }
+
+  // Photo layers: the incoming photo cross-fades over the outgoing one.
+  .ngi-event-tile-media {
+    position: absolute;
+    inset: 0;
+    display: block;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    backface-visibility: hidden;
+
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      backface-visibility: hidden;
+    }
+  }
+
+  &:hover .ngi-event-tile-media { transform: scale(1.05); }
+  .ngi-event-tile-zoom { z-index: 3; }
+  &:hover .ngi-event-tile-zoom { opacity: 1; transform: scale(1); }
+  &:focus-visible { outline: 3px solid var(--ngi-primary); outline-offset: 3px; }
+
+  @media (max-width: 575px) { border-radius: 12px; }
+}
+
+.ngi-event-tile-zoom {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--ngi-heading);
+  opacity: 0;
+  transform: scale(0.85);
+  transition: all 0.25s ease;
+
+  svg { width: 15px; height: 15px; }
+
+  @media (hover: none) { display: none; }
+}
+
+// Story column
+.ngi-event-info {
+  @media (min-width: 992px) {
+    position: sticky;
+    top: 100px;
+  }
+}
+
+.ngi-event-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ngi-primary);
+
+  &::before {
+    content: '';
+    width: 28px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--ngi-gradient-primary);
+  }
+}
+
+// Date / Venue / Format fact tiles
+.ngi-event-info { container-type: inline-size; }
+
+.ngi-event-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 20px;
+}
+
+// Narrow story column: two tiles side by side, the third full width.
+@container (max-width: 540px) {
+  .ngi-event-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ngi-event-fact:last-child { grid-column: 1 / -1; }
+}
+
+.ngi-event-fact {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--ngi-bg-warm-offwhite);
+  border: 1px solid #FBE3D6;
+}
+
+.ngi-event-fact-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: var(--ngi-gradient-primary);
+  color: var(--ngi-white);
+  box-shadow: 0 6px 16px rgba(226, 84, 76, 0.22);
+
+  svg { width: 16px; height: 16px; }
+}
+
+.ngi-event-fact-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  small {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ngi-muted);
+  }
+
+  strong,
+  time {
+    font-size: 13.5px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--ngi-heading);
+  }
+
+  em {
+    font-style: normal;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ngi-body-alt);
+  }
+}
+
+.ngi-event-title {
+  margin: 0 0 16px;
+  font-family: var(--ngi-font-primary);
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--ngi-heading);
+
+  @media (max-width: 991px) { font-size: 28px; }
+  @media (max-width: 575px) { font-size: 24px; }
+}
+
+.ngi-event-lead {
+  margin: 0 0 22px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ngi-body);
+
+  @media (max-width: 575px) { font-size: 15px; }
+}
+
+.ngi-event-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.ngi-event-stat {
+  padding: 14px 14px 12px;
+  border-radius: 14px;
+  background: var(--ngi-bg-warm-offwhite);
+  border: 1px solid #FBE3D6;
+  text-align: center;
+
+  strong {
+    display: block;
+    font-family: var(--ngi-font-heading);
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.1;
+    background: var(--ngi-gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  span {
+    display: block;
+    margin-top: 4px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ngi-muted);
+  }
+
+  @media (max-width: 575px) {
+    padding: 11px 6px 10px;
+    strong { font-size: 21px; }
+    span { font-size: 10px; letter-spacing: 0.03em; }
+  }
+}
+
+.ngi-event-block {
+  margin-bottom: 22px;
+
+  h4 {
+    margin: 0 0 10px;
+    font-family: var(--ngi-font-primary);
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--ngi-heading);
+
+    span { color: var(--ngi-primary); }
+  }
+
+  p {
+    margin: 0 0 10px;
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--ngi-body-alt);
+  }
+}
+
+.ngi-event-highlights {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--ngi-body);
+  }
+}
+
+.ngi-event-check {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin-top: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--ngi-gradient-primary);
+  color: var(--ngi-white);
+
+  svg { width: 12px; height: 12px; }
+}
+
+.ngi-event-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+
+  span {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--ngi-bg-section);
+    border: 1px solid var(--ngi-border);
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ngi-body-alt);
+  }
+}
+
+.ngi-event-upnext {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  border-radius: var(--ngi-radius-big);
+  border: 1px solid var(--ngi-border);
+  background: var(--ngi-white);
+  box-shadow: var(--ngi-shadow-card);
+  text-align: left;
+  font-family: var(--ngi-font-primary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  &:hover {
+    border-color: rgba(226, 84, 76, 0.45);
+    box-shadow: var(--ngi-shadow-hover);
+    transform: translateY(-2px);
+
+    .ngi-event-upnext-arrow { background: var(--ngi-primary); color: var(--ngi-white); transform: translateX(2px); }
+    .ngi-event-upnext-thumb img { transform: scale(1.06); }
+  }
+}
+
+.ngi-event-upnext-thumb {
+  flex-shrink: 0;
+  width: 112px;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+
+  img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease, opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+
+  @media (max-width: 575px) { width: 88px; }
+}
+
+.ngi-event-upnext-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  small {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ngi-primary);
+  }
+
+  strong {
+    font-size: 15.5px;
+    font-weight: 800;
+    color: var(--ngi-heading);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  em {
+    font-style: normal;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ngi-muted);
+  }
+}
+
+.ngi-event-upnext-arrow {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--ngi-bg-coral-tint);
+  color: var(--ngi-primary);
+  transition: all 0.25s ease;
+
+  svg { width: 17px; height: 17px; }
+}
+
+// -------------------------------------------------------------
+// Lightbox
+// -------------------------------------------------------------
+.ngi-event-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 64px 20px 24px;
+  background: var(--ngi-gallery-scrim);
+
+  img {
+    grid-area: 1 / 1;
+    max-width: min(1200px, 100%);
+    max-height: calc(100vh - 170px);
+    object-fit: contain;
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.ngi-event-lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--ngi-white);
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  svg { width: 20px; height: 20px; }
+  &:hover { background: var(--ngi-primary); border-color: var(--ngi-primary); }
+}
+
+.ngi-event-lightbox-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+// Stack lightbox photos so they cross-fade in place instead of jumping.
+.ngi-event-lightbox-frame {
+  display: grid;
+  place-items: center;
+  max-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ngi-event-card-media img,
+  .ngi-event-tile-media,
+  .ngi-event-upnext-thumb img { transition: none; }
+}
+
+// Images fade in once loaded instead of popping in (see FadeInImg in events.jsx).
+.ngi-fade-img { opacity: 0; }
+.ngi-fade-img.is-loaded { opacity: 1; }

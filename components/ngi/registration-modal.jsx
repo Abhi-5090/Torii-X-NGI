@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
     BRANCH_GROUPS,
-    REGISTRATION_PROGRAMS,
+    FORM_PROGRAMS,
     PROGRAM_BY_KEY,
     DEFAULT_PROGRAM_KEY,
     FIELD_LIMITS,
@@ -11,6 +11,13 @@ import {
 import { communityForBatch } from '../../lib/site-config';
 
 // Shared props for the clean line-icon set
+// "3rd Year (2024 – 2028)" -> "3rd year (2024 – 2028 batch) students", for the
+// closed-intake message.
+const closedAudience = (yearLabel) => {
+    const m = /^(.*?) Year \((.*)\)$/.exec(yearLabel || "");
+    return m ? `${m[1]} year (${m[2]} batch) students` : `the ${yearLabel} batch`;
+};
+
 const ico = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.9, strokeLinecap: 'round', strokeLinejoin: 'round' };
 
 // The WhatsApp glyph, used by both join buttons on the success screen.
@@ -416,7 +423,7 @@ const RegistrationModal = ({ isOpen, onClose, initialProgramKey }) => {
     // button) whenever the modal opens; otherwise the first open intake.
     useEffect(() => {
         if (!isOpen) return;
-        const key = initialProgramKey && PROGRAM_BY_KEY[initialProgramKey] ? initialProgramKey : DEFAULT_PROGRAM_KEY;
+        const key = initialProgramKey && PROGRAM_BY_KEY[initialProgramKey] && !PROGRAM_BY_KEY[initialProgramKey].hidden ? initialProgramKey : DEFAULT_PROGRAM_KEY;
         setFormData((prev) => ({ ...prev, programKey: key }));
     }, [isOpen, initialProgramKey]);
 
@@ -771,12 +778,12 @@ const RegistrationModal = ({ isOpen, onClose, initialProgramKey }) => {
                                 <h3>The {program.programName} intake has closed</h3>
                                 <p className="ngi-reg-closed-sub">
                                     We are no longer accepting registrations
-                                    {program.yearLabel ? ` for the ${program.yearLabel} batch` : ''}. If you already
+                                    {program.yearLabel ? ` for ${closedAudience(program.yearLabel)}` : ''}. If you already
                                     registered, your seat is confirmed — there is nothing more to do.
                                 </p>
 
                                 <ul className="ngi-reg-closed-list">
-                                    {REGISTRATION_PROGRAMS.map((p) => (
+                                    {FORM_PROGRAMS.map((p) => (
                                         <li key={p.key} className={p.key === program.key ? 'is-current' : undefined}>
                                             <span className="ngi-reg-closed-list__main">
                                                 <strong>{p.programName}</strong>
@@ -791,9 +798,9 @@ const RegistrationModal = ({ isOpen, onClose, initialProgramKey }) => {
 
                                 {/* Only rendered while some other intake is live, so reopening
                                     one never leaves a student stuck on this panel. */}
-                                {REGISTRATION_PROGRAMS.some((p) => p.open) && (
+                                {FORM_PROGRAMS.some((p) => p.open) && (
                                     <div className="ngi-reg-closed-switch">
-                                        {REGISTRATION_PROGRAMS.filter((p) => p.open).map((p) => (
+                                        {FORM_PROGRAMS.filter((p) => p.open).map((p) => (
                                             <button
                                                 key={p.key}
                                                 type="button"
@@ -817,7 +824,7 @@ const RegistrationModal = ({ isOpen, onClose, initialProgramKey }) => {
                                             className="ngi-btn-whatsapp-join"
                                         >
                                             <WhatsAppGlyph size={18} />
-                                            <span>Join the {batchCommunity.label} Community</span>
+                                            <span>Join the {batchCommunity.label}</span>
                                         </a>
                                     )}
                                     <button type="button" className="ngi-btn-done" onClick={onClose}>Close</button>
@@ -1040,7 +1047,7 @@ const RegistrationModal = ({ isOpen, onClose, initialProgramKey }) => {
                                     <small className="ngi-reg-hint"> (Only open intakes can be selected)</small>
                                 </label>
                                 <div className="ngi-reg-year-grid">
-                                    {REGISTRATION_PROGRAMS.map((p) => {
+                                    {FORM_PROGRAMS.map((p) => {
                                         const isClosed = !p.open;
                                         const isSelected = !isClosed && formData.programKey === p.key;
                                         return (
@@ -1205,7 +1212,7 @@ const RegistrationModal = ({ isOpen, onClose, initialProgramKey }) => {
                                     className={`ngi-btn-whatsapp-join${program.whatsappGroup ? ' ngi-btn-whatsapp-join--ghost' : ''}`}
                                 >
                                     <WhatsAppGlyph size={18} />
-                                    <span>Join the {batchCommunity.label} Community</span>
+                                    <span>Join the {batchCommunity.label}</span>
                                 </a>
                             )}
 

@@ -12,6 +12,7 @@ const NgiFooter = () => {
     { label: 'Programs', href: '#programs' },
     { label: 'Courses', href: '#courses' },
     { label: 'Team', href: '#team' },
+    { label: 'Events', href: '#events' },
   ];
 
   return (

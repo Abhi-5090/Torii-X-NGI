@@ -114,6 +114,33 @@ const buildRoadmap = (cert, hackerRank) => [cert, hackerRank, ...SHARED_ROADMAP]
 const BAMBOO_ROADMAP = buildRoadmap(CISCO_C_CERT, HACKERRANK_C_BADGE);
 const SKILLUP_ROADMAP = buildRoadmap(CISCO_CPP_CERT, HACKERRANK_CPP_BADGE);
 
+const HACKERRANK_PYTHON_BADGE = {
+    image: `${JOURNEY_DIR}/HackerRank_logo.png`,
+    fit: 'contain',
+    label: 'HackerRank — Python (5 Star)',
+    caption: 'Topic-wise mastery',
+    tags: ['5-Star Python Badge', 'Problem-Solving Practice', 'Topic-Wise Problem Solving', 'Mixed-Concept Problem Solving']
+};
+
+const HACKERRANK_JAVA_BADGE = {
+    image: `${JOURNEY_DIR}/HackerRank_logo.png`,
+    fit: 'contain',
+    label: 'HackerRank — Java (5 Star)',
+    caption: 'Topic-wise mastery',
+    tags: ['5-Star Java Badge', 'Problem-Solving Practice', 'OOP Problem Solving', 'Collections Practice']
+};
+
+const roadmapStep = (label) => SHARED_ROADMAP.find((step) => step.label === label);
+const PYTHON_ROADMAP = [HACKERRANK_PYTHON_BADGE, ...SHARED_ROADMAP];
+const JAVA_ROADMAP = [HACKERRANK_JAVA_BADGE, ...SHARED_ROADMAP];
+// Industry Readiness and AI Engineer are project- and career-focused: build a
+// portfolio on GitHub, earn the ToriiMinds certificate, then interview.
+const CAREER_ROADMAP = [
+    { ...roadmapStep('GitHub'), caption: 'Build your project portfolio', tags: ['Git Version Control', 'Portfolio Projects'] },
+    roadmapStep('ToriiMinds — Course Completion'),
+    roadmapStep('Interview Preparation'),
+];
+
 // Moon Coder's specialty — "Contest Upsolving". Instead of the certificate
 // pipeline above, this track runs a standing weekly contest timeline: CodeChef
 // on Monday and Wednesday, LeetCode's Biweekly on Saturday (every other week)
@@ -279,6 +306,117 @@ export const programsData = [
                     }
                 ],
                 journey: BAMBOO_ROADMAP
+            },
+            {
+                id: 'bamboo-python',
+                title: 'Python Programming & Logic Building',
+                level: 'Beginner to Intermediate',
+                overview: 'Learn to think like a programmer with Python: clean syntax, strong logic building and hands-on problem solving with lists, strings, dictionaries, files and object-oriented basics.',
+                outcomes: [
+                    'Write, run and debug clean Python programs independently',
+                    'Build logic with conditions, loops and functions to solve number and pattern problems',
+                    'Work confidently with lists, tuples, strings, dictionaries and sets',
+                    'Handle files and errors gracefully in real programs',
+                    'Model simple real-world problems with classes and objects'
+                ],
+                modules: [
+                    {
+                        moduleNumber: 'Module 1',
+                        title: 'Python Fundamentals',
+                        topics: [
+                            'Installing Python & IDE Setup',
+                            'Variables & Data Types',
+                            'Input & Output',
+                            'Operators & Expressions',
+                            'Problem Solving on Arithmetic'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 2',
+                        title: 'Conditional Statements',
+                        topics: [
+                            'If, Elif & Else',
+                            'Nested Conditions',
+                            'Match-Case',
+                            'Problem Solving on Conditional Statements'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 3',
+                        title: 'Loops & Number Problems',
+                        topics: [
+                            'For Loop & range()',
+                            'While Loop',
+                            'Nested Loops & Patterns',
+                            'Break, Continue & Else on Loops',
+                            'Digit Problems',
+                            'Prime Numbers, Factors, GCD & LCM'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 4',
+                        title: 'Functions & Recursion',
+                        topics: [
+                            'Defining Functions',
+                            'Parameters, Default & Keyword Arguments',
+                            'Return Values & Scope',
+                            'Lambda Functions',
+                            'Recursion',
+                            'Problem Solving on Functions & Recursion'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 5',
+                        title: 'Lists & Tuples',
+                        topics: [
+                            'List Operations & Slicing',
+                            'List Comprehensions',
+                            'Tuples & Unpacking',
+                            'Searching & Sorting',
+                            'Problem Solving on Lists'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 6',
+                        title: 'Strings',
+                        topics: [
+                            'String Methods & Slicing',
+                            'String Formatting',
+                            'Palindromes & Anagrams',
+                            'Problem Solving on Strings'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 7',
+                        title: 'Dictionaries & Sets',
+                        topics: [
+                            'Dictionary Operations',
+                            'Frequency Counting',
+                            'Set Operations',
+                            'Problem Solving on Dictionaries & Sets'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 8',
+                        title: 'Files & Exception Handling',
+                        topics: [
+                            'Reading & Writing Files',
+                            'Try, Except & Finally',
+                            'Raising & Custom Exceptions'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 9',
+                        title: 'Object-Oriented Basics',
+                        topics: [
+                            'Classes & Objects',
+                            'Constructors & Methods',
+                            'Inheritance',
+                            'Mini Project'
+                        ]
+                    }
+                ],
+                journey: PYTHON_ROADMAP
             }
         ]
     },
@@ -500,7 +638,7 @@ export const programsData = [
                dropping duplicated ones. */
             {
                 id: 'skillup-problem-solving-dsa',
-                title: 'Problem Solving & DSA',
+                title: 'Data Structures',
                 level: '',
                 prerequisites: 'Beginner Friendly — Basic Programming Syntax',
                 overview: 'A single end-to-end track that starts from programming fundamentals and problem-solving basics and builds up to core data structures and algorithms — arrays, strings, searching, sorting, hashing, sets, two pointers, sliding window, recursion, stacks, queues, linked lists and binary trees.',
@@ -652,21 +790,427 @@ export const programsData = [
                     ]
                 },
                 journey: SKILLUP_ROADMAP
+            },
+            {
+                id: 'skillup-java',
+                title: 'Java Programming',
+                level: 'Beginner to Intermediate',
+                overview: 'Master Java from the ground up: syntax, methods and arrays, then object-oriented programming, exception handling and the Collections Framework that every Java interview expects.',
+                outcomes: [
+                    'Write clean, structured Java programs with methods and arrays',
+                    'Apply OOP principles: encapsulation, inheritance, polymorphism and abstraction',
+                    'Handle errors robustly with exceptions',
+                    'Use the Collections Framework (lists, maps, sets) to solve problems',
+                    'Use modern Java features like lambdas and streams in a mini project'
+                ],
+                modules: [
+                    {
+                        moduleNumber: 'Module 1',
+                        title: 'Java Fundamentals',
+                        topics: [
+                            'JDK & IDE Setup',
+                            'Structure of a Java Program',
+                            'Variables & Data Types',
+                            'Operators',
+                            'Input with Scanner'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 2',
+                        title: 'Control Flow',
+                        topics: [
+                            'If-Else & Switch',
+                            'For, While & Do-While Loops',
+                            'Pattern Problems',
+                            'Number Problems'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 3',
+                        title: 'Methods & Arrays',
+                        topics: [
+                            'Methods & Method Overloading',
+                            'Recursion',
+                            '1D Arrays',
+                            '2D Arrays',
+                            'Problem Solving on Arrays'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 4',
+                        title: 'Strings',
+                        topics: [
+                            'String & Immutability',
+                            'StringBuilder',
+                            'Common String Methods',
+                            'Problem Solving on Strings'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 5',
+                        title: 'Classes & Objects',
+                        topics: [
+                            'Classes, Objects & Constructors',
+                            'this & static Keywords',
+                            'Access Modifiers & Encapsulation',
+                            'Packages'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 6',
+                        title: 'Inheritance & Polymorphism',
+                        topics: [
+                            'Inheritance & super',
+                            'Method Overriding',
+                            'Abstract Classes',
+                            'Interfaces',
+                            'Runtime Polymorphism'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 7',
+                        title: 'Exception Handling',
+                        topics: [
+                            'Try, Catch & Finally',
+                            'Checked vs Unchecked Exceptions',
+                            'Throw & Throws',
+                            'Custom Exceptions'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 8',
+                        title: 'Collections Framework',
+                        topics: [
+                            'ArrayList & LinkedList',
+                            'HashMap & TreeMap',
+                            'HashSet & TreeSet',
+                            'Iterators',
+                            'Comparable & Comparator'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 9',
+                        title: 'Modern Java & Mini Project',
+                        topics: [
+                            'Lambda Expressions',
+                            'Streams API',
+                            'Mini Project'
+                        ]
+                    }
+                ],
+                journey: JAVA_ROADMAP
+            },
+            {
+                id: 'skillup-industry-readiness',
+                title: 'Industry Readiness',
+                level: 'Intermediate',
+                overview: 'Bridge the gap between college and the workplace: the tools, practices and professional skills companies expect, from Git and SQL to aptitude, communication and mock interviews.',
+                outcomes: [
+                    'Manage code professionally with Git and GitHub',
+                    'Understand how web apps and databases work, and write SQL queries',
+                    'Follow industry practices: Agile, clean code, debugging and testing',
+                    'Clear aptitude and reasoning rounds with confidence',
+                    'Present yourself well with a strong resume, LinkedIn and interview skills'
+                ],
+                modules: [
+                    {
+                        moduleNumber: 'Module 1',
+                        title: 'Git & GitHub',
+                        topics: [
+                            'Version Control Basics',
+                            'Branching & Merging',
+                            'Pull Requests & Collaboration',
+                            'Building a GitHub Portfolio'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 2',
+                        title: 'Web Fundamentals',
+                        topics: [
+                            'How the Web Works',
+                            'HTML & CSS Basics',
+                            'JavaScript Basics'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 3',
+                        title: 'Databases & SQL',
+                        topics: [
+                            'Relational Database Concepts',
+                            'SQL Queries',
+                            'Joins & Aggregations'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 4',
+                        title: 'Software Engineering Practices',
+                        topics: [
+                            'SDLC & Agile',
+                            'Clean Code',
+                            'Debugging & Testing Basics'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 5',
+                        title: 'Aptitude & Reasoning',
+                        topics: [
+                            'Quantitative Aptitude',
+                            'Logical Reasoning',
+                            'Verbal Ability'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 6',
+                        title: 'Communication & Professional Skills',
+                        topics: [
+                            'Resume & LinkedIn Building',
+                            'Professional Email Writing',
+                            'Presentations',
+                            'Group Discussions'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 7',
+                        title: 'Mock Interviews',
+                        topics: [
+                            'HR Interview Practice',
+                            'Technical Interview Practice',
+                            'Feedback & Improvement Plan'
+                        ]
+                    }
+                ],
+                journey: CAREER_ROADMAP
             }
         ]
     },
     {
         id: 'aiready',
         icon: '🤖',
-        name: 'AI Ready Program',
+        name: 'AI Ready Engineer',
         year: '3rd Year',
         banner: '/assets/images/ngi/project-images/Torii_Program_banners/AI_ready_eng.png',
-        tagline: 'Industry-Ready Technologies & AI Engineering',
-        description: 'Comprehensive industry preparation featuring Full Stack Development, Flutter, Cloud, ServiceNow, and modern AI skills.',
+        tagline: 'AI Engineering & Placement Readiness',
+        description: 'Two career tracks for the final stretch: become an AI Engineer who builds real AI products, and get placement-ready with coding, competitive programming and data structures & algorithms.',
         badge: 'Career & Industry Track',
         themeColor: 'var(--ngi-tertiary)',
         accentBg: 'var(--ngi-bg-warm-offwhite)',
         courses: [
+            {
+                id: 'aiready-ai-engineer',
+                title: 'AI Engineer',
+                level: 'Intermediate to Advanced',
+                prerequisites: 'Programming fundamentals (Python preferred)',
+                overview: 'Go from Python to production AI: machine learning and deep learning foundations, then generative AI, LLM APIs, RAG, AI agents and deploying complete AI applications, finishing with a capstone product.',
+                outcomes: [
+                    'Prepare and analyse data with NumPy and Pandas',
+                    'Train and evaluate machine learning models',
+                    'Build with LLM APIs using effective prompt engineering',
+                    'Create RAG pipelines and tool-using AI agents',
+                    'Ship and deploy a complete AI application as a capstone project'
+                ],
+                modules: [
+                    {
+                        moduleNumber: 'Module 1',
+                        title: 'Python for AI',
+                        topics: [
+                            'NumPy',
+                            'Pandas',
+                            'Data Visualization',
+                            'Working with Datasets'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 2',
+                        title: 'Machine Learning Foundations',
+                        topics: [
+                            'Supervised & Unsupervised Learning',
+                            'Regression & Classification',
+                            'Model Evaluation',
+                            'Scikit-learn'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 3',
+                        title: 'Deep Learning Essentials',
+                        topics: [
+                            'Neural Networks',
+                            'Training & Optimization',
+                            'CNNs & Sequence Models',
+                            'PyTorch Basics'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 4',
+                        title: 'Generative AI & LLMs',
+                        topics: [
+                            'How LLMs Work',
+                            'Tokens & Embeddings',
+                            'Prompt Engineering',
+                            'Using LLM APIs (Claude & OpenAI)'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 5',
+                        title: 'RAG & Vector Databases',
+                        topics: [
+                            'Embeddings & Chunking',
+                            'Vector Search',
+                            'Building RAG Pipelines',
+                            'Evaluating Answers'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 6',
+                        title: 'AI Agents & Tool Use',
+                        topics: [
+                            'Agent Loops',
+                            'Tool & Function Calling',
+                            'Model Context Protocol (MCP)',
+                            'Multi-Step Workflows'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 7',
+                        title: 'Building AI Applications',
+                        topics: [
+                            'Backend APIs with FastAPI',
+                            'Frontend Integration',
+                            'Streaming Responses'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 8',
+                        title: 'Deployment & MLOps',
+                        topics: [
+                            'Docker',
+                            'Cloud Deployment',
+                            'Monitoring, Cost & Safety'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 9',
+                        title: 'Capstone Project',
+                        topics: [
+                            'Problem Definition & Design',
+                            'Build an End-to-End AI Product',
+                            'Demo & Review'
+                        ]
+                    }
+                ],
+                journey: CAREER_ROADMAP
+            },
+            {
+                id: 'aiready-placement-readiness',
+                title: 'Placement Readiness',
+                level: 'Intermediate to Advanced',
+                overview: 'Get placement-ready with coding, competitive coding and data structures & algorithms: master the interview patterns, compete in regular contests and practise company-wise questions with mock interviews.',
+                outcomes: [
+                    'Recognise and apply the core coding-interview patterns',
+                    'Solve DSA problems on trees, graphs, heaps and dynamic programming',
+                    'Compete confidently in timed coding contests and upsolve afterwards',
+                    'Practise company-wise questions and clear coding rounds',
+                    'Perform well in mock technical interviews'
+                ],
+                modules: [
+                    {
+                        moduleNumber: 'Module 1',
+                        title: 'Coding Foundations Refresher',
+                        topics: [
+                            'Time & Space Complexity',
+                            'Choosing Your Interview Language',
+                            'Problem-Solving Approach'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 2',
+                        title: 'Arrays, Strings & Hashing',
+                        topics: [
+                            'Prefix Sums',
+                            'Hashing Patterns',
+                            'String Manipulation Problems'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 3',
+                        title: 'Two Pointers, Sliding Window & Binary Search',
+                        topics: [
+                            'Two Pointers',
+                            'Sliding Window',
+                            'Binary Search on Answers'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 4',
+                        title: 'Recursion, Backtracking & Bit Manipulation',
+                        topics: [
+                            'Recursion Patterns',
+                            'Backtracking',
+                            'Bit Manipulation'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 5',
+                        title: 'Linked Lists, Stacks & Queues',
+                        topics: [
+                            'Linked List Problems',
+                            'Monotonic Stack',
+                            'Queue & Deque Problems'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 6',
+                        title: 'Trees, BSTs & Heaps',
+                        topics: [
+                            'Tree Traversals',
+                            'Binary Search Trees',
+                            'Heaps & Priority Queues'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 7',
+                        title: 'Graphs',
+                        topics: [
+                            'BFS & DFS',
+                            'Shortest Paths',
+                            'Topological Sort',
+                            'Union-Find'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 8',
+                        title: 'Dynamic Programming & Greedy',
+                        topics: [
+                            '1D & 2D Dynamic Programming',
+                            'Knapsack & Subsequence Problems',
+                            'Greedy Algorithms'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 9',
+                        title: 'Competitive Coding',
+                        topics: [
+                            'Contest Strategy',
+                            'CodeChef, LeetCode & Codeforces Contests',
+                            'Upsolving'
+                        ]
+                    },
+                    {
+                        moduleNumber: 'Module 10',
+                        title: 'Interview Preparation',
+                        topics: [
+                            'Company-Wise Questions',
+                            'Mock Coding Interviews',
+                            'Aptitude for Placements'
+                        ]
+                    }
+                ],
+                journey: SHARED_ROADMAP
+            }
+            /* ARCHIVED: the previous AI Ready courses (Full Stack + AI, Flutter + AI,
+               AWS Cloud & DevOps + AI, ServiceNow). Kept for reference; the program
+               now runs two tracks: AI Engineer and Placement Readiness. Restore by
+               moving these back into the array (and removing this wrapper).
+            ,
             {
                 id: 'aiready-fullstack',
                 title: 'Full Stack Development + AI Integration',
@@ -1139,8 +1683,12 @@ export const programsData = [
                     }
                 ]
             }
+            */
         ]
     },
+    /* HIDDEN: Owl Coder and Moon Coder are commented out so they are not displayed.
+       To show them again, remove this comment wrapper. (Their courses in
+       courses.jsx are hidden the same way.)
     {
         id: 'owlcoder',
         icon: '🦉',
@@ -1549,6 +2097,7 @@ export const programsData = [
             }
         ]
     }
+    */
 ];
 
 export default programsData;
