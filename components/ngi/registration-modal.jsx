@@ -782,18 +782,33 @@ const RegistrationModal = ({ isOpen, onClose, initialProgramKey }) => {
                                     registered, your seat is confirmed — there is nothing more to do.
                                 </p>
 
-                                <ul className="ngi-reg-closed-list">
-                                    {FORM_PROGRAMS.map((p) => (
-                                        <li key={p.key} className={p.key === program.key ? 'is-current' : undefined}>
-                                            <span className="ngi-reg-closed-list__main">
-                                                <strong>{p.programName}</strong>
-                                                <small>{p.audience}</small>
-                                            </span>
-                                            <span className={`ngi-reg-closed-list__tag ${p.open ? 'is-open' : ''}`}>
-                                                {p.open ? 'Open' : 'Closed'}
-                                            </span>
-                                        </li>
-                                    ))}
+                                {/* Every intake is selectable, open or closed: picking one swaps
+                                    the message above (program, year, batch) and the WhatsApp
+                                    button below to that intake's batch community. */}
+                                <ul className="ngi-reg-closed-list" role="radiogroup" aria-label="Choose your program">
+                                    {FORM_PROGRAMS.map((p) => {
+                                        const current = p.key === program.key;
+                                        return (
+                                            <li key={p.key} className={current ? 'is-current' : undefined}>
+                                                <button
+                                                    type="button"
+                                                    role="radio"
+                                                    aria-checked={current}
+                                                    className="ngi-reg-closed-list__btn"
+                                                    onClick={() => selectValue('programKey', p.key)}
+                                                >
+                                                    <span className="ngi-reg-closed-list__radio" aria-hidden="true" />
+                                                    <span className="ngi-reg-closed-list__main">
+                                                        <strong>{p.programName}</strong>
+                                                        <small>{p.audience}</small>
+                                                    </span>
+                                                    <span className={`ngi-reg-closed-list__tag ${p.open ? 'is-open' : ''}`}>
+                                                        {p.open ? 'Open' : 'Closed'}
+                                                    </span>
+                                                </button>
+                                            </li>
+                                        );
+                                    })}
                                 </ul>
 
                                 {/* Only rendered while some other intake is live, so reopening
