@@ -221,23 +221,6 @@ const teamData = [
             'Contributes to Torii’s internal tools and platforms'
         ]
     },
-    {
-        id: 'manikanta',
-        name: 'Manikanta',
-        role: 'ServiceNow Developer',
-        tagline: 'Enterprise Platform Automation & Workflow Specialist',
-        photo: `${PHOTO_DIR}/Manikanta_ServiceNow_Developer_uniform.webp`,
-        linkedin: 'https://www.linkedin.com/in/manikanta-srighakollapu/',
-        portfolio: '/portfolios/manikanta.html',
-        tags: ['ServiceNow CAD', 'Now Platform', 'GlideRecord', 'Flow Designer', 'IntegrationHub'],
-        highlights: [
-            'ServiceNow Developer with deep expertise in Now Platform enterprise architecture',
-            'Hands-on experience in GlideRecord scripting, Business Rules, Client Scripts & UI Policies',
-            'Specialized in Flow Designer, Process Automation & IntegrationHub REST APIs',
-            'Expertise in CSA & CAD certification mentoring and enterprise workflow engineering',
-            'Passionate technical mentor guiding students into high-growth enterprise platform roles'
-        ]
-    },
     { // PLACEHOLDER
         id: 'veera-babu',
         name: 'Veera Babu',
