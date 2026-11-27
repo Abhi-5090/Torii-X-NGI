@@ -6,6 +6,7 @@ import Programs from './programs';
 import Courses from './courses';
 import Team from './team';
 import Events from './events';
+import CollegesStrip from './colleges-strip';
 import NgiFooter from './ngi-footer';
 import RegistrationModal from './registration-modal';
 import AnnouncementModal from './announcement-modal';
@@ -91,10 +92,11 @@ const NgiMain = () => {
                 announcementCount={announcement ? 1 : 0}
             />
             <WhoWeAre onOpenRegister={handleOpenRegister} />
+            <CollegesStrip />
             <Programs onOpenRegister={handleOpenRegister} />
             <Courses onOpenRegister={handleOpenRegister} />
-            <Team />
             <Events />
+            <Team />
             <div id="contact">
                 <NgiFooter />
             </div>

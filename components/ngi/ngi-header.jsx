@@ -6,8 +6,8 @@ const navItems = [
     { label: 'Who We Are', href: '#who-we-are' },
     { label: 'Programs', href: '#programs' },
     { label: 'Courses', href: '#courses' },
-    { label: 'Our Team', href: '#team' },
     { label: 'Events', href: '#events' },
+    { label: 'Our Team', href: '#team' },
     { label: 'Contact Us', href: '#contact' },
 ];
 

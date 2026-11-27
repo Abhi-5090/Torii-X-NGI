@@ -7371,3 +7371,376 @@
 @media (max-width: 400px) {
   .ngi-header .ngi-brand-logo-college { margin-left: 9px; }
 }
+
+// ---------------------------------------------------------------
+// Hero: rotating "Your Gateway to …" phrase
+// ---------------------------------------------------------------
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+.ngi-hero .ngi-hero-content h1 .ngi-hero-rotator {
+  // A one-cell grid: the invisible sizers reserve the longest phrase's box and
+  // the visible phrase slides through the same cell, clipped top and bottom.
+  display: grid;
+  overflow: hidden;
+  padding-bottom: 0.08em; // room for descenders (g, y)
+  margin-bottom: -0.08em;
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--ngi-heading);
+}
+
+.ngi-hero .ngi-hero-content h1 .ngi-hero-rotator-sizer,
+.ngi-hero .ngi-hero-content h1 .ngi-hero-rotator-word {
+  grid-area: 1 / 1;
+}
+
+.ngi-hero .ngi-hero-content h1 .ngi-hero-rotator-sizer {
+  visibility: hidden;
+  background: none;
+}
+
+.ngi-hero .ngi-hero-content h1 .ngi-hero-rotator-word {
+  display: block;
+  align-self: end;
+  will-change: transform, opacity;
+  background: var(--ngi-gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// Four stats: a 2 × 2 grid on phones so nothing is squeezed.
+@media (max-width: 575px) {
+  .ngi-hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 12px;
+  }
+  .ngi-hero-stat-divider { display: none; }
+}
+
+// ---------------------------------------------------------------
+// Colleges orbit: "One Group · 7 Institutions" (between Who We Are and Programs)
+// The institutions circle the NGI logo; the one at the front is named below.
+// ---------------------------------------------------------------
+.ngi-colleges {
+  position: relative;
+  padding: 40px 0 34px;
+  // Warm glow behind the orbit: white at the centre easing out to the site's
+  // warm off-white and coral tint at the edges. The bottom quarter fades most
+  // of the way toward the section grey, so it flows into Programs We Offer
+  // while a faint warm edge and a hairline still mark where the band ends.
+  background:
+    linear-gradient(180deg, rgba(248, 250, 252, 0) 72%, rgba(248, 250, 252, 0.6) 100%),
+    radial-gradient(60% 70% at 50% 55%, var(--ngi-bg-body) 0%, var(--ngi-bg-warm-offwhite) 58%, var(--ngi-bg-coral-tint) 100%);
+  border-top: 1px solid var(--ngi-border);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.75);
+  overflow-x: clip;
+
+  @media (max-width: 575px) { padding: 30px 0 26px; }
+}
+
+.ngi-colleges-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 575px) { padding: 0 16px; }
+}
+
+.ngi-colleges-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.ngi-colleges-pill {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--ngi-bg-coral-tint);
+  color: var(--ngi-primary);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: inset 0 0 0 1px rgba(226, 84, 76, 0.14);
+}
+
+.ngi-colleges-title {
+  margin: 0;
+  font-family: var(--ngi-font-primary);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--ngi-heading);
+
+  @media (max-width: 767px) { font-size: 24px; }
+  @media (max-width: 575px) { font-size: 20px; }
+}
+
+// The orbit stage: tiles are placed from its centre by the component.
+.ngi-orbit {
+  --orbit-scale: 1;
+  position: relative;
+  width: 100%;
+  height: 384px;
+  margin-top: 6px;
+  margin-bottom: 20px;
+
+  @media (max-width: 575px) { --orbit-scale: 0.62; height: 330px; margin-top: 4px; margin-bottom: 8px; }
+}
+
+.ngi-orbit-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(226, 84, 76, 0.22);
+  pointer-events: none;
+}
+
+// The NGI logo at the centre of the orbit.
+.ngi-orbit-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 178px;
+  height: 178px;
+  margin: -89px 0 0 -89px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  z-index: 50;
+  background: radial-gradient(circle at 35% 28%, var(--ngi-white) 0%, var(--ngi-white) 55%, var(--ngi-bg-warm-tint) 100%);
+  box-shadow:
+    0 0 0 1px rgba(226, 84, 76, 0.12),
+    0 0 0 10px rgba(255, 255, 255, 0.55),
+    0 24px 60px rgba(226, 84, 76, 0.18);
+
+  img {
+    position: relative;
+    width: 74%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 575px) {
+    width: 118px;
+    height: 118px;
+    margin: -59px 0 0 -59px;
+    box-shadow:
+      0 0 0 1px rgba(226, 84, 76, 0.12),
+      0 0 0 7px rgba(255, 255, 255, 0.55),
+      0 16px 40px rgba(226, 84, 76, 0.18);
+  }
+}
+
+// A soft, slowly breathing halo behind the NGI logo.
+.ngi-orbit-core-glow {
+  position: absolute;
+  inset: -26px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 166, 59, 0.22) 0%, rgba(226, 84, 76, 0.1) 45%, transparent 70%);
+  animation: ngi-orbit-breathe 4.5s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes ngi-orbit-breathe {
+  0%, 100% { transform: scale(0.94); opacity: 0.75; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+
+// One institution tile on the ring (positioned and scaled by the component).
+.ngi-orbit-tile {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(168px * var(--orbit-scale));
+  height: calc(86px * var(--orbit-scale));
+  margin: calc(-43px * var(--orbit-scale)) 0 0 calc(-84px * var(--orbit-scale));
+  padding: 0;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: calc(18px * var(--orbit-scale));
+  background: linear-gradient(180deg, #ffffff 0%, #fdfbf8 100%);
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.06),
+    0 10px 26px rgba(15, 23, 42, 0.1);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  will-change: transform, opacity;
+  transition: box-shadow 0.5s ease, border-color 0.5s ease;
+
+  img { display: block; object-fit: contain; pointer-events: none; }
+
+  &:hover { border-color: rgba(226, 84, 76, 0.3); }
+  &:focus-visible { outline: 2px solid var(--ngi-primary); outline-offset: 3px; }
+
+  // The institution at the front of the orbit.
+  &.is-front {
+    border-color: rgba(242, 166, 59, 0.75);
+    box-shadow:
+      0 0 0 3px rgba(242, 166, 59, 0.22),
+      0 18px 44px rgba(226, 84, 76, 0.26);
+  }
+}
+
+.ngi-orbit-badge {
+  width: calc(54px * var(--orbit-scale));
+  height: calc(54px * var(--orbit-scale));
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: var(--ngi-gradient-primary);
+  color: var(--ngi-white);
+  font-family: var(--ngi-font-heading);
+  font-weight: 800;
+}
+
+// The front institution's name, below the orbit.
+.ngi-orbit-caption {
+  min-height: 92px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: center;
+
+  @media (max-width: 575px) { min-height: 96px; }
+}
+
+.ngi-orbit-caption-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+  small {
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: var(--ngi-primary);
+  }
+
+  // Marcellus SC: the closest free match to the Nagarjuna logos' typeface.
+  strong {
+    font-family: var(--font-marcellus), 'Marcellus SC', Georgia, serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.18;
+    letter-spacing: 0.02em;
+    color: #1f1a17;
+    max-width: 34ch;
+    text-wrap: balance;
+
+    @media (max-width: 767px) { font-size: 22px; }
+    @media (max-width: 575px) { font-size: 18px; }
+  }
+}
+
+.ngi-colleges-location {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.72em;
+  letter-spacing: 0.05em;
+  color: var(--ngi-body-alt);
+}
+
+// ---- Orbit caption: rolling counter + typed name ----
+.ngi-orbit-counter {
+  display: inline-flex;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+}
+
+// Only the number rolls: the new one drops in from the top, the old one leaves below.
+.ngi-orbit-roll {
+  display: inline-grid;
+  overflow: hidden;
+  height: 1.35em;
+  line-height: 1.35em;
+
+  > span { grid-area: 1 / 1; }
+}
+
+.ngi-orbit-name { display: block; }
+
+// Off-screen copy used to measure the final width of a name in the real font.
+.ngi-type-measure {
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  white-space: pre;
+  height: 0;
+  overflow: hidden;
+  > span { display: inline-block; }
+}
+
+.ngi-type-line {
+  // One line that stays centred; "Nagarjuna" glides as the rest changes width.
+  &.is-wide {
+    display: inline-flex;
+    align-items: baseline;
+    justify-content: center;
+    white-space: nowrap;
+
+    .ngi-type-prefix { display: inline-block; overflow: hidden; white-space: nowrap; }
+    .ngi-type-rest { display: inline-block; text-align: left; white-space: nowrap; }
+  }
+
+  // Phones: "Nagarjuna" on its own line, the rest typing in beneath it.
+  &.is-stacked {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .ngi-type-prefix { display: block; overflow: hidden; }
+    .ngi-type-rest { display: block; text-align: center; min-height: 1.18em; }
+  }
+}
+
+.ngi-type-location {
+  display: block;
+  min-height: 1.2em;
+  margin-top: 4px;
+  font-size: 0.72em;
+  letter-spacing: 0.05em;
+  color: var(--ngi-body-alt);
+}
+
+// Each letter settles in from a soft blur.
+.ngi-type-char {
+  animation: ngi-type-char-in 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes ngi-type-char-in {
+  from { opacity: 0; filter: blur(5px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+.ngi-type-caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  margin-left: 3px;
+  vertical-align: -0.08em;
+  border-radius: 2px;
+  background: var(--ngi-gradient-primary);
+  animation: ngi-type-caret 0.9s steps(2, start) infinite;
+}
+
+@keyframes ngi-type-caret {
+  to { visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ngi-type-char { animation: none; }
+  .ngi-type-caret { display: none; }
+}

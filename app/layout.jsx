@@ -1,4 +1,4 @@
-import { Plus_Jakarta_Sans, Outfit } from 'next/font/google';
+import { Plus_Jakarta_Sans, Outfit, Marcellus_SC } from 'next/font/google';
 import './globals.scss';
 
 const jakarta = Plus_Jakarta_Sans({
@@ -12,6 +12,15 @@ const outfit = Outfit({
   subsets: ['latin'],
   weight: ['500', '600', '700', '800'],
   variable: '--font-outfit',
+  display: 'swap',
+});
+
+// Institution names in the colleges strip: the closest free match to Friz
+// Quadrata, the typeface of the Nagarjuna logos.
+const marcellus = Marcellus_SC({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-marcellus',
   display: 'swap',
 });
 
@@ -105,7 +114,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${outfit.variable}`}>
+    <html lang="en" className={`${jakarta.variable} ${outfit.variable} ${marcellus.variable}`}>
       <body className={jakarta.className}>{children}</body>
     </html>
   );

@@ -23,6 +23,48 @@ const gallerySlides = [
 	['torii_team.JPG', 'Torii Team', 'Dedicated mentors, platform architects, and industry practitioners driving student transformation.'],
 ].map(([file, title, caption]) => ({ image: `/assets/images/ngi/project-images/about_torii/${file}`, title, caption }));
 
+// "Your Gateway to …": the highlighted phrase rolls every few seconds, the new
+// one dropping in from the top while the old one leaves through the bottom.
+const HERO_PHRASES = [
+	'Tech Excellence',
+	'Industry Certifications',
+	'World-Class Branding',
+	'AI Centres of Excellence',
+	'Dream Careers',
+];
+const PHRASE_INTERVAL_MS = 3000;
+
+function RotatingPhrase({ phrases, reduceMotion }) {
+	const [index, setIndex] = useState(0);
+	useEffect(() => {
+		if (reduceMotion || phrases.length < 2) return undefined;
+		const timer = window.setInterval(() => setIndex((i) => (i + 1) % phrases.length), PHRASE_INTERVAL_MS);
+		return () => window.clearInterval(timer);
+	}, [phrases.length, reduceMotion]);
+
+	return (
+		<span className="ngi-hero-rotator">
+			{/* Every phrase is laid out invisibly in the same cell, so the line always
+			    reserves the room of the longest one and the page never jumps. */}
+			{phrases.map((p) => <span key={p} className="ngi-hero-rotator-sizer" aria-hidden="true">{p}</span>)}
+			<AnimatePresence initial={false}>
+				<motion.span
+					key={phrases[index]}
+					className="ngi-hero-rotator-word"
+					aria-hidden="true"
+					initial={{ y: '-105%', opacity: 0 }}
+					animate={{ y: '0%', opacity: 1 }}
+					exit={{ y: '105%', opacity: 0 }}
+					transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], opacity: { duration: 0.5, ease: [0.4, 0, 0.2, 1] } }}
+				>
+					{phrases[index]}
+				</motion.span>
+			</AnimatePresence>
+			<span className="sr-only">{phrases.join(', ')}</span>
+		</span>
+	);
+}
+
 export default function WhoWeAre() {
 	const [activeSlide, setActiveSlide] = useState(0);
 	const [isPaused, setIsPaused] = useState(false);
@@ -50,7 +92,7 @@ export default function WhoWeAre() {
 			<div className="ngi-hero-container">
 				<div className="ngi-hero-content">
 					<img className="ngi-stepin-logo" src="/assets/images/ngi/project-images/about_torii/stepin_rotate_light.gif" alt="Step In" />
-					<h1>Your Gateway to<br /><span>Tech Excellence</span></h1>
+					<h1>Your Gateway to<br /><RotatingPhrase phrases={HERO_PHRASES} reduceMotion={reduceMotion} /></h1>
 					<p>ToriiMinds is a comprehensive tech education platform transforming engineering students into industry-ready professionals through structured coding, AI integration, and career-readiness training from first year through graduation.</p>
 					<div className="ngi-hero-cta">
 						<a href="#programs" className="ngi-btn-primary">Explore Programs →</a>
@@ -70,6 +112,11 @@ export default function WhoWeAre() {
 						<div className="ngi-hero-stat-item">
 							<strong>100%</strong>
 							<span>Hands-on Labs</span>
+						</div>
+						<div className="ngi-hero-stat-divider" />
+						<div className="ngi-hero-stat-item">
+							<strong>7</strong>
+							<span>NGI Institutions</span>
 						</div>
 					</div>
 				</div>

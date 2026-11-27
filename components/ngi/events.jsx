@@ -1,7 +1,17 @@
 'use client';
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import eventsData from './events-data';
+import builtInEvents from './events-data';
+
+// The events to show, newest first: everything from the database (Admin →
+// Events) plus any built-in event (events-data.js) not yet copied into it.
+// `builtinIds` are the built-in events the database already owns, so an event
+// edited, hidden or deleted in the admin is never overridden by the built-in file.
+function mergeEvents(builtIn, fromDb, builtinIds = []) {
+    const db = (fromDb || []).filter((e) => e && e.id && e.cover && e.date);
+    const owned = new Set([...builtinIds, ...db.map((e) => e.id)]);
+    return [...db, ...builtIn.filter((e) => !owned.has(e.id))].sort((a, b) => b.date.localeCompare(a.date));
+}
 
 // "Moments That Define Us": the events showcase.
 //
@@ -166,7 +176,7 @@ function cardPose(offset) {
     return { x: `${sign * 82}%`, scale: 0.5, opacity: 0, zIndex };
 }
 
-function EventsCarousel({ active, setActive, phase, arriving, intro, onOpen, activeMediaRef, running, setHovered, reduceMotion }) {
+function EventsCarousel({ eventsData, active, setActive, phase, arriving, intro, onOpen, activeMediaRef, running, setHovered, reduceMotion }) {
     const n = eventsData.length;
     const opening = phase === 'opening';
     const prevOffsets = useRef({});
@@ -476,7 +486,7 @@ function GalleryTile({ photo, index, slot, title, delay, revealDelay, fx, onZoom
     );
 }
 
-function EventDetail({ index, closing, heroRef, onBack, onPrev, onNext, onJump, onZoom, reduceMotion }) {
+function EventDetail({ eventsData, index, closing, heroRef, onBack, onPrev, onNext, onJump, onZoom, reduceMotion }) {
     const n = eventsData.length;
     const event = eventsData[index];
     const next = eventsData[wrap(index + 1, n)];
@@ -760,6 +770,7 @@ function Lightbox({ state, title, onClose, onStep }) {
 /* Section                                                             */
 /* ------------------------------------------------------------------ */
 export default function Events() {
+    const [eventsData, setEventsData] = useState(builtInEvents);
     const n = eventsData.length;
     const reduceMotion = useReducedMotion();
     const [view, setView] = useState('carousel');
@@ -790,7 +801,7 @@ export default function Events() {
         const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.35 });
         const warm = new IntersectionObserver(([entry]) => {
             if (!entry.isIntersecting) return;
-            decodeAll(eventsData.map((e) => srcOf(e.cover)));
+            decodeAll(builtInEvents.map((e) => srcOf(e.cover)));
             warm.disconnect();
         }, { rootMargin: '600px 0px' });
         io.observe(el);
@@ -802,7 +813,35 @@ export default function Events() {
     useEffect(() => {
         if (view !== 'detail') return;
         [selected, wrap(selected + 1, n), wrap(selected - 1, n)].forEach((i) => decodePhotos(imagesOf(eventsData[i])));
-    }, [view, selected, n]);
+    }, [view, selected, n, eventsData]);
+
+    // Merge in events added from Admin → Events. If the list changes while an
+    // event is on screen, keep that same event selected (by id, not position).
+    const listRef = useRef(eventsData);
+    const activeRef = useRef(active);
+    const selectedRef = useRef(selected);
+    listRef.current = eventsData;
+    activeRef.current = active;
+    selectedRef.current = selected;
+    useEffect(() => {
+        let cancelled = false;
+        fetch('/api/events')
+            .then((res) => (res.ok ? res.json() : null))
+            .then((json) => {
+                if (cancelled || !json?.success) return;
+                const prev = listRef.current;
+                const merged = mergeEvents(builtInEvents, json.events, json.builtinIds);
+                const activeId = prev[activeRef.current]?.id;
+                const selectedId = prev[selectedRef.current]?.id;
+                const ai = merged.findIndex((e) => e.id === activeId);
+                const si = merged.findIndex((e) => e.id === selectedId);
+                setEventsData(merged);
+                setActive(ai >= 0 ? ai : 0);
+                setSelected(si >= 0 ? si : 0);
+            })
+            .catch(() => { /* the built-in events still show */ });
+        return () => { cancelled = true; };
+    }, []);
 
     // Run the pending flight once the destination view has laid out.
     useIsoLayoutEffect(() => {
@@ -834,7 +873,7 @@ export default function Events() {
             setPhase('idle');
             later(() => { busy.current = false; }, FLIGHT_MS);
         }, DISSOLVE_MS);
-    }, [phase, reduceMotion, active]);
+    }, [phase, reduceMotion, active, eventsData]);
 
     const closeDetail = useCallback(() => {
         if (busy.current || phase !== 'idle') return;
@@ -873,7 +912,7 @@ export default function Events() {
             setSelected(i);
             later(() => { busy.current = false; }, 420);
         });
-    }, [n]);
+    }, [n, eventsData]);
 
     const stepLightbox = useCallback((delta) => {
         setLightbox((s) => (s ? { ...s, index: wrap(s.index + delta, s.images.length) } : s));
@@ -904,6 +943,7 @@ export default function Events() {
 
                 {view === 'carousel' ? (
                     <EventsCarousel
+                        eventsData={eventsData}
                         active={active}
                         setActive={setActive}
                         phase={phase}
@@ -917,6 +957,7 @@ export default function Events() {
                     />
                 ) : (
                     <EventDetail
+                        eventsData={eventsData}
                         index={selected}
                         closing={phase === 'closing'}
                         heroRef={heroRef}
