@@ -15,7 +15,7 @@ const PHOTO_DIR = '/assets/images/ngi/project-images/team/web';
 
 // Accent pairs cycle coral → orange → amber down the list, as in the original
 // cards, so reordering members never puts two of the same colour side by side.
-const ACCENTS = [
+export const ACCENTS = [
     { accentColor: 'var(--ngi-primary)', accentBg: 'var(--ngi-bg-coral-tint)' },
     { accentColor: 'var(--ngi-secondary)', accentBg: 'var(--ngi-bg-warm-tint)' },
     { accentColor: 'var(--ngi-tertiary)', accentBg: 'var(--ngi-bg-warm-offwhite)' },
@@ -253,4 +253,11 @@ const teamData = [
     },
 ];
 
-export default teamData.map((member, i) => ({ ...ACCENTS[i % ACCENTS.length], ...member }));
+/** Give each member the accent colours for their position in the list. */
+export const withAccents = (list) => list.map((member, i) => ({ ...ACCENTS[i % ACCENTS.length], ...member }));
+
+// The built-in list (no accents). Admin → Team copies it into the database once;
+// from then on the database is the source and this list is only a fallback.
+export const builtInTeam = teamData;
+
+export default withAccents(teamData);

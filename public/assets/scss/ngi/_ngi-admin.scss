@@ -1098,3 +1098,172 @@
     .evm-card-cover { width: 100%; }
     .evm-card-actions { width: 100%; .dash-btn { flex: 1; justify-content: center; } .ann-history-delete { flex: 0 0 auto; } }
 }
+
+// ── Team (Admin → Team) ─────────────────────────────────────────────────────
+// Builds on the Events manager styles (.evm-*).
+
+.tm-form-grid {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 28px;
+    @media (max-width: 640px) { grid-template-columns: 1fr; gap: 16px; }
+}
+
+// Photo picker framed like the website: tall 700 × 880 canvas.
+.tm-photo {
+    position: relative;
+    width: 100%;
+    max-width: 220px;
+    aspect-ratio: 700 / 880;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    font-family: var(--ngi-font-primary);
+    border: 1.5px dashed rgba(226, 84, 76, 0.45);
+    background:
+        radial-gradient(circle at 50% 70%, rgba(242, 166, 59, 0.16), transparent 60%),
+        var(--ngi-bg-coral-tint);
+    transition: border-color 0.2s ease;
+
+    &.has-photo { border-style: solid; border-color: rgba(15, 23, 42, 0.08); }
+    &:hover, &.is-drag { border-color: var(--ngi-primary); }
+    &.has-error { border-color: var(--ngi-danger); }
+    &:disabled { cursor: progress; opacity: 0.7; }
+
+    img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; }
+
+    @media (max-width: 640px) { max-width: 180px; }
+}
+
+.tm-photo-empty {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    color: var(--ngi-primary);
+    svg { width: 26px; height: 26px; }
+    strong { font-size: 13px; color: var(--ngi-heading); }
+    span { font-size: 11px; color: var(--ngi-muted); }
+}
+
+.tm-photo-replace {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.72);
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    svg { width: 13px; height: 13px; }
+}
+.tm-photo:hover .tm-photo-replace, .tm-photo:focus-visible .tm-photo-replace { opacity: 1; }
+
+.tm-photo-help { margin-top: 10px; }
+
+.tm-card { align-items: center; }
+
+.tm-order {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    .evm-icon-btn { width: 26px; height: 26px; background: var(--ngi-bg-section); box-shadow: none; }
+    .evm-icon-btn:disabled { opacity: 0.35; cursor: default; transform: none; }
+}
+
+.tm-order-num {
+    font-family: var(--ngi-font-heading);
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--ngi-muted);
+    font-variant-numeric: tabular-nums;
+}
+
+.tm-card-photo {
+    flex-shrink: 0;
+    width: 64px;
+    height: 80px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 75%, rgba(242, 166, 59, 0.18), transparent 65%), var(--ngi-bg-coral-tint);
+    img { width: 100%; height: 100%; object-fit: contain; object-position: center bottom; display: block; }
+}
+
+.tm-card .evm-card-meta {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+@media (max-width: 560px) {
+    .tm-card { flex-wrap: wrap; }
+    .tm-order { flex-direction: row; }
+}
+
+// Portfolio file (Admin → Team form)
+.tm-portfolio {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: 1.5px solid var(--ngi-border);
+    background: var(--ngi-bg-section);
+    font-family: var(--ngi-font-primary);
+    text-align: left;
+    min-width: 0;
+
+    &--empty {
+        cursor: pointer;
+        border-style: dashed;
+        border-color: rgba(226, 84, 76, 0.45);
+        background: var(--ngi-bg-coral-tint);
+        transition: border-color 0.2s ease;
+        &:hover, &:focus-visible { border-color: var(--ngi-primary); }
+    }
+    &.has-error { border-color: var(--ngi-danger); }
+}
+
+.tm-portfolio-icon {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--ngi-primary);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+    svg { width: 19px; height: 19px; }
+}
+
+.tm-portfolio-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+    strong { font-size: 13.5px; color: var(--ngi-heading); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    span { font-size: 12px; color: var(--ngi-muted); }
+}
+
+.tm-portfolio-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    a.ann-link-btn { text-decoration: none; }
+}

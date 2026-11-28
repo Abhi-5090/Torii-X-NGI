@@ -1,7 +1,17 @@
 'use client'
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import teamData from './team-data';
+import defaultTeam, { builtInTeam, withAccents } from './team-data';
+
+// The team to show, in order: everyone from the database (Admin → Team) plus
+// any built-in member (team-data.js) not yet copied into it. `builtinIds` are
+// the built-in members the database already owns, so an edit, hide, delete or
+// reorder made in the admin is never overridden by the built-in file.
+function mergeTeam(fromDb, builtinIds = []) {
+    const db = (fromDb || []).filter((m) => m && m.id && m.name && m.photo);
+    const owned = new Set([...builtinIds, ...db.map((m) => m.id)]);
+    return withAccents([...db, ...builtInTeam.filter((m) => !owned.has(m.id))]);
+}
 
 // Renders a role string in the uppercase pill while preserving the exact casing
 // of specific brand terms (e.g. "DevOps") that must not be flattened to all-caps.
@@ -46,10 +56,11 @@ function RoleText({ role }) {
 // The spotlight opens on this member, then continues in the team-data order
 // (wrapping round to the start of the list after the last member).
 const FIRST_MEMBER_ID = 'sudhir';
-const FIRST_MEMBER_INDEX = Math.max(0, teamData.findIndex((m) => m.id === FIRST_MEMBER_ID));
+const firstIndexIn = (list) => Math.max(0, list.findIndex((m) => m.id === FIRST_MEMBER_ID));
 
 const Team = () => {
-    const [currentIndex, setCurrentIndex] = useState(FIRST_MEMBER_INDEX);
+    const [teamData, setTeamData] = useState(defaultTeam);
+    const [currentIndex, setCurrentIndex] = useState(() => firstIndexIn(defaultTeam));
     const [direction, setDirection] = useState(1);
     const [isPaused, setIsPaused] = useState(false);
     const [isOpeningPortfolio, setIsOpeningPortfolio] = useState(false);
@@ -98,7 +109,30 @@ const Team = () => {
         };
     }, []);
 
-    const activeMember = teamData[currentIndex];
+    // Load the team managed in Admin → Team. Keep whoever is on screen selected
+    // (by id), so a reordered or updated list never jumps to another person.
+    const listRef = useRef(teamData);
+    const indexRef = useRef(currentIndex);
+    listRef.current = teamData;
+    indexRef.current = currentIndex;
+    useEffect(() => {
+        let cancelled = false;
+        fetch('/api/team')
+            .then((res) => (res.ok ? res.json() : null))
+            .then((json) => {
+                if (cancelled || !json?.success) return;
+                const merged = mergeTeam(json.members, json.builtinIds);
+                if (!merged.length) return;
+                const currentId = listRef.current[indexRef.current]?.id;
+                const at = merged.findIndex((m) => m.id === currentId);
+                setTeamData(merged);
+                setCurrentIndex(at >= 0 ? at : firstIndexIn(merged));
+            })
+            .catch(() => { /* the built-in team still shows */ });
+        return () => { cancelled = true; };
+    }, []);
+
+    const activeMember = teamData[Math.min(currentIndex, teamData.length - 1)];
     // PDFs are treated as downloads by mobile Chrome, and a download fired from our
     // delayed JS navigation gets blocked ("blocked by Chrome"). So PDFs open natively
     // in a new tab (a real user gesture); HTML keeps the smooth same-tab transition.
@@ -107,12 +141,12 @@ const Team = () => {
     const goToNext = useCallback(() => {
         setDirection(1);
         setCurrentIndex((prev) => (prev + 1) % teamData.length);
-    }, []);
+    }, [teamData.length]);
 
     const goToPrev = useCallback(() => {
         setDirection(-1);
         setCurrentIndex((prev) => (prev - 1 + teamData.length) % teamData.length);
-    }, []);
+    }, [teamData.length]);
 
     // With 15 members the avatar pills sit in one horizontally scrolling row.
     // Keep the active pill in view as the carousel advances. This scrolls the
